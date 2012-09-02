@@ -22,7 +22,7 @@ $.Class.extend("Session", {history:[]}, {});
 	commands.push(new UploadCommand());
 
 	var controller = new JamController(commands);
-	var presenter = new JamPresenter(controller);
-	presenter.listen();
+	Window.Presenter = new JamPresenter(controller);
+	Window.Presenter.attach();
 })();
 

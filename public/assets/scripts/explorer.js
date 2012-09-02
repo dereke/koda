@@ -14,7 +14,7 @@ $.Class.extend("Session", {history:[]}, {});
 	commands.push(new MountCommand());
 	commands.push(new PeekCommand(service));
 	commands.push(new CdCommand(service));
-	commands.push(new LsCommand(service));
+	commands.push(new ListCommand(service));
 	commands.push(new EditCommand(service));
 	commands.push(new RemoveCommand(service));
 	commands.push(new OpenCommand());
@@ -22,12 +22,8 @@ $.Class.extend("Session", {history:[]}, {});
 	commands.push(new UploadCommand());
 
 	var controller = new JamController(commands);
-	
-	controller.findCommand("ls", function(command){
-		command.execute(undefined, function(result){
-			console.log(result);
-		});
-	});
+	Window.Presenter = new ExplorerPresenter(controller);
+	Window.Presenter.attach();
 	
 })();
 

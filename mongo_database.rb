@@ -29,7 +29,7 @@ class MongoDatabase
   	collections.delete 'system.users'  
   	collections.delete '_koda_meta'  
   	collections.delete 'fs.chunks'  
-  	collections.delete 'fs.files'  
+  	collections.delete 'fs.files'
     collections
   end
   

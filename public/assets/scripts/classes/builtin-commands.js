@@ -272,6 +272,44 @@ $.Class.extend("LsCommand",
 	}
 );
 
+$.Class.extend("ListCommand", 
+	{
+		key: "list",
+		help: "usage: 'list' in any folder to list resources as array",
+		jamService: {}
+	}, 
+	{
+		init : function(jamService) { 
+			this.Class.jamService = jamService; 
+		},
+		
+		execute: function(args, callback) {
+
+			this.Class.jamService.get(args.toLowerCase(), function(data) {
+				var output = [];
+
+				if(data.constructor == Array) {
+					$.each(data, function(i, item){
+
+						var href = item.href;
+						var count = href.split("/").length - 1
+						var indicator = count > 1 ? "file" : "collection";
+						output.push({ title: item.title, type: indicator});
+
+					});					
+				} else {
+					output.push({ title: item.title, type: "file"});
+				}
+
+				callback(output);
+
+			});
+			
+		}
+		
+	}
+);
+
 $.Class.extend("OpenCommand", 
 	{
 		key: "open",
@@ -286,9 +324,9 @@ $.Class.extend("OpenCommand",
 		execute: function(args, callback) {
 			
 			var lookup = Session.currentFolder == undefined ? StringUtil.empty : Session.currentFolder;
-			var url = this.Class.jamUrl + "/" + lookup + "/" +args[0];
+			var url = this.Class.jamUrl + "/" + lookup + "/" +args;
 			
-			$("#media-trigger").attr("href", url);
+			$("#media-trigger").attr("href", url.toLowerCase());
 			$("#media-trigger").fancybox({
 					'transitionIn'	:	'elastic',
 					'transitionOut'	:	'elastic',
@@ -298,6 +336,8 @@ $.Class.extend("OpenCommand",
 					'width'			: 	800, 
 					'height'		: 	600 
 				}).trigger("click");
+				
+			$('#fancybox-frame').addClass('prettyprint');
 			callback("opening...");				
 						
 		}

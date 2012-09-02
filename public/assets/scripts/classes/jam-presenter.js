@@ -7,7 +7,7 @@ $.Class.extend("JamPresenter",
 			this.Class.uiObject = $('#console');
 		},
 		
-		listen: function() {
+		attach: function() {
 				
 			this.Class.uiObject.delegate('.active textarea', 'keyup', this.editorKeyup);
 			this.Class.uiObject.delegate('.active textarea', 'keydown', this.editorKeydown);

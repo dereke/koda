@@ -30,25 +30,15 @@
 		
 		<div role="main">
 			
-			<section id="console">
+			<section id="explorer">
 
 				<header>
 
-					<h1>KodaCMS console</h1>
+					<h1>KodaCMS explorer</h1>
 
 				</header>
 
-				<div>
-
-					<h2>type 'help' for help.</h2>
-
-					<div class="line active">
-
-						<span class="prompt">home &gt;</span>
-						<textarea class="single"></textarea>
-
-					</div>
-
+				<div id="explorer-panel">
 				</div>
 
 			</section>
@@ -58,31 +48,31 @@
 				<h1>General KodaTypes</h1>
 				
 				<dl>
-					<dt><img src="/assets/images/database_table.png" class="img-icon" />JSON Document</dt>
+					<dt class=".kodaType"><img src="/assets/images/database_table.png" class="img-icon" />JSON Document</dt>
 					<dd>This will create an empty json document.</dd>
-					<dt><img src="/assets/images/image_add.png" class="img-icon"  />Media file</dt>
+					<dt class=".kodaType"><img src="/assets/images/image_add.png" class="img-icon"  />Media file</dt>
 					<dd>Create an image, video, audio or document file</dd>
-					<dt><img src="/assets/images/compress.png" class="img-icon"  />Archive</dt>
+					<dt class=".kodaType"><img src="/assets/images/compress.png" class="img-icon"  />Archive</dt>
 					<dd>Add a zip archive.</dd>
-					<dt><img src="/assets/images/feed_add.png" class="img-icon"  />Index</dt>
+					<dt class=".kodaType"><img src="/assets/images/feed_add.png" class="img-icon"  />Index</dt>
 					<dd>Index specific items as a collection (eg. Sitemap)</dd>
 				</dl>
 				
 				<h1>My KodaTypes</h1>
 				
 				<dl>
-					<dt><img src="/assets/images/layout_add.png" class="img-icon"  />GenericPage</dt>
+					<dt class=".kodaType"><img src="/assets/images/layout_add.png" class="img-icon"  />GenericPage</dt>
 					<dd>Title, Intro, Body doc.</dd>
-					<dt><img src="/assets/images/layout_add.png" class="img-icon"  />Blog Post</dt>
+					<dt class=".kodaType"><img src="/assets/images/layout_add.png" class="img-icon"  />Blog Post</dt>
 					<dd>Type to create a blog post</dd>
 				</dl>
 				
 				<h1>KodaTypes Plugins</h1>
 				
 				<dl>
-					<dt><img src="/assets/images/package.png" class="img-icon"  />News</dt>
+					<dt class=".kodaType"><img src="/assets/images/package.png" class="img-icon"  />News</dt>
 					<dd>Create a news document.</dd>
-					<dt><img src="/assets/images/package.png" class="img-icon"  />Form Capture</dt>
+					<dt class=".kodaType"><img src="/assets/images/package.png" class="img-icon"  />Form Capture</dt>
 					<dd>Generic form kodatype to capture information</dd>
 				</dl>
 				
@@ -97,7 +87,7 @@
 	<script src="/assets/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 
 	<script>
-		Box("/assets/scripts/", [
+		Box("http://www.kodacms.org/assets/scripts/", [
 			"plugins/json2.js",
 			"plugins/jquery-class.js",
 			"plugins/fancybox/jquery.fancybox-1.3.4.js",
@@ -105,10 +95,10 @@
 			"plugins/modernizr.js",
 			"classes/builtin-commands.js",
 			"classes/jam-controller.js",
-			"classes/jam-presenter.js",
+			"classes/explorer-presenter.js",
 			"classes/jam-service.js",
 			"classes/prompt.js",
 			"explorer.js"
-		], {dev:true});
+		], {dev:false, version:'1.1'});
 	</script>
 </html>
