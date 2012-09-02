@@ -1,3 +1,7 @@
+###KodaRms
+
+Koda is a Resource Management System that stores JSON and Images. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. 
+
 ## Note about links
 
 All references to other resources follow the json schema format, as specified at http://json-schema.org/json-ref

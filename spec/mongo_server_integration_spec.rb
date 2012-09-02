@@ -1,6 +1,6 @@
-require File.join(File.dirname(__FILE__), %w[../mongo_jam_spoon])
-require File.join(File.dirname(__FILE__), %w[mongo_spoon_shared])
-require File.join(File.dirname(__FILE__), %w[uniform_spoon_shared])
+require File.join(File.dirname(__FILE__), %w[../mongo_koda_server])
+require File.join(File.dirname(__FILE__), %w[mongo_server_shared])
+require File.join(File.dirname(__FILE__), %w[uniform_server_shared])
 require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
 
 set :environment, :test

@@ -1,0 +1,52 @@
+
+/* 'Default' Skin */
+#console > div,
+#console textarea,
+#console pre { 
+	background: #000;
+	color: #55D839;
+}
+
+#console > div {
+	border-color: #222;
+}
+
+#console,
+#console pre {
+	font-size: 12px;
+}
+
+#console .inactive textarea {
+	height: 16px;
+}
+
+#console .inactive textarea.multi {
+	display : none;
+}
+
+#console .active,
+#console .active textarea { 
+	background: #222; 
+	background-image: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    right bottom,
+	    color-stop(0.23, rgb(34,34,34)),
+	    color-stop(0.97, rgb(0,0,0))
+	);
+	background-image: -moz-linear-gradient(
+	    left center,
+	    rgb(34,34,34) 23%,
+	    rgb(0,0,0) 97%
+	);
+}
+
+#console .active .single {
+	height: 18px;
+}
+
+#console .active .multi {
+	height: 900px;
+	width: 80%;
+	overflow:hidden;
+}
