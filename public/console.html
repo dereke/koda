@@ -9,9 +9,9 @@
 		<meta charset="utf-8" />
 		<title>BoxJson Console</title>
 		<meta name="description" content="KodaCMS | Console for your instance" />
-		<link rel="stylesheet" href="/console/assets/css/jam.css" />
-		<link rel="stylesheet" href="/console/assets/css/skins/default.css" />
-		<link rel="stylesheet" href="/console/assets/scripts/plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="/assets/css/jam.css" />
+		<link rel="stylesheet" href="/assets/css/skins/default.css" />
+		<link rel="stylesheet" href="/assets/scripts/plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 
 	</head>
 
@@ -21,7 +21,7 @@
 			
 			<hgroup>
 				
-				<h1><span>rms</span><abbr title="Koda">Koda</abbr></h1>
+				<h1><span>cms</span><abbr title="Koda">Koda</abbr></h1>
 				<h2>A <abbr title="Representational State Transfer">Console</abbr> to manage your KodaCMS content</h2>
 				
 			</hgroup>
@@ -86,12 +86,12 @@
 		<a id="media-trigger" href="" class="iframe"></a>
 	</body>
 	<script src="http://www.boxjs.com/box.js"></script>
-	<script src="/console/assets/scripts/plugins/jquery.js"></script>
-	<script src="/console/assets/scripts/plugins/fancybox/jquery.easing-1.3.pack.js"></script>
-	<script src="/console/assets/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
+	<script src="/assets/scripts/plugins/jquery.js"></script>
+	<script src="/assets/scripts/plugins/fancybox/jquery.easing-1.3.pack.js"></script>
+	<script src="/assets/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 
 	<script>
-		Box("/console/assets/scripts/", [
+		Box("/assets/scripts/", [
 			"plugins/json2.js",
 			"plugins/jquery-class.js",
 			"plugins/fancybox/jquery.fancybox-1.3.4.js",
@@ -102,7 +102,7 @@
 			"classes/jam-presenter.js",
 			"classes/jam-service.js",
 			"classes/prompt.js",
-			"admin.js"
+			"console.js"
 		], {dev:true});
 	</script>
 </html>

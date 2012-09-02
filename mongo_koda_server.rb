@@ -60,12 +60,12 @@ end
 
 get '/console' do
   content_type :html
-  File.new('public/console/default.html').readlines
+  File.new('public/console.html').readlines
 end
 
-get '/admin' do
+get '/explorer' do
   content_type :html
-  File.new('public/admin/default.html').readlines
+  File.new('public/explorer.html').readlines
 end
 
 get '/' do
