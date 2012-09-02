@@ -105,3 +105,14 @@ POST '/trucks/smallblueone?_method=DELETE' will be interpreted the same as
 DELETE 'trucks/smallblueone' 
 `
 
+### Development
+
+Clone the git repo
+run `bundle install`
+
+`gem install shotgun`
+`gem install rspec`
+`gem install watchr`
+
+autotesting `watchr autotest.watchr`
+auto-reload local `shotgun -p 3000 mongo_koda_server.rb`
