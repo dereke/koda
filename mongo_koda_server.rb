@@ -13,6 +13,8 @@ class MongoJamSpoon
 
 use Rack::MethodOverrideWithParams
 
+set :public, File.dirname(__FILE__) + '/public'
+
 configure do
   class << Sinatra::Base
     def options(path, opts={}, &block)
@@ -36,7 +38,7 @@ before do
   
   db = MongoJamSpoon::GetMongoDatabase()
   @db_wrapper = MongoDatabase.new db
-  @grid_wrapper = MongoGrid.new(MongoJamSpoon::GetGridFS(), @db_wrapper.collection('_jam_meta'))
+  @grid_wrapper = MongoGrid.new(MongoJamSpoon::GetGridFS(), @db_wrapper.collection('_koda_meta'))
 end
 
 def self.GetGridFS
@@ -45,7 +47,7 @@ def self.GetGridFS
 end
 
 def self.GetMongoDatabase 
-  config = {:server => "localhost",:db => "jamspoon"}
+  config = {:server => "localhost",:db => "kodarms"}
 
   if ENV['MONGOLAB_URI']
 	  uri = URI.parse(ENV['MONGOLAB_URI'])
@@ -56,6 +58,15 @@ def self.GetMongoDatabase
 	end
 end  
 
+get '/console' do
+  content_type :html
+  File.new('public/console/default.html').readlines
+end
+
+get '/admin' do
+  content_type :html
+  File.new('public/admin/default.html').readlines
+end
 
 get '/' do
   content_type :json, 'jammeta' => 'list'
@@ -81,7 +92,7 @@ options '/' do
   response['Allow'] = 'GET'
 end
 
-get '/_jam_media/?' do
+get '/_koda_media/?' do
   content_type :json, 'jammeta' => 'list'
   media = @grid_wrapper.media_links.to_json
 end
@@ -91,27 +102,27 @@ put '/' do
   response['Allow'] = 'GET,POST'
 end
 
-post '/_jam_media/?' do  
+post '/_koda_media/?' do  
     
   media = MongoMedia.new request, params
   file_name = @grid_wrapper.save_media media
   
-  new_location = '/_jam_media/' + file_name
+  new_location = '/_koda_media/' + file_name
   response['Location'] = new_location
   status 201
   body new_location
 end
 
-delete '/_jam_media/?' do
+delete '/_koda_media/?' do
   response['Allow'] = 'GET,POST'
   status 405
 end
 
-options '/_jam_media/?' do
+options '/_koda_media/?' do
   response['Allow'] = 'GET,POST'
 end
 
-get '/_jam_media/:filename' do
+get '/_koda_media/:filename' do
   media = @grid_wrapper.get_media params[:filename]
     
   if (media == nil)
@@ -124,27 +135,27 @@ get '/_jam_media/:filename' do
   body media.body  
 end
 
-put '/_jam_media/:filename?' do
+put '/_koda_media/:filename?' do
   
   media = MongoMedia.new request, params
   file_name = @grid_wrapper.save_media(media, params[:filename])
   
-  new_location = '/_jam_media/' + file_name
+  new_location = '/_koda_media/' + file_name
   response['Location'] = new_location
   status 201
   body new_location
 end
 
-post '/_jam_media/:filename?' do
+post '/_koda_media/:filename?' do
   response['Allow'] = 'GET,PUT,DELETE'
   status 405
 end
 
-delete '/_jam_media/:filename?' do
+delete '/_koda_media/:filename?' do
   @grid_wrapper.delete_media(params[:filename])
 end
 
-options '/_jam_media/:filename' do
+options '/_koda_media/:filename' do
   media = @grid_wrapper.get_media params[:filename]
     
   if (media == nil)

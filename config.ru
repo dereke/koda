@@ -1,2 +1,2 @@
-require './mongo_jam_spoon.rb'
+require './mongo_koda_server.rb'
 run Sinatra::Application

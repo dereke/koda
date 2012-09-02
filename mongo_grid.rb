@@ -8,7 +8,7 @@ class MongoGrid
     map = media_map
 
     delete_media file_name
-    id = @grid.put(media.body, {:content_type => media.content_type, :metadata => {'_jam_last_modified' => media.last_updated}.to_s })
+    id = @grid.put(media.body, {:content_type => media.content_type, :metadata => {'_koda_last_modified' => media.last_updated}.to_s })
     
     if (!file_name)
       file_name = id.to_s
@@ -35,7 +35,7 @@ class MongoGrid
 
   def media_links
     media_map.raw_document['media'].keys.map do |name|
-      {'href' => '/_jam_media/' + name.to_s, 'rel' => 'full', 'title' => name.to_s}      
+      {'href' => '/_koda_media/' + name.to_s, 'rel' => 'full', 'title' => name.to_s}      
     end    
   end
 
@@ -56,7 +56,7 @@ class MongoGrid
       media = MongoMedia.new
       media.body = file.read
       media.content_type= file.content_type
-      media.last_updated= file.metadata['_jam_last_modified']
+      media.last_updated= file.metadata['_koda_last_modified']
       media
     end
   end

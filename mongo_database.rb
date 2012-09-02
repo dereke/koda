@@ -16,7 +16,7 @@ class MongoDatabase
   end
   
   def all_user_collections
-    resource_collections.push '_jam_media'
+    resource_collections.push '_koda_media'
   end
   
   def collection collection_name
@@ -27,7 +27,7 @@ class MongoDatabase
     collections = @db.collection_names
   	collections.delete 'system.indexes'  
   	collections.delete 'system.users'  
-  	collections.delete '_jam_meta'  
+  	collections.delete '_koda_meta'  
   	collections.delete 'fs.chunks'  
   	collections.delete 'fs.files'  
     collections

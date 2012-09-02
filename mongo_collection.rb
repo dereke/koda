@@ -15,7 +15,7 @@ class MongoCollection
   end
 
   def find_document doc_ref
-    doc = create_document_wrapper @collection.find_one("_jam_ref"=>doc_ref)
+    doc = create_document_wrapper @collection.find_one("_koda_ref"=>doc_ref)
 
     if (doc == nil)
       begin

@@ -4,7 +4,7 @@ require 'json'
 require File.join(File.dirname(__FILE__), %w[testdata/resource_test_data])
 require 'time'
 
-shared_examples_for "Mongo Jam Spoon write interface" do
+shared_examples_for "Mongo KodaRms write interface" do
   
   
   it "accepts a resource into an existing collection" do
@@ -28,7 +28,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should.not == nil
+    response_json['_koda_ref'].should.not == nil
     response_json['cost'].should == 'expensive'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27
@@ -36,7 +36,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates a resource at the right location when jam ref supplied" do
     header 'Content-Type', 'application/json'
-    bike = {'_jam_ref'=>'thefastexpensiveone','cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
+    bike = {'_koda_ref'=>'thefastexpensiveone','cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/bikes', bike
 
     last_response.status.should == 201
@@ -46,7 +46,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should.not == nil
+    response_json['_koda_ref'].should.not == nil
     response_json['cost'].should == 'expensive'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27
@@ -55,18 +55,18 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   it "creates a media at the right location" do
        header 'Content-Type', 'text/plain'
        content = 'just some normal plain text, nothing special'
-       post '/_jam_media', content
+       post '/_koda_media', content
 
        last_response.status.should == 201
-       last_response.location.should.start_with? '/_jam_media/'
-       last_response.body.should.start_with? '/_jam_media/'
+       last_response.location.should.start_with? '/_koda_media/'
+       last_response.body.should.start_with? '/_koda_media/'
        last_response.content_type.should == 'application/json'
   end
   
   it "create retrievable media at the right location" do
        header 'Content-Type', 'text/plain'
        content = 'just some normal plain text, nothing special'
-       post '/_jam_media', content
+       post '/_koda_media', content
 
        get last_response.location
 
@@ -78,7 +78,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   it "creates retrievable media at the right location" do
        header 'Content-Type', 'text/plain'
        content = 'just some normal plain text, nothing special'
-       put '/_jam_media/thisisthename', content
+       put '/_koda_media/thisisthename', content
 
        get last_response.location
 
@@ -89,7 +89,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location" do
     
-       put '/_jam_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -99,7 +99,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       put '/_jam_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       put '/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -111,7 +111,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location" do
     
-       put '/_jam_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -121,7 +121,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       put '/_jam_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       put '/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -132,7 +132,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       post '/_jam_media', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       post '/_koda_media', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -164,7 +164,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should.not == nil
+    response_json['_koda_ref'].should.not == nil
     response_json['size'].should == 'biggest'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27    
@@ -182,7 +182,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should.not == nil
+    response_json['_koda_ref'].should.not == nil
     response_json['size'].should == 'biggest'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27    
@@ -203,7 +203,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
   it "replaces an existing resource through put to overridden ref" do
     header 'Content-Type', 'application/json'
-    new_truck = {'_jam_ref'=>'smallblueone','size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
+    new_truck = {'_koda_ref'=>'smallblueone','size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/trucks/smallblueone', new_truck
     last_response.should.be.ok
@@ -250,7 +250,7 @@ shared_examples_for "Mongo Jam Spoon write interface" do
   
 end
 
-shared_examples_for "Mongo Jam Spoon options interface" do
+shared_examples_for "Mongo KodaRms options interface" do
   it "returns just get option for root" do
     options '/'
     
@@ -259,14 +259,14 @@ shared_examples_for "Mongo Jam Spoon options interface" do
   end
 
   it "returns get and post for media dir" do
-    options '/_jam_media/'
+    options '/_koda_media/'
     
     last_response.should.be.ok
     last_response.headers['Allow'].should == 'GET,POST'
   end
   
   it "returns get, post and delete for collection dir" do
-    options '/_jam_media/'
+    options '/_koda_media/'
     
     last_response.should.be.ok
     last_response.headers['Allow'].should == 'GET,POST'
@@ -296,7 +296,7 @@ shared_examples_for "Mongo Jam Spoon options interface" do
   
 end
 
-shared_examples_for "Mongo Jam Spoon read interface" do
+shared_examples_for "Mongo KodaRms read interface" do
   it "returns a non-empty list of collection urls at the root" do
     get '/'
     
@@ -325,7 +325,7 @@ shared_examples_for "Mongo Jam Spoon read interface" do
     get '/'
 
     response_json = JSON.parse last_response.body    
-    response_json.detect { |e| e['href'] == '/_jam_media'}.should.not == nil      
+    response_json.detect { |e| e['href'] == '/_koda_media'}.should.not == nil      
   end
   
   
@@ -411,7 +411,7 @@ shared_examples_for "Mongo Jam Spoon read interface" do
     last_response.should.be.ok
     
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should == '4db0dedb387f7123c9000001'
+    response_json['_koda_ref'].should == '4db0dedb387f7123c9000001'
   end
   
   it "returns the ref, not the id, when specifically set" do
@@ -420,7 +420,7 @@ shared_examples_for "Mongo Jam Spoon read interface" do
     last_response.should.be.ok
     
     response_json = JSON.parse last_response.body
-    response_json['_jam_ref'].should == 'smallblueone'
+    response_json['_koda_ref'].should == 'smallblueone'
   end
   
   it "strips the id from returned resources" do

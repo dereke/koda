@@ -7,7 +7,7 @@ require File.join(File.dirname(__FILE__), %w[doubles/mongo_collection_double])
 
 set :environment, :test
 
-describe 'Mongo Jam Spoon Unit' do
+describe 'Mongo KodaRms Unit' do
   include Rack::Test::Methods
   
   before(:each) do
@@ -33,8 +33,8 @@ describe 'Mongo Jam Spoon Unit' do
     Sinatra::Application
   end
 
-  it_should_behave_like "Mongo Jam Spoon options interface"
-  it_should_behave_like "Mongo Jam Spoon read interface"
-  it_should_behave_like "Mongo Jam Spoon write interface"
+  it_should_behave_like "Mongo KodaRms options interface"
+  it_should_behave_like "Mongo KodaRms read interface"
+  it_should_behave_like "Mongo KodaRms write interface"
   
 end

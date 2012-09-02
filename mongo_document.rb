@@ -12,13 +12,13 @@ class MongoDocument
     end
         
     if !(modified_time==nil)
-      @doc['_jam_last_modified']=modified_time
+      @doc['_koda_last_modified']=modified_time
     end
   end
   
   def last_modified
-    if !(@doc['_jam_last_modified']==nil)
-      Time.httpdate(@doc['_jam_last_modified'])
+    if !(@doc['_koda_last_modified']==nil)
+      Time.httpdate(@doc['_koda_last_modified'])
     end
   end
     
@@ -45,29 +45,29 @@ class MongoDocument
   
   def standardised_document
     copy = @doc.clone
-    copy['_jam_ref'] = ref
+    copy['_koda_ref'] = ref
     copy.delete('_id')
-    copy.delete('_jam_last_modified')
+    copy.delete('_koda_last_modified')
     copy
   end
   
   def title
-    if (@doc['_jam_title'])
-      @doc['_jam_title']
+    if (@doc['_koda_title'])
+      @doc['_koda_title']
     else
       ref
     end
   end
 
   def ref=(value)
-      @doc['_jam_ref'] = value
+      @doc['_koda_ref'] = value
   end
   
   def ref
-    if (@doc['_jam_ref'] == nil)
+    if (@doc['_koda_ref'] == nil)
       @doc['_id'].to_s
     else
-      @doc['_jam_ref'].to_s
+      @doc['_koda_ref'].to_s
     end
   end
   

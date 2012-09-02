@@ -14,7 +14,7 @@ class MongoGridIODouble
   end
   
   def metadata
-    {'_jam_last_modified' => @media.last_updated}
+    {'_koda_last_modified' => @media.last_updated}
   end
   
 end

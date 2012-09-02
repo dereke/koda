@@ -5,7 +5,7 @@ require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
 
 set :environment, :test
 
-describe 'Mongo Jam Spoon Integration' do
+describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
   
   def clear_database database
@@ -28,7 +28,7 @@ describe 'Mongo Jam Spoon Integration' do
   end
   
   before(:each) do
-    database = Mongo::Connection.new('localhost',27017).db('jamspoon')
+    database = Mongo::Connection.new('localhost',27017).db('kodarms_test')
     clear_database database
     populate_database_with_documents database    
   end
@@ -37,7 +37,7 @@ describe 'Mongo Jam Spoon Integration' do
     MongoJamSpoon.instance_eval do
      
        def GetMongoDatabase 
-         Mongo::Connection.new('localhost',27017).db('jamspoon')
+         Mongo::Connection.new('localhost',27017).db('kodarms_test')
        end
        
    end
@@ -48,8 +48,8 @@ describe 'Mongo Jam Spoon Integration' do
   end
 
   it_should_behave_like "Uniform Spoon interface"
-  it_should_behave_like "Mongo Jam Spoon options interface"
-  it_should_behave_like "Mongo Jam Spoon read interface"
-  it_should_behave_like "Mongo Jam Spoon write interface"
+  it_should_behave_like "Mongo KodaRms options interface"
+  it_should_behave_like "Mongo KodaRms read interface"
+  it_should_behave_like "Mongo KodaRms write interface"
   
 end

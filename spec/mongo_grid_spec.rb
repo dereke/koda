@@ -10,7 +10,7 @@ describe 'Mongo Grid' do
   
   it "adds a file to the directory" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
     media = MongoMedia.new 
     media.content_type = 'text/plain'
     media.body = 'just some plain text'
@@ -25,7 +25,7 @@ describe 'Mongo Grid' do
 
   it "sets the last updated date" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
     media = MongoMedia.new 
     media.content_type = 'text/plain'
     media.body = 'just some plain text'
@@ -42,7 +42,7 @@ describe 'Mongo Grid' do
   
   it "file is replaced when saved twice" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
 
     media = MongoMedia.new 
     media.content_type = 'text/plain'
@@ -63,7 +63,7 @@ describe 'Mongo Grid' do
 
   it "adds a file to the directory when no specific url given" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
 
     media = MongoMedia.new 
     media.content_type = 'text/plain'
@@ -78,7 +78,7 @@ describe 'Mongo Grid' do
 
   it "returns links to media" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
 
     media = MongoMedia.new 
     media.content_type = 'text/plain'
@@ -89,7 +89,7 @@ describe 'Mongo Grid' do
 
   it "deletes media" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
     
     media = MongoMedia.new 
     media.content_type = 'text/plain'
@@ -108,7 +108,7 @@ describe 'Mongo Grid' do
 
   it "two media files added are both retrievable" do
     db = MongoDbDouble.instance
-    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_jam_meta')))
+    grid = MongoGrid.new(MongoGridDouble.instance,MongoCollection.new(db.collection('_koda_meta')))
 
     media1 = MongoMedia.new 
     media1.content_type = 'text/plain'
