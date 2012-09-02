@@ -11,7 +11,7 @@ $.Class.extend("ExplorerPresenter",
 		},
 		
 		attach: function() {
-			this.find('/');
+			this.find('');
 		},
 		
 		find: function(path) {	
@@ -64,7 +64,7 @@ $.Class.extend("ExplorerPresenter",
 			$('#back-button').remove();
 			var self = ExplorerPresenter;
 			self.panel.find('ul').hide('slow').remove();
-			Window.Presenter.find('/');
+			Window.Presenter.find('');
 		}
 	}
 );
