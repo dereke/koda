@@ -26,11 +26,6 @@ $.Class.extend("Session", {history:[]}, {});
 	controller.findCommand("ls", function(command){
 		command.execute(undefined, function(result){
 			console.log(result);
-			controller.findCommand("upload", function(command){
-				command.execute(undefined, function(result){
-					console.log(result);
-				});
-			});
 		});
 	});
 	

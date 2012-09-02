@@ -73,6 +73,12 @@ div[role="main"] {
 	clear: both;
 }
 
+.img-icon {
+	padding-right: 5px;
+	vertical-align: middle;
+	padding-bottom: 4px;
+}
+
 /* Header ------------------------------ */
 
 header[role="banner"] { 
