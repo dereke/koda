@@ -7,7 +7,6 @@ $.Class.extend("ExplorerPresenter",
 			this.Class.panel = $('#explorer-panel');
 			this.Class.kodaTypes = $('.kodaType');
 			this.Class.panel.delegate('li', 'click', this.selectItem);
-			$('#back-button').live('click', this.back);
 		},
 		
 		attach: function() {
@@ -22,9 +21,12 @@ $.Class.extend("ExplorerPresenter",
 					var list = $('<ul/>').attr('id', path);
 					$.each(results, function(i, item) {
 						if(item.title.indexOf('_koda_media') == -1) {
-							var listItem = $('<li />');
+							var listItem = $('<li />').attr('id', item.title);
 							var link = $('<a />').text(self.toTitleCase(item.title)).addClass(item.type);
 							listItem.append(link).appendTo(list);
+							$(listItem).contextMenu({
+								menu : 'Actions'
+							}, self.contextMenuClick);
 						}
 					});
 					list.appendTo(self.Class.panel);
@@ -47,7 +49,8 @@ $.Class.extend("ExplorerPresenter",
 			if(type == 'collection') {
 				$('#back-button').remove();
 				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.panel);
-				self.panel.find('ul').hide('slow').remove();
+				backButton.click(Window.Presenter.back);
+				self.panel.find('ul').remove();
 				Session.currentFolder = currentItem;
 				Window.Presenter.find(currentItem);				
 			} else {
@@ -61,10 +64,41 @@ $.Class.extend("ExplorerPresenter",
 		},
 		
 		back: function(e) {
+			console.log('here');
 			$('#back-button').remove();
 			var self = ExplorerPresenter;
 			self.panel.find('ul').hide('slow').remove();
 			Window.Presenter.find('');
+		},
+		
+		contextMenuClick : function(action, el, pos) {
+			var self = Window.Presenter;
+			console.log(action);
+			if(action == 'new') {
+				self.new(el);
+			} else if(action == 'edit') {
+				self.edit(el);
+			} else if(action == 'delete') {
+				self.delete(el);
+			}
+		},
+		
+		delete : function(item) {
+			console.log(item);
+			ExplorerPresenter.controller.findCommand('rm', function(cmd) {
+				cmd.execute($(item).find('a').text(), function(result){
+					ExplorerPresenter.panel.find('ul').hide('slow').remove();
+					Window.Presenter.find($(item).parent().attr('id'));
+				});
+			});
+		},
+		
+		edit : function(item) {
+			
+		},
+		
+		new : function(item) {
+			
 		}
 	}
 );

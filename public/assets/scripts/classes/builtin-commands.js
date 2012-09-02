@@ -418,9 +418,10 @@ $.Class.extend("RemoveCommand",
 		
 		execute: function(args, callback) {			
 			
-			var lookup = Session.currentFolder == undefined ? args[0] : Session.currentFolder + "/" + args[0];
+			var lookup = Session.currentFolder == undefined ? args : Session.currentFolder + "/" + args;
+			console.log(lookup);
 			
-			this.Class.jamService.delete(lookup, function(data) {
+			this.Class.jamService.delete(lookup.toLowerCase(), function(data) {
 
 				if(data == "OK"){
 					callback("the item was deleted");					
