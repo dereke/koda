@@ -288,7 +288,7 @@ $.Class.extend("ExplorerPresenter",
 			var self = Window.Presenter;
 			$('#back-button').remove();
 			if(collection == undefined || collection == '') {
-				Session.currentFolder = '';
+				Session.currentFolder = undefined;
 				self.Class.panel.find('ul').remove();
 				self.find('');
 			} else {
@@ -406,7 +406,7 @@ $.Class.extend("ExplorerPresenter",
 		
 		launchEditor: function(base, itemUrl, isNew, callback) {
 			
-			$("#media-trigger").attr("href", base + "?url="+itemUrl+"&isnew="+isNew);
+			$("#media-trigger").attr("href", base + "?url="+itemUrl+"&isnew="+isNew+"&date=" + new Date().getTime());
 			$("#media-trigger").fancybox({
 					'transitionIn'	:	'elastic',
 					'transitionOut'	:	'elastic',

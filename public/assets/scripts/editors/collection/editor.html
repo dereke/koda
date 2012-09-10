@@ -1,19 +1,61 @@
 <html>
 <head>
+	<script src="../../plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 	<script src="../KodaEditor.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" href="../../../css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
 </head>
 <body>
 	<div id="editor">
-		<legend>Default Collection Editor:</legend>
-		<label for="name">Collection Name:</label>
-		<textarea id="name" name="name"></textarea>
-		<label for="" />
-		<button id="save">Save</button>
+		<form id="form" name="form" method="post">
+			<h1>Default Collection Editor</h1>
+			<p>Edit Collection Names</p>
+
+			<label>Name
+			<span class="small">Collection name</span>
+			</label>
+			<input type="text" name="name" id="name" />
+
+			<button type="submit">Save</button>
+			<div class="spacer"></div>
+		</form>
+		<div id="status"></div>
 	</div>
 <script>
-	var kodaEditor = KodaEditor();
-	console.log(kodaEditor.isNew);
-	console.log(kodaEditor.itemUrl);
+	
+	(function() {
+		var kodaEditor = KodaEditor();
+		var isNew = kodaEditor.isNew;
+		
+		if(!isNew) {
+			
+			$('#name').val(kodaEditor.itemUrl);
+			$('#status').text('Renaming a collection is not supported at the moment as it will cause unknown side effects. We will support this option in the future');
+			$('submit').attr("disabled", true);
+		
+		} else {
+			
+			$('form').submit(function(e) {
+				var newItem = $('#name').val().replace(/ /g,"_").toLowerCase();
+				e.preventDefault();
+				kodaEditor.post('/'+newItem, '{"_koda_ref":"_delete"}', function(sdata) {
+
+					if(sdata == "OK") {					
+						kodaEditor.delete('/'+newItem + "/_delete", function(ddata) {
+
+							if(ddata == "OK"){
+								$('#status').text("folder created");					
+							}
+
+						});					
+					} else {				
+						$('#status').text("folder could not be created");				
+					}
+				});
+			
+			});
+		}	
+		
+	})();
 </script>
 </body>
 <html>

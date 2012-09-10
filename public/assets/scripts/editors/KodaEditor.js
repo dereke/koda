@@ -20,7 +20,7 @@ KodaEditor = function(rootUrl) {
 	}
 	
 	var itemUrl = getParam('url');
-	var isNew = getParam('isnew');
+	var isNew = getParam('isnew') == 'true';
 	
 	return {
 			
@@ -30,11 +30,9 @@ KodaEditor = function(rootUrl) {
 
 			get: function(path, callback) {
 
-				var location = path != undefined ? path : '';
-
 				jQuery.ajax({
 				    type: "GET",
-				    url: rootUrl+"/"+location + "?" + new Date().getTime(),
+				    url: path + "?" + new Date().getTime(),
 				    dataType: "json",
 				    success: function(results){
 				        callback(results);
@@ -48,11 +46,9 @@ KodaEditor = function(rootUrl) {
 
 			delete: function(path, callback) {
 
-				var location = path != undefined ? path : '';
-
 				jQuery.ajax({
 				    type: "DELETE",
-				    url: rootUrl+"/"+location,
+				    url: path,
 				    dataType: "json",
 				    success: function(result){
 				        callback("OK");
@@ -66,11 +62,9 @@ KodaEditor = function(rootUrl) {
 
 			put: function(path, resource, callback) {
 
-				var location = path != undefined ? path : '';
-
 				jQuery.ajax({
 				    type: "PUT",
-				    url: rootUrl+"/"+location,
+				    url: path,
 					data: resource,
 				    dataType: "json",
 				    success: function(result){
@@ -91,11 +85,9 @@ KodaEditor = function(rootUrl) {
 
 			post: function(path, resource, callback) {
 
-				var location = path != undefined ? path : '';
-
 				jQuery.ajax({
 				    type: "POST",
-				    url: rootUrl+"/"+location,
+				    url: path,
 					data: resource,
 				    dataType: "json",
 				    success: function(result){
