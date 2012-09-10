@@ -425,3 +425,8 @@ header[role="banner"] h2 {
 	background-repeat: no-repeat;
 	background-position-x: 1px;
 }
+
+#collection-editor,
+#default-document-editor {
+	display: none;
+}

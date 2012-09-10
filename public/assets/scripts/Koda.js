@@ -222,6 +222,8 @@ $.Class.extend("ExplorerPresenter",
 			this.Class.panel = $('#explorer-panel');
 			this.Class.kodaTypes = $('.kodaType');
 			this.Class.panel.delegate('li', 'click', this.selectItem);
+			this.Class.panel.contextMenu({menu:"Limited"}, this.contextMenuClick);
+			
 		},
 		
 		attach: function() {
@@ -229,6 +231,7 @@ $.Class.extend("ExplorerPresenter",
 		},
 		
 		find: function(path) {	
+			
 			var self = this;
 			
 			self.Class.controller.findCommand('list', function(cmd) {
@@ -247,39 +250,65 @@ $.Class.extend("ExplorerPresenter",
 					list.appendTo(self.Class.panel);
 				});
 			});
+			
 		},
 		
 		toTitleCase: function(str) {
+			
 		    return str.replace(/(?:^|\s)\w/g, function(match) {
 		        return match.toUpperCase();
 		    });
+		
 		},
 		
 		selectItem: function(e) {
-			var self = ExplorerPresenter;
+			
+			var self = Window.Presenter;
 			var type = $(this).find('a').attr('class');
 			var currentItem = $(this).text();
 			
 			if(type == 'collection') {
 				$('#back-button').remove();
-				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.panel);
-				backButton.click(Window.Presenter.back);
-				self.panel.find('ul').remove();
+				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.Class.panel);
+				backButton.click(self.back);
+				self.Class.panel.find('ul').remove();
 				Session.currentFolder = currentItem;
-				Window.Presenter.find(currentItem);				
+				self.find(currentItem);				
 			} else {
 				var path = currentItem;
-				self.controller.findCommand('open', function(cmd) {
+				self.Class.controller.findCommand('open', function(cmd) {
 					cmd.execute([path], function(result){});
 				});
 			}
+			
+		},
+		
+		refresh : function(collection){
+			
+			var self = Window.Presenter;
+			$('#back-button').remove();
+			if(collection == undefined || collection == '') {
+				Session.currentFolder = '';
+				self.Class.panel.find('ul').remove();
+				self.find('');
+			} else {
+				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.Class.panel);
+				backButton.click(self.back);
+				self.Class.panel.find('ul').remove();
+				Session.currentFolder = collection;
+				self.find(collection);				
+			}
+			
 		},
 		
 		back: function(e) {
+			
 			$('#back-button').remove();
-			var self = ExplorerPresenter;
-			self.panel.find('ul').hide('slow').remove();
-			Window.Presenter.find('');
+			var self = Window.Presenter;
+			Session.currentFolder = undefined;
+			self.Class.panel.find('ul').hide('slow').remove();
+			self.find('');
+			
 		},
 		
 		contextMenuClick : function(action, el, pos) {
@@ -297,10 +326,12 @@ $.Class.extend("ExplorerPresenter",
 		
 		delete : function(item) {
 			
-			ExplorerPresenter.controller.findCommand('rm', function(cmd) {
+			var self = Window.Presenter;
+			
+			self.Class.controller.findCommand('rm', function(cmd) {
 				cmd.execute([$(item).find('a').text()], function(result){
-					ExplorerPresenter.panel.find('ul').hide('slow').remove();
-					Window.Presenter.find($(item).parent().attr('id'));
+					self.Class.panel.find('ul').hide('slow').remove();
+					self.find($(item).parent().attr('id'));
 				});
 			});
 		
@@ -308,32 +339,74 @@ $.Class.extend("ExplorerPresenter",
 		
 		edit : function(item) {
 			
-			var self = ExplorerPresenter;
+			var self = Window.Presenter;
+			
 			var type = $(item).find('a').attr('class');
 			var currentItem = $(item).text();
 			if(type == 'collection') {
-				Window.Presenter.editDialog(currentItem, false);
+				self.editDialog(currentItem, false, "collection", function(item) {
+					self.refresh(Session.currentFolder);
+				});
 			} else {
-				Window.Presenter.editDialog(Session.currentFolder + "/" + currentItem, false);
+				self.editDialog(Session.currentFolder + "/" + currentItem, false, "document", function(item) {
+					self.refresh(Session.currentFolder);
+				});
 			}
-		
+			
 		},
 		
 		new : function(item) {
 			
-			var self = ExplorerPresenter;
-			var type = $(item).find('a').attr('class');
-			var currentItem = $(item).text();
-			if(type == 'collection') {
-				Session.currentFolder = currentItem;
-			} 
+			var self = Window.Presenter;
+
+			if($(item).attr("id") != "explorer-panel") {
+				var type = $(item).find('a').attr('class');
+				var currentItem = $(item).text();
+				if(type == 'collection') {
+					Session.currentFolder = currentItem;
+				} 
+				self.editDialog(Session.currentFolder, true, "collection", function(item) {
+					self.refresh(item);
+				});
+			} else {
+				self.editDialog(Session.currentFolder, true, "collection", function(item) {
+					self.refresh(item);
+				});
+			}
 			
-			Window.Presenter.editDialog(Session.currentFolder, true);
 		},
 		
-		editDialog : function(itemPath, isNew){
+		editDialog : function(itemUrl, isNew, type, callback){
 			
-			$("#media-trigger").attr("href", "/editdocument.html?url="+itemPath+"&isnew="+isNew);
+			var self = Window.Presenter;
+			
+			if(!isNew) {
+				self.Class.controller.findCommand('get', function(cmd) {
+					cmd.execute([itemUrl], function(result){
+						if(result.editor){
+							self.launchEditor(results.editor, itemUrl, true, callback);
+						} else {
+							if(type == "collection"){
+								self.launchEditor('/assets/scripts/editors/collection/editor.html', itemUrl, false, callback);
+							} else if(type == "document") {
+								self.launchEditor('/assets/scripts/editors/json/editor.html', itemUrl, false, callback);
+							}
+						}
+					});
+				});
+			} else {
+				if(type == "collection" && itemUrl == undefined){
+					self.launchEditor('/assets/scripts/editors/collection/editor.html', itemUrl, true, callback);
+				} else if(type == "collection" && itemUrl != undefined)  {
+					self.launchEditor('/assets/scripts/editors/json/editor.html', itemUrl, true, callback);
+				}
+			}
+				
+		},
+		
+		launchEditor: function(base, itemUrl, isNew, callback) {
+			
+			$("#media-trigger").attr("href", base + "?url="+itemUrl+"&isnew="+isNew);
 			$("#media-trigger").fancybox({
 					'transitionIn'	:	'elastic',
 					'transitionOut'	:	'elastic',
@@ -341,7 +414,10 @@ $.Class.extend("ExplorerPresenter",
 					'speedOut'		:	200, 
 					'overlayShow'	:	false,
 					'width'			: 	800, 
-					'height'		: 	480 
+					'height'		: 	480,
+					onClosed : function() {
+						callback(itemUrl);
+					}
 				}).trigger("click");
 				
 		}
@@ -436,7 +512,7 @@ $.Class.extend("KodaController",
 		
 		findCommand: function(val,callback) {
 			
-			$.each(KodaController.commands, function(index, commandObject) {
+			$.each(this.Class.commands, function(index, commandObject) {
 				
 				if(val == commandObject.Class.key) {
 					callback(commandObject);
@@ -613,7 +689,7 @@ $.Class.extend("EditCommand",
 
 				Session.currentEditor.callback = callback;
 			
-				EditCommand.restService.get(Session.currentEditor.path, function(data) {
+				this.Class.restService.get(Session.currentEditor.path, function(data) {
 
 					Prompt.writeToOutput("--hit CTRL+C when done---", "")
 			
@@ -782,7 +858,7 @@ $.Class.extend("ListCommand",
 
 					});					
 				} else {
-					output.push({ title: item.title, type: "file"});
+					output.push({ title: data.title, type: "file"});
 				}
 
 				callback(output);
@@ -887,6 +963,30 @@ $.Class.extend("PeekCommand",
 	}
 );
 
+$.Class.extend("GetCommand", 
+	{
+		key: "get",
+		help: "view: not for use with console",
+		restService: {}
+	}, 
+	{
+		init : function(restService) { 
+			this.Class.restService = restService; 
+		},
+		
+		execute: function(args, callback) {
+
+			this.Class.restService.get(args[0].toLowerCase(), function(data) {
+
+				callback(data);
+				
+			});
+			
+		}
+		
+	}
+);
+
 $.Class.extend("RemoveCommand", 
 	{  
 		key: "rm", 
@@ -902,7 +1002,6 @@ $.Class.extend("RemoveCommand",
 		
 		execute: function(args, callback) {			
 			
-			console.log(args);
 			var lookup = Session.currentFolder == undefined ? args[0] : Session.currentFolder + "/" + args[0];
 			
 			this.Class.restService.delete(lookup.toLowerCase(), function(data) {
@@ -917,74 +1016,6 @@ $.Class.extend("RemoveCommand",
 			
 		}
 		
-	}
-);
-
-$.Class.extend("SaveCommand",
-	{
-		key: "save",
-		help: 'not for use in console'
-	},
-	{
-		init : function(restService) { 
-			
-			this.Class.restService = restService; 
-		
-		},
-		
-		execute: function(args, callback) {			
-			
-			if(args == undefined || args.length < 2){
-				callback("wrong number of arguments!");
-			}
-				
-			var lookup = Session.currentFolder == undefined ? args[0] : Session.currentFolder + "/" + args[0];
-			
-			this.Class.restService.put(lookup, args[1], function(data) {
-
-				if(data == "OK") {					
-					callback("the item was saved");					
-				} else {				
-					callback("server unavailable or not valid json: ");			
-				}
-
-			});	
-			
-		}
-	}
-);
-
-$.Class.extend("NewCommand",
-	{
-		key: "new",
-		help: 'not for use in console'
-	},
-	{
-		init : function(restService) { 
-			
-			this.Class.restService = restService; 
-		
-		},
-		
-		execute: function(args, callback) {			
-			
-			if(args == undefined || args.length < 2){	
-				callback("wrong number of arguments!");
-			}
-			
-			var lookup = Session.currentFolder == undefined ? args[0] : Session.currentFolder + "/" + args[0];
-			
-			this.Class.restService.post(lookup, args[1], function(data) {
-
-				if(data == "OK") {					
-					callback("the item was created");					
-				} else {				
-					callback("server unavailable or not valid json: ");				
-				}
-
-			});		
-			
-		}
 	}
 );
 
@@ -1007,16 +1038,13 @@ $.Class.extend("Explorer", {}, {
 		var service = new RestService();
 		var commands = Session.commands = [];
 
-		commands.push(new HelpCommand());
-		commands.push(new MountCommand());
-		commands.push(new PeekCommand(service));
 		commands.push(new CdCommand(service));
 		commands.push(new ListCommand(service));
-		commands.push(new EditCommand(service));
 		commands.push(new RemoveCommand(service));
 		commands.push(new OpenCommand());
 		commands.push(new MkDirCommand(service));
 		commands.push(new UploadCommand());
+		commands.push(new GetCommand(service));
 
 		var controller = new KodaController(commands);
 		Window.Presenter = new ExplorerPresenter(controller);
@@ -1052,13 +1080,6 @@ $.Class.extend("Console", {}, {
 	}
 });
 
-$.Class.extend("Editor", {}, {
-	init: function(currentUrl, isNew) {
-		alert(currentUrl);
-		alert(isNew);
-	}
-});
-
 /* Static Void Main */
 
 (function() {
@@ -1066,8 +1087,5 @@ $.Class.extend("Editor", {}, {
 		new Explorer(window.location.href);
 	} else if(Window.Application == "Console") {
 		new Console(window.location.href);
-	} else if(Window.Application == "Editor") {
-		var queryString = new QueryString();
-		new Editor(queryString.getItem("url"), queryString.getItem("isnew"));
 	}
 })()
