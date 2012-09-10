@@ -240,7 +240,7 @@ $.Class.extend("ExplorerPresenter",
 					$.each(results, function(i, item) {
 						if(item.title.indexOf('_koda_media') == -1 && item.title.indexOf('objectlabs-system') == -1) {
 							var listItem = $('<li />').attr('id', item.title);
-							var link = $('<a />').text(self.toTitleCase(item.title)).addClass(item.type);
+							var link = $('<a />').text(item.title).addClass(item.type);
 							listItem.append(link).appendTo(list);
 							$(listItem).contextMenu({
 								menu : 'Actions'
@@ -850,7 +850,6 @@ $.Class.extend("ListCommand",
 
 				if(data.constructor == Array) {
 					$.each(data, function(i, item){
-
 						var href = item.href;
 						var count = href.split("/").length - 1
 						var indicator = count > 1 ? "file" : "collection";

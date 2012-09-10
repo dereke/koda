@@ -47,7 +47,7 @@
 			e.preventDefault();
 			
 			if(isNew) {
-				var ref = $('#name').val().replace(/ /g,"_").toLowerCase();
+				var ref = $('#name').val().replace(/ /g,"-").toLowerCase();
 				var data = '{"_koda_ref":"'+ref+'", "title":"'+$('#name').val()+'", "content":'+$('#data').val()+'}';
 				
 				kodaEditor.post('/'+kodaEditor.itemUrl.toLowerCase(), data, function(sdata) {
