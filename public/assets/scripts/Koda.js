@@ -235,7 +235,7 @@ $.Class.extend("ExplorerPresenter",
 				cmd.execute([path], function(results){
 					var list = $('<ul/>').attr('id', path);
 					$.each(results, function(i, item) {
-						if(item.title.indexOf('_koda_media') == -1 && item.title.indexOf('Objectlabs-system') == -1) {
+						if(item.title.indexOf('_koda_media') == -1 && item.title.indexOf('objectlabs-system') == -1) {
 							var listItem = $('<li />').attr('id', item.title);
 							var link = $('<a />').text(self.toTitleCase(item.title)).addClass(item.type);
 							listItem.append(link).appendTo(list);
