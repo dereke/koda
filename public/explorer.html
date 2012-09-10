@@ -13,7 +13,13 @@
 		<link rel="stylesheet" href="/assets/css/skins/default.css" />
 		<link rel="stylesheet" href="/assets/scripts/plugins/fancybox/jquery.fancybox-1.3.4.css" type="text/css" media="screen" />
 		<link rel="stylesheet" href="assets/scripts/plugins/jquery.contextmenu/jquery.contextMenu.css" type="text/css" media="screen" title="no title" charset="utf-8">
-
+		<script>
+			Window.Application = "Explorer";
+		</script>
+		<script src="http://www.boxjs.com/box.js"></script>
+		<script src="/assets/scripts/plugins/jquery.js"></script>
+		<script src="/assets/scripts/plugins/fancybox/jquery.easing-1.3.pack.js"></script>
+		<script src="/assets/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
 	</head>
 
 	<body>
@@ -93,11 +99,6 @@
 		    </li>
 		</ul>
 	</body>
-	<script src="http://www.boxjs.com/box.js"></script>
-	<script src="/assets/scripts/plugins/jquery.js"></script>
-	<script src="/assets/scripts/plugins/fancybox/jquery.easing-1.3.pack.js"></script>
-	<script src="/assets/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
-
 	<script>
 		//Box("http://www.kodacms.org/assets/scripts/", [
 		Box("/assets/scripts/", [
@@ -105,14 +106,8 @@
 			"plugins/jquery-class.js",
 			"plugins/fancybox/jquery.fancybox-1.3.4.js",
 			"plugins/jquery.contextmenu/jquery.contextMenu.js",
-			"classes/string-util.js",
 			"plugins/modernizr.js",
-			"classes/builtin-commands.js",
-			"classes/jam-controller.js",
-			"classes/explorer-presenter.js",
-			"classes/jam-service.js",
-			"classes/prompt.js",
-			"explorer.js"
+			"Koda.js"
 		], {dev:true, version:'1.1'});
 	</script>
 </html>
