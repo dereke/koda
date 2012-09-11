@@ -68,6 +68,10 @@ get '/explorer' do
   File.new('public/explorer.html').readlines
 end
 
+get '/koda-types/*' do 
+  response['Allow'] = 'GET'
+end
+
 get '/' do
   content_type :json, 'jammeta' => 'list'
   JSONP @db_wrapper.collection_links

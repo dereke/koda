@@ -1,0 +1,62 @@
+<html>
+<head>
+<link rel="stylesheet" href="/assets/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="/assets/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/scripts/KodaEditor.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+	<div id="editor"></div>
+<script>
+	
+	(function() {
+		
+		var api = Editor.Api;		
+		var isNew = api.isNew;
+		var url = '/'+api.itemUrl.toLowerCase();
+		
+		api.get(api.typeUrl, function(kodaType) {
+			
+			var onLoad = function() {}
+			
+			var onUpdate = function(sdata){
+
+				if(sdata == "OK") {					
+					$('#status').text("item saved");									
+				} else {				
+					$('#status').text("item could not be saved");				
+				}
+
+			}
+
+			var onSubmit = function(data) {				
+
+				if(isNew) {
+					
+					var ref = data.name.replace(/ /g,"-").toLowerCase();
+					data._koda_ref = ref;
+					var dataString = JSON.stringify(data, null, 2);
+					api.post(url, dataString, onUpdate);
+
+				} else {
+
+					var dataString = JSON.stringify(data, null, 2);
+					api.put(url, dataString, onUpdate);
+
+				}
+			}
+
+			var kodaForm = Editor.Form($('#editor'), kodaType, onSubmit);
+			api.get(url, function(content){
+				if(content != []) {
+					kodaForm.load(content);
+				}
+			});
+			
+		});
+
+	})();
+	
+</script>
+</body>
+<html>

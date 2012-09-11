@@ -1,0 +1,47 @@
+<html>
+<head>
+<link rel="stylesheet" href="/assets/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="/assets/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/scripts/KodaEditor.js" type="text/javascript" charset="utf-8"></script>
+
+</head>
+<body>
+	<div id="editor"></div>
+<script>
+	
+	(function() {
+		
+		var api = Editor.Api;		
+		var isNew = api.isNew;
+		
+		api.get('/koda-types/koda-collection.js', function(kodaType) {
+			var onSubmit = function(data) {
+				var newItem = data.name.replace(/ /g,"-").toLowerCase();
+				api.post('/'+newItem, '{"_koda_ref":"_delete"}', function(sdata) {
+
+					if(sdata == "OK") {					
+						api.delete('/'+newItem + "/_delete", function(ddata) {
+							if(ddata == "OK"){
+								$('#status').text("folder created");					
+							}
+						});					
+					} else {				
+						$('#status').text("folder could not be created");	
+					}
+
+				});
+			}
+
+			var kodaForm = Editor.Form($('#editor'), kodaType, onSubmit);
+			kodaForm.load({name:api.itemUrl});
+			if(!isNew) {
+				$('#status').text('Renaming a collection is not supported at the moment. Save disabled.');
+				$('button[type="submit"]').attr("disabled", true);
+			}
+		});
+
+	})();
+	
+</script>
+</body>
+<html>

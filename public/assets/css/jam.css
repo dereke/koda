@@ -430,3 +430,7 @@ header[role="banner"] h2 {
 #default-document-editor {
 	display: none;
 }
+
+a.new {
+	cursor : pointer;
+}
