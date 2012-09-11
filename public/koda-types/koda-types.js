@@ -18,6 +18,15 @@
 		"allowedin" : "collection"
 	},
 	{
+		"id" : "mediaKodaType",
+		"title" : "Media",
+		"description" :"Image, Video or Audio",
+		"icon" : "/assets/images/image_add.png",
+		"editor" : "/koda-editors/generic-editor.html",
+		"type" : "/koda-types/koda-media.js",
+		"allowedin" : "collection"
+	},
+	{
 		"id" : "kodaJson",
 		"title" : "Generic Json",
 		"description" :"This will create a simple json document",

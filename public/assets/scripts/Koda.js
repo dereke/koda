@@ -252,23 +252,50 @@ $.Class.extend("ExplorerPresenter",
 		find: function(path) {	
 			
 			var self = this;
-			
 			self.Class.controller.findCommand('list', function(cmd) {
 				cmd.execute([path], function(results){
 					var list = $('<ul/>').attr('id', path);
 					$.each(results, function(i, item) {
+						
 						if(item.title.indexOf('_koda_media') == -1 && item.title.indexOf('objectlabs-system') == -1) {
+							
 							var listItem = $('<li />').attr('id', item.title);
 							var link = $('<a />').text(item.title).addClass(item.type);
+							
+							if(item.type != "collection"){
+								self.findType(item._koda_type, function(kodaType){
+									if(kodaType != undefined) {
+										var img = $('<img />').attr('src', kodaType.icon);
+										listItem.append(img);
+									}
+								});
+							}
+							
 							listItem.append(link).appendTo(list);
 							$(listItem).contextMenu({
 								menu : 'Actions'
 							}, self.contextMenuClick);
+						
 						}
+						
 					});
 					list.appendTo(self.Class.panel);
 				});
 			});
+			
+		},
+		
+		findType : function(type, callback){
+			
+			var self = this;
+			
+			$.each(self.Class.kodaTypes, function(i, item){
+				if(item.type == type) {
+					callback(item);
+				}
+			})
+			
+			return callback(undefined);
 			
 		},
 		
@@ -856,7 +883,7 @@ $.Class.extend("ListCommand",
 						var href = item.href;
 						var count = href.split("/").length - 1
 						var indicator = count > 1 ? "file" : "collection";
-						output.push({ title: item.title, type: indicator});
+						output.push({ title: item.title, _koda_type : item._koda_type, type: indicator});
 
 					});					
 				} else {

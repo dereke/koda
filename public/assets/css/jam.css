@@ -397,10 +397,27 @@ header[role="banner"] h2 {
 	background-color: #EBF2FA;
 }
 
-#explorer a, 
+#explorer li > img {
+	width: 24px;
+	height: 24px;
+	position: relative;
+	left: 12px;
+	top: 5px;
+}
+
+#explorer a.collection, 
 #back-button a {
 	padding-left: 56px;
 	margin-left: 20px;
+	width: 100%;
+	padding-bottom: 18px;
+	padding-top: 6px;
+	border: none;
+}
+
+#explorer a.file {
+	padding-left: 40px;
+	margin-left: -6px;
 	width: 100%;
 	padding-bottom: 18px;
 	padding-top: 6px;
@@ -418,12 +435,6 @@ header[role="banner"] h2 {
 	background-repeat: no-repeat;
 	background-position-x: 14px;
 	background-position-y: 7px;
-}
-
-#explorer a.file {
-	background-image: url(/assets/images/file.png);
-	background-repeat: no-repeat;
-	background-position-x: 1px;
 }
 
 #collection-editor,

@@ -73,7 +73,7 @@ class MongoCollection
   def resource_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url, 'rel' => 'full', 'title' => doc_wrapper.title}
+      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type,'rel' => 'full', 'title' => doc_wrapper.title}
     end
 
   end
