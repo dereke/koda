@@ -25,5 +25,14 @@
 		"editor" : "/koda-editors/json-editor.html",
 		"type"	: "/koda-types/koda-json.js",
 		"allowedin" : "collection"
+	},
+	{
+		"id" : "userKodaType",
+		"title" : "User",
+		"description" :"Add a user item",
+		"icon" : "/assets/images/group_add.png",
+		"editor" : "/koda-editors/generic-editor.html",
+		"type" : "/koda-types/koda-user.js",
+		"allowedin" : "collection"
 	}
 ]
