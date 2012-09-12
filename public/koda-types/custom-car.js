@@ -49,10 +49,10 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "image",
-			"title" : "Image",
+			"id" : "carImage",
+			"title" : "Car Image",
 			"description" : "Upload an image",
-			"control" : "textstring",
+			"control" : "mediaupload",
 			"defaultValue" : ""
 		},
 		{

@@ -113,8 +113,13 @@ post '/_koda_media/?' do
   
   new_location = '/_koda_media/' + file_name
   response['Location'] = new_location
-  status 201
-  body new_location
+  status 200
+  result = {
+    'success' => 'true',
+    'location' => new_location,
+  }
+  body result.to_json
+  
 end
 
 delete '/_koda_media/?' do
@@ -134,7 +139,7 @@ get '/_koda_media/:filename' do
   end
   
   last_modified(media.last_updated)  
-    
+  
   content_type media.content_type
   body media.body  
 end
@@ -146,8 +151,13 @@ put '/_koda_media/:filename?' do
   
   new_location = '/_koda_media/' + file_name
   response['Location'] = new_location
-  status 201
-  body new_location
+  status 200
+  result = {
+    'success' => 'true',
+    'location' => new_location,
+  }
+  body result.to_json
+  
 end
 
 post '/_koda_media/:filename?' do
@@ -198,6 +208,10 @@ post '/:collection/?' do
         
     response['Location'] = new_doc.url
     status 201
+    result = {
+      'success' => 'true',
+      'location' => new_doc.url
+    }
     body new_doc.url
 end
 

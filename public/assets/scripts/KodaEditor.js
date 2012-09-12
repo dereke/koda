@@ -127,6 +127,7 @@ Editor.Controls = function() {
 		load: function() {
 			this.all['hiddenstring'] = this.hiddenString;
 			this.all['textstring'] = this.textString;
+			this.all['mediaupload'] = this.mediaUpload;
 			this.all['textarea'] = this.textArea;
 		},
 		
@@ -138,6 +139,7 @@ Editor.Controls = function() {
 				defaultValue: '',
 				html : '<input type="hidden" id="'+identifier+'" name="'+identifier+'" />',
 				value: '',
+				bind : function(form) {},
 				create: function(id, value) {
 					this.id = id;
 					this.defaultValue = value;
@@ -163,6 +165,7 @@ Editor.Controls = function() {
 				defaultValue: '',
 				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" />',
 				value: '',
+				bind : function() {},
 				create: function(id, value) {
 					this.id = id;
 					this.defaultValue = value;
@@ -184,11 +187,11 @@ Editor.Controls = function() {
 			
 			return {
 			
-				key: 'textarea',
 				defaultValue: '',
 				id : '',
 				html : '<textarea id="'+identifier+'" name="'+identifier+'"></textarea>',
 				value: '',
+				bind : function() {},
 				create: function(id, value) {
 					this.id = id;
 					this.defaultValue = value;
@@ -204,6 +207,41 @@ Editor.Controls = function() {
 				}
 			}
 			
+		},
+		
+		mediaUpload: function(identifier) {
+			
+			return {
+			
+				defaultValue: '',
+				mediaKey: '',
+				id : '',
+				html : '<input type="hidden" id="'+identifier+'_file" /><ul id="'+identifier+'" class="unstyled fileuploader"></ul>',
+				value: '',
+				bind : function(){
+					var uploader = new qq.FileUploader({
+						element: $('.fileuploader')[0],
+					    action: ('/_koda_media'),
+						onComplete : this.complete
+					});
+				},
+				create: function(id, value) {					
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return $('#'+identifier+'_file').val();
+				},
+				setValue: function(value) {
+					$('#'+identifier+'_file').val(value);
+					$('#'+identifier+'_file').prev().append('<img src="'+value+'" width="64" height="64" />');
+				},
+				complete : function(id, filename, response){
+					$('#'+identifier+'_file').val(response.location);
+				}
+				
+			}
 		}
 		
 	}
@@ -228,7 +266,7 @@ Editor.Form = function(container, spec, onSubmit) {
 			var labelHtml = $('<label>'+field.title+'<span class="small">'+field.description+'</span></label>');
 			form.append(labelHtml);
 		}
-		
+
 		var controlHtml = $(newControl.create(field.id, field.defaultValue));
 		form.append(controlHtml);
 		
@@ -272,6 +310,8 @@ Editor.Form = function(container, spec, onSubmit) {
 					} else {
 						control.setValue(control.defaultValue);
 					}
+					
+					control.bind();
 				}
 			}
 			

@@ -256,7 +256,6 @@ $.Class.extend("ExplorerPresenter",
 				var dl = $('<dl></dl>');
 				
 				$.each(group.types, function(i, kodaType){
-					console.log(kodaType)
 					var dt = '<dt class="kodaType allowed-in-'+kodaType.allowedin+'"><img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'">'+kodaType.title+'</a></dt>'
 					var dd = '<dd class="allowed-in-'+kodaType.allowedin+'">'+kodaType.description+'</dd>'
 					$(dt).appendTo(dl);

@@ -1,9 +1,12 @@
 <html>
 <head>
 <link rel="stylesheet" href="/assets/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" href="generic-editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <script src="/assets/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/assets/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="/assets/scripts/KodaEditor.js" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/scripts/KodaEditor.js?99a855as" type="text/javascript" charset="utf-8"></script>
+<script src="/assets/scripts/plugins/fileuploader.js?234234a7aa6d4aa" type="text/javascript"></script>
 </head>
 <body>
 	<div id="editor"></div>
@@ -11,13 +14,11 @@
 	
 	(function() {
 		
-		var api = Editor.Api;		
+		var api = Editor.Api;
 		var isNew = api.isNew;
 		var url = '/'+api.itemUrl.toLowerCase();
 		
 		api.get(api.typeUrl, function(kodaType) {
-			
-			var onLoad = function() {}
 			
 			var onUpdate = function(sdata){
 

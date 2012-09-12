@@ -57,9 +57,9 @@ shared_examples_for "Mongo KodaRms write interface" do
        content = 'just some normal plain text, nothing special'
        post '/_koda_media', content
 
-       last_response.status.should == 201
+       last_response.status.should == 200
        last_response.location.should.start_with? '/_koda_media/'
-       last_response.body.should.start_with? '/_koda_media/'
+       last_response.body.should.start_with? '{"location":"/_koda_media/'
        last_response.content_type.should == 'application/json'
   end
   

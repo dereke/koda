@@ -38,7 +38,7 @@
 			"id" : "file",
 			"title" : "File",
 			"description" : "The file to upload",
-			"control" : "textstring",
+			"control" : "mediaupload",
 			"defaultValue" : ""
 		}
 
