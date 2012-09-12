@@ -226,6 +226,8 @@ $.Class.extend("ExplorerPresenter",
 		},
 		
 		toggleRoot: function(root) {
+			$('#help dl').show();
+			$('#help h1').show();
 			if(root){
 				$('.allowed-in-root').show();
 				$('.allowed-in-collection').hide();
@@ -233,18 +235,37 @@ $.Class.extend("ExplorerPresenter",
 				$('.allowed-in-root').hide();
 				$('.allowed-in-collection').show();
 			}
+			
+			// hide empty lists
+			$.each($("#help dl"), function(i, dl){
+				if($(dl).find('dt:visible').length == 0){
+					$(dl).prev().hide();
+					$(dl).hide();
+				}
+			});
+			// rebind events
+			$('#help a.new').unbind('click');
+			$('#help a.new').click(this.new);
 		},
 		
 		attach: function() {
 			
-			$.each(this.Class.kodaTypes, function(i, kodaType){
-				var dt = '<dt class="kodaType allowed-in-'+kodaType.allowedin+'"><img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'">'+kodaType.title+'</a></dt>'
-				var dd = '<dd class="allowed-in-'+kodaType.allowedin+'">'+kodaType.description+'</dd>'
-				$(dt).appendTo('#kodaTypes');
-				$(dd).appendTo('#kodaTypes');
+			$.each(this.Class.kodaTypes, function(i, group){
+				
+				var header = '<h1>'+group.title+'</h1>';
+				var dl = $('<dl></dl>');
+				
+				$.each(group.types, function(i, kodaType){
+					console.log(kodaType)
+					var dt = '<dt class="kodaType allowed-in-'+kodaType.allowedin+'"><img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'">'+kodaType.title+'</a></dt>'
+					var dd = '<dd class="allowed-in-'+kodaType.allowedin+'">'+kodaType.description+'</dd>'
+					$(dt).appendTo(dl);
+					$(dd).appendTo(dl)
+				});
+				
+				$(header).appendTo('#help')
+				$(dl).appendTo('#help');
 			});
-			
-			$('a.new').live('click', this.new);
 			this.find('');
 			this.toggleRoot(true);
 		},
@@ -290,9 +311,11 @@ $.Class.extend("ExplorerPresenter",
 			var self = this;
 			
 			$.each(self.Class.kodaTypes, function(i, item){
-				if(item.type == type) {
-					callback(item);
-				}
+				$.each(item.types, function(i, kodaType){
+					if(kodaType.type == type) {
+						callback(kodaType);
+					}
+				})
 			})
 			
 			return callback(undefined);
@@ -345,7 +368,6 @@ $.Class.extend("ExplorerPresenter",
 				self.find(collection);		
 				self.toggleRoot(false);		
 			}
-			$('a.new').live('click', this.new); // seems to loose the event after the refresh (investigate)
 		},
 		
 		back: function(e) {
@@ -639,7 +661,7 @@ $.Class.extend("CdCommand",
 					} else {
 						callback("folder not found!");
 					}
-
+					
 				});				
 				
 			}

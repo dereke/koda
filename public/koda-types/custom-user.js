@@ -1,6 +1,6 @@
 {
-	"id" : "userKodaType",
-	"title" : "User",
+	"id" : "userCustomType",
+	"title" : "Custom - User",
 	"description" :"Add a user item",
 	"icon" : "/assets/images/group_add.png",
 	"editor" : "/koda-editors/generic-editor.html",
@@ -13,7 +13,7 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-types/koda-user.js"
+			"defaultValue" : "/koda-types/custom-user.js"
 		},	
 		{
 			"id" : "_koda_editor",
