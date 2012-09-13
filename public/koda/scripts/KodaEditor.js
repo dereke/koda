@@ -56,7 +56,6 @@ Editor.Api = function() {
 				        callback(results);
 				    },
 				    error: function(XMLHttpRequest, textStatus, errorThrown){
-				        console.log(errorThrown);
 						callback(null);
 				    }
 				});
@@ -145,6 +144,7 @@ Editor.Controls = function() {
 			this.all['textarea'] = this.textArea;
 			this.all['passwordstring'] = this.passwordString;
 			this.all['richtext'] = this.richText;
+			this.all['kodalinkeditor'] = this.kodaLinkEditor;
 		},
 		
 		hiddenString: function(identifier) {
@@ -173,6 +173,32 @@ Editor.Controls = function() {
 			
 		},
 		
+		kodaLinkEditor : function(identifier) {
+			
+			return {
+			
+				id : identifier,
+				defaultValue: '',
+				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" />',
+				value: '',
+				bind : function() {},
+				create: function(id, value) {
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return $('input#'+this.id).val();
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						$('input#'+this.id).val(value);
+					}
+				}
+			}
+			
+		},
+			
 		textString: function(identifier) {
 			
 			return {

@@ -16,7 +16,6 @@ class MongoCollection
 
   def find_document doc_ref
     doc = create_document_wrapper @collection.find_one("_koda_ref"=>doc_ref)
-
     if (doc == nil)
       begin
         bsonid = BSON::ObjectId.from_string doc_ref

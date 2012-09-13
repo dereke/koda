@@ -241,6 +241,20 @@ get '/api/:collection/:resource' do
     
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
   
+  if(doc && doc['_koda_link'])
+    sections = doc['_koda_link'].split(File::SEPARATOR)
+
+    linked_doc = @db_wrapper.collection(sections[2]).find_document(sections[3])
+
+    if(linked_doc)
+      linked_doc_item = {
+        '_koda_link' => doc['_koda_link'],
+        'document' => linked_doc.standardised_document
+      }
+      doc['linked_document'] = linked_doc_item
+    end
+  end
+  
   halt 404 if doc==nil
   
   last_modified(doc.last_modified)  

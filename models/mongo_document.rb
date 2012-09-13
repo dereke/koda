@@ -66,6 +66,14 @@ class MongoDocument
       'anon'
     end
   end
+  
+  def doc_link 
+    if(@doc['_koda_link'])
+      @doc['_koda_link'].to_s
+    else
+      ''
+    end
+  end
 
   def ref=(value)
       @doc['_koda_ref'] = value

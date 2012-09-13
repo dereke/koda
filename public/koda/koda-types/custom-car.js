@@ -16,6 +16,13 @@
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
+			"id" : "_koda_link",
+			"title" : "Document Link",
+			"description" : "Link to another doc",
+			"control" : "kodalinkeditor",
+			"defaultValue" : ""
+		},		
+		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "Name",
