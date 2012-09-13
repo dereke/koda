@@ -1123,7 +1123,7 @@ $.Class.extend("Console", {}, {
 	init: function(currentUrl) {
 		var url = currentUrl;
 		var arr = url.split("/");
-		var result = arr[0] + "//" + arr[2] + '//api'
+		var result = arr[0] + "//" + arr[2] + '/api'
 
 		Session.kodaUrl = result;
 
