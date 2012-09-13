@@ -27,7 +27,8 @@ class MongoDatabase
     collections = @db.collection_names
   	collections.delete 'system.indexes'  
   	collections.delete 'system.users'  
-  	collections.delete '_koda_meta'  
+  	collections.delete '_koda_meta'
+  	collections.delete 'objectlabs-system'  
   	collections.delete 'fs.chunks'  
   	collections.delete 'fs.files'
     collections
