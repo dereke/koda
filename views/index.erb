@@ -1,1 +1,17 @@
-<h1><%=@message%></h1>
+<% collections = get('/api') %>
+
+<h1>Current Koda Collections</h1>
+<h3>Go to <a href="/explorer">explorer</a> or <a href="/console">to cli</a></h3>
+<ul>
+	<% collections.each do |collection| %>
+	<li>
+		<h3><a href="<%=collection['href'] %>"><%=collection['title']%></a></h3>
+		<% docs = get(collection['href']) %>
+		<ul>
+			<% docs.each do |doc| %>
+				<li><a href="<%=doc['href']%>"><%=doc['title']%></a></li>
+			<% end %>
+		</ul>
+	</li>
+	<% end %>
+</ul>

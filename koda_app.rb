@@ -4,6 +4,13 @@ require 'json'
 require 'sinatra/jsonp'
 require 'rack-methodoverride-with-params'
 require 'erb'
+require 'dalli'
+
+set :cache, Dalli::Client.new
+set :enable_cache, true
+set :short_ttl, 400
+set :long_ttl, 4600
+
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
 
