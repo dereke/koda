@@ -4,6 +4,7 @@
 <h3>Go to <a href="/explorer">explorer</a> or <a href="/console">to cli</a></h3>
 <ul>
 	<% collections.each do |collection| %>
+	<% if !collection['href'].include? "objectlabs-system"%>
 	<li>
 		<h3><a href="<%=collection['href'] %>"><%=collection['title']%></a></h3>
 		<% docs = get(collection['href']) %>
@@ -28,5 +29,6 @@
 			<% end %>
 		</ul>
 	</li>
+	<% end %>
 	<% end %>
 </ul>
