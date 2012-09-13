@@ -141,8 +141,10 @@ Editor.Controls = function() {
 		load: function() {
 			this.all['hiddenstring'] = this.hiddenString;
 			this.all['textstring'] = this.textString;
-			this.all['mediaupload'] = this.mediaUpload;
+			this.all['imageupload'] = this.imageUpload;
 			this.all['textarea'] = this.textArea;
+			this.all['passwordstring'] = this.passwordString;
+			this.all['richtext'] = this.richText;
 		},
 		
 		hiddenString: function(identifier) {
@@ -197,6 +199,32 @@ Editor.Controls = function() {
 			
 		},
 		
+		passwordString: function(identifier) {
+			
+			return {
+			
+				id : identifier,
+				defaultValue: '',
+				html : '<input type="password" id="'+identifier+'" name="'+identifier+'" />',
+				value: '',
+				bind : function() {},
+				create: function(id, value) {
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return $('input#'+this.id).val();
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						$('input#'+this.id).val(value);
+					}
+				}
+			}
+			
+		},
+		
 		textArea: function(identifier) {
 			
 			return {
@@ -223,7 +251,36 @@ Editor.Controls = function() {
 			
 		},
 		
-		mediaUpload: function(identifier) {
+		richText: function(identifier) {
+			
+			return {
+			
+				defaultValue: '',
+				id : '',
+				html : '<div class="richTextEditor" style="display:none"><textarea id="'+identifier+'" name="'+identifier+'"></textarea></div>',
+				value: '',
+				bind : function() {
+					$('.richTextEditor').show();
+					new nicEditor().panelInstance(identifier);					
+				},
+				create: function(id, value) {
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return nicEditors.findEditor(this.id).getContent();
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						$('textarea#'+this.id).val(value);
+					}
+				}
+			}
+			
+		},
+		
+		imageUpload: function(identifier) {
 			
 			return {
 			
@@ -249,10 +306,11 @@ Editor.Controls = function() {
 				},
 				setValue: function(value) {
 					$('#'+identifier+'_file').val(value);
-					$('#'+identifier+'_file').prev().append('<img src="'+value+'" width="64" height="64" />');
+					$('#'+identifier+'_file').prev().append('<img class="uploadedImage" id="'+this.id+'_image" src="'+value+'" />');
 				},
 				complete : function(id, filename, response){
 					$('#'+identifier+'_file').val(response.location);
+					$('#'+identifier+'_image').attr('src', response.location+'?'+Math.random());
 				}
 				
 			}
@@ -301,8 +359,8 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	form.append('<button type="submit">Save</button><div class="spacer"></div>');
 	
+	container.append('<div id="status" style="display:none"></div>');
 	container.append(form);
-	container.append('<div id="status"></div>');
 	
 	return {
 		converters: Object(),

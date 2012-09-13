@@ -4,15 +4,10 @@ require 'json'
 require 'sinatra/jsonp'
 require 'rack-methodoverride-with-params'
 require 'erb'
-require 'dalli'
-
-set :cache, Dalli::Client.new
-set :enable_cache, false
-set :short_ttl, 400
-set :long_ttl, 4600
 
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/routes/*.rb"].each {|file| require file }
 
 class MongoJamSpoon 
 
@@ -62,12 +57,6 @@ def self.GetMongoDatabase
 	  Mongo::Connection.new(config[:server],config[:port] || 27017).db(config[:db])
 	end
 end  
-
-get '/' do
-  @message = "KodaCms.org - Coming soon..."
-  content_type :html
-  erb :index
-end
 
 get '/console' do
   content_type :html
@@ -166,11 +155,7 @@ put '/api/_koda_media/:filename?' do
   file_name = @grid_wrapper.save_media(media, params[:filename])
   
   new_location = '/api/_koda_media/' + file_name
-  
-  if(settings.enable_cache) 
-    settings.cache.delete(new_location)
-  end
-  
+    
   response['Location'] = new_location
   status 200
   result = {
@@ -275,10 +260,6 @@ put '/api/:collection/:resource' do
   status 201 if doc.is_new
   
   response['Location'] = doc.url
-  
-  if(settings.enable_cache) 
-    settings.cache.delete(doc.url)
-  end
   
   body doc.url
 end

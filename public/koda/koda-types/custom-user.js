@@ -40,14 +40,14 @@
 			"id" : "password",
 			"title" : "Password",
 			"description" : "Your password",
-			"control" : "textstring",
+			"control" : "passwordstring",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "confirmpassword",
 			"title" : "Confirm password",
 			"description" : "Confirm your password",
-			"control" : "textstring",
+			"control" : "passwordstring",
 			"defaultValue" : ""
 		}
 	]

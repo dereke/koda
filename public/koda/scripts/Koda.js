@@ -477,11 +477,11 @@ $.Class.extend("ExplorerPresenter",
 			$("#media-trigger").fancybox({
 					'transitionIn'	:	'elastic',
 					'transitionOut'	:	'elastic',
-					'speedIn'		:	600, 
-					'speedOut'		:	200, 
-					'overlayShow'	:	false,
+					'speedIn'		:	300, 
+					'speedOut'		:	100, 
+					'overlayShow'	:	true,
 					'width'			: 	800, 
-					'height'		: 	480,
+					'height'		: 	680,
 					onClosed : function() {
 						callback(itemUrl);
 					}

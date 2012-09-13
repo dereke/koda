@@ -33,7 +33,7 @@
 			"id" : "file",
 			"title" : "File",
 			"description" : "The file to upload",
-			"control" : "mediaupload",
+			"control" : "imageupload",
 			"defaultValue" : ""
 		}
 	]

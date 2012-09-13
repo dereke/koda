@@ -5,6 +5,7 @@
 <link rel="stylesheet" href="generic-editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/plugins/nicEdit.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/KodaEditor.js?99a855as" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/fileuploader.js?234234a7aa6d4aa" type="text/javascript"></script>
 </head>
@@ -23,9 +24,11 @@
 			var onUpdate = function(sdata){
 
 				if(sdata == "OK") {					
-					$('#status').text("item saved");									
+					$('#status').text("Document Saved!");
+					$('#status').show().fadeOut(2000);									
 				} else {				
-					$('#status').text("item could not be saved");				
+					$('#status').text("Saving Failed!");				
+					$('#status').show().fadeOut(2000);
 				}
 
 			}

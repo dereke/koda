@@ -47,14 +47,14 @@
 			"id" : "carImage",
 			"title" : "Car Image",
 			"description" : "Upload an image",
-			"control" : "mediaupload",
+			"control" : "imageupload",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "specs",
 			"title" : "Technical Specs",
 			"description" : "Mode details of the car",
-			"control" : "textarea",
+			"control" : "richtext",
 			"defaultValue" : ""
 		}
 	]

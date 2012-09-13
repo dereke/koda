@@ -1,6 +1,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="/koda/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/KodaEditor.js?234234" type="text/javascript" charset="utf-8"></script>
 
@@ -23,11 +24,13 @@
 					if(sdata == "OK") {					
 						api.delete(url + "/_delete", function(ddata) {
 							if(ddata == "OK"){
-								$('#status').text("folder created");					
+								$('#status').text("Folder Saved!");
+								$('#status').show().fadeOut(2000);					
 							}
 						});					
 					} else {				
-						$('#status').text("folder could not be created");	
+						$('#status').text("Save Failed!");
+						$('#status').show().fadeOut(2000);
 					}
 
 				});

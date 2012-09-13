@@ -29,7 +29,7 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	border-bottom:solid 1px #b7ddf2;
 	padding-bottom:10px;
 }
-#editor label{
+#editor label {
 	display:block;
 	font-weight:bold;
 	text-align:right;
@@ -37,7 +37,7 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	float:left;
 	clear: both;
 }
-#editor .small{
+#editor .small {
 	color:#666666;
 	display:block;
 	font-size:11px;
@@ -45,7 +45,7 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	text-align:right;
 	width:140px;
 }
-#editor input{
+#editor input {
 	float:left;
 	font-size:12px;
 	padding:4px 2px;
@@ -53,9 +53,9 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	width:200px;
 	margin:2px 0 20px 10px;
 }
-#editor button{
+#editor button {
 	clear:both;
-	margin-left:150px;
+	margin-left:160px;
 	width:125px;
 	height:31px;
 	background:#666666;
@@ -67,10 +67,42 @@ p, h1, form, button{border:0; margin:0; padding:0;}
 	cursor: pointer;
 }
 
+#status {
+	width: 135px;
+	font-family: Helvetica;
+	background: paleGoldenrod;
+	height: 18px;
+	padding: 5px;
+	position: absolute;
+	right: 100px;
+	top: 51px;
+}
+
 #editor textarea {
 	float: left;
-	width: 54%;
-	height: 60%;
+	width: 350px;
+	height: 210px;
 	padding: 6px;
 	margin: 10px;
+}
+
+.uploadedImage {
+	width: 141px;
+	position: relative;
+	left: 152px;
+}
+
+.richTextEditor {
+	position: relative;
+	left: 12px !important;
+	float: left;
+}
+
+.richTextEditor > div {
+	width: 350px !important;
+}
+
+#editor .nicEdit-main  {
+	width: 350px !important;
+	min-height: 210px !important;
 }
