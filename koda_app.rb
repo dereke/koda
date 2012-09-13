@@ -166,6 +166,11 @@ put '/api/_koda_media/:filename?' do
   file_name = @grid_wrapper.save_media(media, params[:filename])
   
   new_location = '/api/_koda_media/' + file_name
+  
+  if(settings.enable_cache) 
+    settings.cache.delete(new_location)
+  end
+  
   response['Location'] = new_location
   status 200
   result = {
@@ -270,6 +275,11 @@ put '/api/:collection/:resource' do
   status 201 if doc.is_new
   
   response['Location'] = doc.url
+  
+  if(settings.enable_cache) 
+    settings.cache.delete(doc.url)
+  end
+  
   body doc.url
 end
 
