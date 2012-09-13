@@ -26,7 +26,7 @@
 			"id" : "content",
 			"title" : "Content",
 			"description" : "The contents",
-			"control" : "textarea",
+			"control" : "richtext",
 			"defaultValue" : ""
 		}
 	]
