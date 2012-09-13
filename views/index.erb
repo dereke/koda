@@ -3,8 +3,8 @@
 <h1>Current Koda Collections</h1>
 <h3>Go to <a href="/explorer">explorer</a> or <a href="/console">to cli</a></h3>
 <ul>
-	<% collections.each do |collection| %>
-	<% if !collection['href'].include? "objectlabs-system"%>
+<% collections.each do |collection| %>
+	<% if collection['title'] != "objectlabs-system" %>
 	<li>
 		<h3><a href="<%=collection['href'] %>"><%=collection['title']%></a></h3>
 		<% docs = get(collection['href']) %>
@@ -30,5 +30,5 @@
 		</ul>
 	</li>
 	<% end %>
-	<% end %>
+<% end %>
 </ul>

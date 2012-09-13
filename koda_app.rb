@@ -7,7 +7,7 @@ require 'erb'
 require 'dalli'
 
 set :cache, Dalli::Client.new
-set :enable_cache, true
+set :enable_cache, false
 set :short_ttl, 400
 set :long_ttl, 4600
 

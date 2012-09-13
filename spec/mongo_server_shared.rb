@@ -59,6 +59,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
        last_response.status.should == 200
        last_response.location.should.start_with? '/api/_koda_media/'
+
        last_response.body.should.start_with? '{"location":"/api/_koda_media/'
        last_response.content_type.should == 'application/json'
   end
