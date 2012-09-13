@@ -8,9 +8,11 @@ helpers do
   def get(key, time_to_live=settings.long_ttl)
 
     if !settings.enable_cache
-      get_from_koda(key);
-    elsif settings.cache.get(key) == nil
-      settings.cache.set(key, get_from_koda(key), ttl=time_to_live+rand(100))
+      return get_from_koda(key)
+    end
+    
+    if settings.cache.get(key) == nil
+      return settings.cache.set(key, get_from_koda(key), ttl=time_to_live+rand(100))
     end
 
     settings.cache.get(key)

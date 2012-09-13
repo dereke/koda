@@ -11,12 +11,19 @@
 			<% docs.each do |doc| %>
 				<li>
 					<h4><a href="<%=doc['href']%>"><%=doc['title']%></a></h4>
+					<% if(!doc['href'].include? "_koda_media") %>
+					<% document = get(doc['href']) %>
 					<dl>
-						<% doc.each do |k,v|%>
-						<dt><%=k%></dt>
-						<dd><%=v%><dd>
-						<%end%>
+						<% document.each do |k,v| %>
+						<dt><%=k %></dt>
+						<% if v.include? "_koda_media" %>
+						<dd><img src="<%=v %>" width="100px"></dd>
+						<% else %>
+						<dd><%=v %><dd>
+						<% end %>
+						<% end %>
 					</dl>
+					<% end %>
 				</li>
 			<% end %>
 		</ul>
