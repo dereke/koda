@@ -6,7 +6,7 @@ require 'time'
 shared_examples_for "Uniform Spoon interface" do
 
   it "responds with a json list at the root" do
-    get '/'
+    get '/api/'
     
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
@@ -14,7 +14,7 @@ shared_examples_for "Uniform Spoon interface" do
   end
   
   it "responds with a list of resource links at the root" do
-    get '/'
+    get '/api/'
     
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
@@ -22,7 +22,7 @@ shared_examples_for "Uniform Spoon interface" do
   end
   
   it "responds with a list of gettable resource links from root" do
-    get '/'
+    get '/api/'
     
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
@@ -33,27 +33,27 @@ shared_examples_for "Uniform Spoon interface" do
   end
   
   it "responds from the root with a list of resource links, all of which contain links that correctly respond recursively for all directories" do
-    recursive_resource_requests '/'    
+    recursive_resource_requests '/api'    
   end
   
   it "all resources with content type json should be parseable as json" do
-    recursive_resource_requests '/', &method(:url_claiming_to_be_json_should_be)
+    recursive_resource_requests '/api', &method(:url_claiming_to_be_json_should_be)
   end
   
   it "all lists that support posts should be postable to with json" do
-    recursive_resource_requests '/', &method(:url_supporting_post_should_create_resource_after_post)
+    recursive_resource_requests '/api', &method(:url_supporting_post_should_create_resource_after_post)
   end
   
   it "all resources that support puts with json should replace resource" do
-    recursive_resource_requests '/', &method(:url_supporting_put_of_json_should_alter_the_resource)
+    recursive_resource_requests '/api', &method(:url_supporting_put_of_json_should_alter_the_resource)
   end
   
   it "all resources that support puts of non-json should replace resource" do
-    recursive_resource_requests '/', &method(:url_supporting_put_of_media_should_alter_the_resource)
+    recursive_resource_requests '/api', &method(:url_supporting_put_of_media_should_alter_the_resource)
   end
   
   it "all resources supporting delete should be deletable" do
-    recursive_resource_requests '/', &method(:url_supporting_delete_should_remove_resource_after_delete)
+    recursive_resource_requests '/api', &method(:url_supporting_delete_should_remove_resource_after_delete)
   end
 
   

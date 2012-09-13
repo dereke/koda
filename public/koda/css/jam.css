@@ -425,13 +425,13 @@ header[role="banner"] h2 {
 }
 
 #explorer a.collection {
-	background-image: url(/assets/images/box.png);
+	background-image: url(/koda/images/box.png);
 	background-repeat: no-repeat;
 	background-position-x: 1px;
 }
 
 #back-button a {
-	background-image: url(/assets/images/back.png);
+	background-image: url(/koda/images/back.png);
 	background-repeat: no-repeat;
 	background-position-x: 14px;
 	background-position-y: 7px;

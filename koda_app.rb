@@ -3,11 +3,9 @@ require 'sinatra'
 require 'json'
 require 'sinatra/jsonp'
 require 'rack-methodoverride-with-params'
-require File.join(File.dirname(__FILE__), %w[mongo_document])
-require File.join(File.dirname(__FILE__), %w[mongo_database])
-require File.join(File.dirname(__FILE__), %w[mongo_collection])
-require File.join(File.dirname(__FILE__), %w[mongo_media])
-require File.join(File.dirname(__FILE__), %w[mongo_grid])
+require 'erb'
+Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
 
 class MongoJamSpoon 
 
@@ -58,60 +56,71 @@ def self.GetMongoDatabase
 	end
 end  
 
+get '/' do
+  @message = "KodaCms.org - Coming soon..."
+  content_type :html
+  erb :index
+end
+
 get '/console' do
   content_type :html
-  File.new('public/console.html').readlines
+  File.new('public/koda/console.html').readlines
 end
 
 get '/explorer' do
   content_type :html
-  File.new('public/explorer.html').readlines
+  File.new('public/koda/explorer.html').readlines
 end
 
-get '/koda-types/*' do 
+get '/koda/koda-types/*' do 
   response['Allow'] = 'GET'
 end
 
-get '/' do
+get '/api' do
   content_type :json, 'jammeta' => 'list'
   JSONP @db_wrapper.collection_links
 end
 
-put '/' do
+get '/api/' do
+  content_type :json, 'jammeta' => 'list'
+  JSONP @db_wrapper.collection_links
+end
+
+put '/api' do
   status 405
   response['Allow'] = 'GET'
 end
 
-post '/' do
+post '/api' do
   response['Allow'] = 'GET'
   status 405
 end
 
-delete '/' do
+delete '/api' do
   response['Allow'] = 'GET'
   status 405
 end
 
-options '/' do
+options '/api' do
   response['Allow'] = 'GET'
 end
 
-get '/_koda_media/?' do
+get '/api/_koda_media/?' do
   content_type :json, 'jammeta' => 'list'
   media = @grid_wrapper.media_links.to_json
 end
 
-put '/' do
+put '/api' do
   status 405
   response['Allow'] = 'GET,POST'
 end
 
-post '/_koda_media/?' do  
+post '/api/_koda_media/?' do  
     
   media = MongoMedia.new request, params
   file_name = @grid_wrapper.save_media media
   
-  new_location = '/_koda_media/' + file_name
+  new_location = '/api/_koda_media/' + file_name
   response['Location'] = new_location
   status 200
   result = {
@@ -122,16 +131,16 @@ post '/_koda_media/?' do
   
 end
 
-delete '/_koda_media/?' do
+delete '/api/_koda_media/?' do
   response['Allow'] = 'GET,POST'
   status 405
 end
 
-options '/_koda_media/?' do
+options '/api/_koda_media/?' do
   response['Allow'] = 'GET,POST'
 end
 
-get '/_koda_media/:filename' do
+get '/api/_koda_media/:filename' do
   media = @grid_wrapper.get_media params[:filename]
     
   if (media == nil)
@@ -144,12 +153,12 @@ get '/_koda_media/:filename' do
   body media.body  
 end
 
-put '/_koda_media/:filename?' do
+put '/api/_koda_media/:filename?' do
   
   media = MongoMedia.new request, params
   file_name = @grid_wrapper.save_media(media, params[:filename])
   
-  new_location = '/_koda_media/' + file_name
+  new_location = '/api/_koda_media/' + file_name
   response['Location'] = new_location
   status 200
   result = {
@@ -160,16 +169,16 @@ put '/_koda_media/:filename?' do
   
 end
 
-post '/_koda_media/:filename?' do
+post '/api/_koda_media/:filename?' do
   response['Allow'] = 'GET,PUT,DELETE'
   status 405
 end
 
-delete '/_koda_media/:filename?' do
+delete '/api/_koda_media/:filename?' do
   @grid_wrapper.delete_media(params[:filename])
 end
 
-options '/_koda_media/:filename' do
+options '/api/_koda_media/:filename' do
   media = @grid_wrapper.get_media params[:filename]
     
   if (media == nil)
@@ -180,7 +189,7 @@ options '/_koda_media/:filename' do
   response['Allow'] = 'GET,PUT,DELETE'
 end
 
-get '/:collection/?' do
+get '/api/:collection/?' do
   content_type :json, 'jammeta' => 'list'
   collection_name = params[:collection]
   
@@ -200,7 +209,7 @@ get '/:collection/?' do
   end
 end
 
-post '/:collection/?' do
+post '/api/:collection/?' do
     collection_name = params[:collection]
     hash = JSON.parse request.env["rack.input"].read
     
@@ -215,21 +224,21 @@ post '/:collection/?' do
     body new_doc.url
 end
 
-put '/:collection/?' do
+put '/api/:collection/?' do
   status 405
   response['Allow'] = 'GET,POST,DELETE'
 end  
 
-delete '/:collection/?' do
+delete '/api/:collection/?' do
   @db_wrapper.collection(params[:collection]).delete()
 end
 
-options '/:collection/?' do
+options '/api/:collection/?' do
   halt 404 if not @db_wrapper.contains_collection(params[:collection])  
   response['Allow'] = 'GET,POST,DELETE'
 end
 
-get '/:collection/:resource' do
+get '/api/:collection/:resource' do
   collection_name = params[:collection]
   doc_ref = params[:resource]
     
@@ -241,11 +250,11 @@ get '/:collection/:resource' do
   JSONP doc.standardised_document
 end
 
-post '/:collection/:resource' do
+post '/api/:collection/:resource' do
   status 405
 end
 
-put '/:collection/:resource' do
+put '/api/:collection/:resource' do
   collection_name=params[:collection]
   resource_name = params[:resource]
   hash = JSON.parse request.env["rack.input"].read
@@ -257,11 +266,11 @@ put '/:collection/:resource' do
   body doc.url
 end
 
-delete '/:collection/:resource' do
+delete '/api/:collection/:resource' do
   @db_wrapper.collection(params[:collection]).delete_document(params[:resource])  
 end
 
-options '/:collection/:resource' do
+options '/api/:collection/:resource' do
   collection_name = params[:collection]
   doc_ref = params[:resource]
   

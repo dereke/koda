@@ -1,6 +1,6 @@
 require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../mongo_database])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_database])
 require File.join(File.dirname(__FILE__), %w[doubles/mongo_db_double])
 
 describe 'Mongo Database' do

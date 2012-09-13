@@ -35,7 +35,7 @@ class MongoGrid
 
   def media_links
     media_map.raw_document['media'].keys.map do |name|
-      {'href' => '/_koda_media/' + name.to_s, 'rel' => 'full', 'title' => name.to_s}      
+      {'href' => '/api/_koda_media/' + name.to_s, 'rel' => 'full', 'title' => name.to_s}      
     end    
   end
 

@@ -1,9 +1,4 @@
 {
-	"id" : "mediaKodaType",
-	"title" : "Media",
-	"description" :"Image, Video or Audio",
-	"icon" : "/assets/images/image_add.png",
-	"editor" : "/koda-editors/generic-editor.html",
 	"fields" : [
 		{
 			"id" : "_koda_ref",
@@ -13,12 +8,12 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-types/koda-media.js"
+			"defaultValue" : "/koda/koda-types/koda-media.js"
 		},	
 		{
 			"id" : "_koda_editor",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-editors/generic-editor.html"
+			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "name",
@@ -41,7 +36,5 @@
 			"control" : "mediaupload",
 			"defaultValue" : ""
 		}
-
-		
 	]
 }

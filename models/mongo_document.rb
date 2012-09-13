@@ -80,7 +80,7 @@ class MongoDocument
   end
   
   def url
-    '/' + @collection + '/' + ref
+    '/api/' + @collection + '/' + ref
   end
   
 end

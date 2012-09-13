@@ -1,9 +1,4 @@
 {
-	"id" : "carCustomType",
-	"title" : "Custom - Car",
-	"description" :"Add a Car item",
-	"icon" : "/assets/images/car_add.png",
-	"editor" : "/koda-editors/generic-editor.html",
 	"fields" : [
 		{
 			"id" : "_koda_ref",
@@ -13,12 +8,12 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-types/custom-car.js"
+			"defaultValue" : "/koda/koda-types/custom-car.js"
 		},	
 		{
 			"id" : "_koda_editor",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-editors/generic-editor.html"
+			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "name",

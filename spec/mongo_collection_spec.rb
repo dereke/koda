@@ -1,6 +1,6 @@
 require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../mongo_collection])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_collection])
 
 describe 'Mongo Collection' do
   
@@ -8,7 +8,7 @@ describe 'Mongo Collection' do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.url.should == '/articles/4db0dedb387f7123c9000002'        
+    doc.url.should == '/api/articles/4db0dedb387f7123c9000002'        
   end
   
   

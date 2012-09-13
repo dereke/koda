@@ -1,8 +1,8 @@
 <html>
 <head>
-<link rel="stylesheet" href="/assets/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
-<script src="/assets/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="/assets/scripts/KodaEditor.js" type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" href="/koda/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/KodaEditor.js?234234" type="text/javascript" charset="utf-8"></script>
 
 </head>
 <body>
@@ -14,13 +14,14 @@
 		var api = Editor.Api;		
 		var isNew = api.isNew;
 		
-		api.get('/koda-types/koda-collection.js', function(kodaType) {
+		api.get('/koda/koda-types/koda-collection.js', function(kodaType) {
 			var onSubmit = function(data) {
-				var newItem = data.name.replace(/ /g,"-").toLowerCase();
-				api.post('/'+newItem, '{"_koda_ref":"_delete"}', function(sdata) {
+				var newItem = data.name.replace(/ /g,"-");
+				var url = PathHelper.getPath(newItem);
+				api.post(url, '{"_koda_ref":"_delete"}', function(sdata) {
 
 					if(sdata == "OK") {					
-						api.delete('/'+newItem + "/_delete", function(ddata) {
+						api.delete(url + "/_delete", function(ddata) {
 							if(ddata == "OK"){
 								$('#status').text("folder created");					
 							}

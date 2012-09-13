@@ -1,6 +1,6 @@
 require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../mongo_document])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_document])
 require 'time'
 
 describe 'Mongo Document' do
@@ -9,7 +9,7 @@ describe 'Mongo Document' do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.url.should == '/articles/4db0dedb387f7123c9000002'        
+    doc.url.should == '/api/articles/4db0dedb387f7123c9000002'        
   end
   
   it "has a title that is based on id" do
@@ -32,14 +32,14 @@ describe 'Mongo Document' do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), '_koda_ref'=>'uniquereference', 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.url.should == '/articles/uniquereference'        
+    doc.url.should == '/api/articles/uniquereference'        
   end
   
   it "returns a resource url based on overriden" do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles', BSON::ObjectId('4db0dedb387f7123c9000006')
-    doc.url.should == '/articles/4db0dedb387f7123c9000006'        
+    doc.url.should == '/api/articles/4db0dedb387f7123c9000006'        
   end
   
   it "standardised document has no id" do

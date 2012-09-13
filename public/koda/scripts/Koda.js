@@ -26,6 +26,22 @@ $.Class.extend("RestService",
 				});
 
 			},
+			
+			getExternal: function(path, callback) {
+
+				jQuery.ajax({
+				    type: "GET",
+				    url: path + "?" + new Date().getTime(),
+				    dataType: "json",
+				    success: function(results){
+				        callback(results);
+				    },
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+				        callback(null);
+				    }
+				});
+
+			},
 
 			delete: function(path, callback) {
 
@@ -439,14 +455,14 @@ $.Class.extend("ExplorerPresenter",
 			var self = Window.Presenter;
 			
 			if(type=="collection"){
-				self.launchEditor('/koda-editors/collection-editor.html', '', itemUrl, false, callback);
+				self.launchEditor('/koda/koda-editors/collection-editor.html', '', itemUrl, false, callback);
 			} else {
 				self.Class.controller.findCommand('get', function(cmd) {
 					cmd.execute([itemUrl], function(result) {
 						if('_koda_editor' in result) {
 							self.launchEditor(result._koda_editor, result._koda_type, itemUrl, false, callback);
 						} else {
-							self.launchEditor('/koda-editors/json-editor.html', '', itemUrl, false, callback);
+							self.launchEditor('/koda/koda-editors/json-editor.html', '', itemUrl, false, callback);
 						}
 					});
 				});
@@ -862,7 +878,7 @@ $.Class.extend("LsCommand",
 							
 							var href = item.href;
 							var count = href.split("/").length - 1
-							var indicator = count > 1 ? "<FILE>  " : "<DIR>  ";
+							var indicator = count > 2 ? "<FILE>  " : "<DIR>  ";
 							output += indicator+item.title + "\n";
 							Session.history.push(item.title);
 						
@@ -903,7 +919,7 @@ $.Class.extend("ListCommand",
 					$.each(data, function(i, item){
 						var href = item.href;
 						var count = href.split("/").length - 1
-						var indicator = count > 1 ? "file" : "collection";
+						var indicator = count > 2 ? "file" : "collection";
 						output.push({ title: item.title, _koda_type : item._koda_type, type: indicator});
 
 					});					
@@ -1081,7 +1097,7 @@ $.Class.extend("Explorer", {}, {
 	init: function(currentUrl) {
 		var url = currentUrl;
 		var arr = url.split("/");
-		var result = arr[0] + "//" + arr[2]
+		var result = arr[0] + "//" + arr[2] + '/api'
 
 		Session.kodaUrl = result;
 
@@ -1095,7 +1111,7 @@ $.Class.extend("Explorer", {}, {
 		commands.push(new UploadCommand());
 		commands.push(new GetCommand(service));
 		
-		service.get('koda-types/koda-types.js', function(data){
+		service.getExternal('/koda/koda-types/koda-types.js?23423442', function(data){
 			var controller = new KodaController(commands);
 			Window.Presenter = new ExplorerPresenter(controller, data);
 			Window.Presenter.attach();	
@@ -1107,7 +1123,7 @@ $.Class.extend("Console", {}, {
 	init: function(currentUrl) {
 		var url = currentUrl;
 		var arr = url.split("/");
-		var result = arr[0] + "//" + arr[2]
+		var result = arr[0] + "//" + arr[2] + '//api'
 
 		Session.kodaUrl = result;
 

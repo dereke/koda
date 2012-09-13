@@ -1,12 +1,9 @@
 <html>
 <head>
-<link rel="stylesheet" href="/assets/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
-<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.1.0/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-<link rel="stylesheet" href="generic-editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
-<script src="/assets/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
-<script src="/assets/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
-<script src="/assets/scripts/KodaEditor.js?99a855as" type="text/javascript" charset="utf-8"></script>
-<script src="/assets/scripts/plugins/fileuploader.js?234234a7aa6d4aa" type="text/javascript"></script>
+<link rel="stylesheet" href="/koda/css/editor.css" type="text/css" media="screen" title="no title" charset="utf-8">
+<script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/KodaEditor.js?987" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
 	<div id="editor"></div>
@@ -14,11 +11,13 @@
 	
 	(function() {
 		
-		var api = Editor.Api;
+		var api = Editor.Api;		
 		var isNew = api.isNew;
-		var url = '/'+api.itemUrl.toLowerCase();
+		var url = PathHelper.getPath(api.itemUrl);
 		
-		api.get(api.typeUrl, function(kodaType) {
+		api.get('/koda/koda-types/koda-json.js', function(kodaType) {
+			
+			var onLoad = function() {}
 			
 			var onUpdate = function(sdata){
 
@@ -36,11 +35,13 @@
 					
 					var ref = data.name.replace(/ /g,"-").toLowerCase();
 					data._koda_ref = ref;
+					data.content = JSON.parse(data.content);
 					var dataString = JSON.stringify(data, null, 2);
 					api.post(url, dataString, onUpdate);
 
 				} else {
 
+					data.content = JSON.parse(data.content);
 					var dataString = JSON.stringify(data, null, 2);
 					api.put(url, dataString, onUpdate);
 
@@ -50,6 +51,9 @@
 			var kodaForm = Editor.Form($('#editor'), kodaType, onSubmit);
 			api.get(url, function(content){
 				if(content != []) {
+					kodaForm.registerConverter('content', function(value, control){
+						control.setValue(JSON.stringify(value));
+					});
 					kodaForm.load(content);
 				}
 			});

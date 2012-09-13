@@ -1,7 +1,7 @@
 require 'test/spec'
-require File.join(File.dirname(__FILE__), %w[../mongo_grid])
-require File.join(File.dirname(__FILE__), %w[../mongo_media])
-require File.join(File.dirname(__FILE__), %w[../mongo_collection])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_grid])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_media])
+require File.join(File.dirname(__FILE__), %w[../models/mongo_collection])
 require File.join(File.dirname(__FILE__), %w[doubles/mongo_grid_double])
 require File.join(File.dirname(__FILE__), %w[doubles/mongo_db_double])
 require 'json'

@@ -1,9 +1,4 @@
 {
-	"id" : "kodaJson",
-	"title" : "Generic Json",
-	"description" :"This will create a simple json document",
-	"icon" : "",
-	"editor" : "/koda-editors/json-editor.html",
 	"fields" : [
 		{
 			"id" : "_koda_ref",
@@ -13,24 +8,24 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-types/koda-json.js"
+			"defaultValue" : "/koda/koda-types/koda-generictext.js"
 		},	
 		{
 			"id" : "_koda_editor",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-editors/json-editor.html"
+			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "name",
 			"title" : "Name",
-			"description" : "The name of the document",
+			"description" : "The name of the content",
 			"control" : "textstring",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "content",
 			"title" : "Content",
-			"description" : "The contents of the document",
+			"description" : "The contents",
 			"control" : "textarea",
 			"defaultValue" : ""
 		}

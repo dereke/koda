@@ -1,9 +1,4 @@
 {
-	"id" : "kodaGenericText",
-	"title" : "Generic Text",
-	"description" :"This will create a simple text document",
-	"icon" : "",
-	"editor" : "/koda-editors/generic-editor.html",
 	"fields" : [
 		{
 			"id" : "_koda_ref",
@@ -13,24 +8,24 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-types/koda-generictext.js"
+			"defaultValue" : "/koda/koda-types/koda-json.js"
 		},	
 		{
 			"id" : "_koda_editor",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda-editors/generic-editor.html"
+			"defaultValue" : "/koda/koda-editors/json-editor.html"
 		},
 		{
 			"id" : "name",
 			"title" : "Name",
-			"description" : "The name of the content",
+			"description" : "The name of the document",
 			"control" : "textstring",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "content",
 			"title" : "Content",
-			"description" : "The contents",
+			"description" : "The contents of the document",
 			"control" : "textarea",
 			"defaultValue" : ""
 		}

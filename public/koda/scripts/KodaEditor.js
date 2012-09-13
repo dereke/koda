@@ -4,6 +4,20 @@
    ----------------------------------------------------------
 */
 var Editor = Editor || {};
+var RootUrl = '/api';
+
+String.prototype.startsWith = function(str) 
+{return (this.match("^"+str)==str)}
+
+var PathHelper = {
+	getPath : function(path) {
+		if(path.startsWith('/'))
+			return (RootUrl + path).toLowerCase();
+		else {
+			return (RootUrl + '/' + path).toLowerCase();
+		}
+	}
+}
 
 Editor.Api = function() {
 	
@@ -221,7 +235,7 @@ Editor.Controls = function() {
 				bind : function(){
 					var uploader = new qq.FileUploader({
 						element: $('.fileuploader')[0],
-					    action: ('/_koda_media'),
+					    action: PathHelper.getPath('/_koda_media'),
 						onComplete : this.complete
 					});
 				},
@@ -255,7 +269,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	var controlsCollection = new Object();
 
-	var form = $('<form id="'+spec.id+'" name="'+spec.id+'" method="post"></form>');
+	var form = $('<form id="koda-form" name="koda-form" method="post"></form>');
 	
 	$.each(spec.fields, function(i, field){
 		

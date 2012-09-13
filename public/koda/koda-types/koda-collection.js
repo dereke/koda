@@ -1,9 +1,4 @@
 {
-	"id" : "kodaCollection",
-	"title" : "Koda Collection",
-	"description" :"A container to hold KodaTypes",
-	"icon" : "",
-	"editor" : "/koda-editors/collection-editor.html",
 	"fields" : [
 		{
 			"id" : "name",
