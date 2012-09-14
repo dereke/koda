@@ -48,7 +48,15 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Car",
+				"title" : "Blog Post",
+				"description" :"Blog post item",
+				"icon" : "/koda/images/page_white_edit.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type" : "/koda/koda-types/custom-blogpost.js",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "Car Example",
 				"description" :"Add a Car item",
 				"icon" : "/koda/images/car_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
