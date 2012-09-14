@@ -18,7 +18,7 @@ class MongoMedia
   
   def populate_from_multipart params
       
-    file = params[:file]
+    file = params[:file] 
     
     if (file == nil)
       file = params[:files][0]
