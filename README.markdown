@@ -9,8 +9,10 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 
 ## Creating Koda Types
 
-> To Create Koda types place a new js file in the /koda/koda-types folder
-> Register your type in the _type_registration.js file and you are done!
+> To Create Koda types place a new js file in the /koda/koda-types folder  
+
+> Register your type in the _type_registration.js file and you are done!  
+
 
 ```javascript
 {
@@ -65,10 +67,13 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 
 ## Creating Koda Indexes
 
-> Creating a new Koda Index is as easy as placing a file into the /koda/koda-indexes folder.
-> You can then call the index on any collection
+> Creating a new Koda Index is as easy as placing a file into the /koda/koda-indexes folder.  
 
-> lets say we place a file `icons.js` into the indexes folder
+> You can then call the index on any collection  
+
+
+> lets say we place a file `icons.js` into the indexes folder  
+
 
 ```javascript
 { // REMOVE ALL COMMENTS BEFORE USING
@@ -78,12 +83,13 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 	"sort" : { // add properties that you would like to sort on
 		"name" : "1"
 	}
-}```
+}
+```
 
-> now just call 
+> now just call   
 `/api/cars/indexed/icons`
 
-> and you will receive documents that match the criteria
+> and you will receive documents that match the criteria   
 
 ## Backup / Restore one mongo instance to another
 
