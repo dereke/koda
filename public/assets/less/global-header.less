@@ -1,0 +1,80 @@
+// Global header
+// -------------------------
+.global-header {
+    #gradient > .vertical(#fff, #e4e4e4);
+    .box-shadow(0 1px 2px 0 #bbb);
+    background-color: #e4e4e4;
+    position: relative; // Make box-shadow overlap slider
+    z-index: 1;
+    padding-top: 23px;
+
+    // Header logo
+    .header-logo {
+        margin: 0 0 15px;
+
+        a {
+            .ir;
+            width: 136px;
+            height: 32px;
+            display: block;
+            background: url("@{imgPath}header-logo.png") no-repeat;
+            margin: auto;
+
+            &:hover {
+                .opacity(90);
+            }
+        }
+    }
+
+    // Tagline
+    .tagline {
+        color: lighten(@textColor, 40%);
+        font-size: @baseFontSize - 1;
+        font-weight: normal;
+        text-shadow: 0 1px 0 #fff;
+        text-align: center;
+        letter-spacing: 1px;
+        margin: 0 0 14px;
+    }
+}
+
+// 40em devices and up
+// -------------------------
+@media only screen and (min-width: 40em) {
+
+    .global-header {
+        .clearfix;
+        padding: 23px 15px 20px 27px;
+
+        // Header logo
+        .header-logo {
+            width: 136px;
+            height: 32px;
+            float: left;
+            margin: 0;
+
+            a {
+
+                &:active {
+                    margin-top: 1px;
+                }
+            }
+        }
+
+        // Tagline
+        .tagline {
+            .visuallyhidden;
+        }
+    }
+}
+
+// @desktopWidth devices and up
+// -------------------------
+@media only screen and (min-width: @desktopWidth) {
+
+    .global-header {
+        .border-radius(@baseBorderRadius);
+        width: @desktopWidth;
+        margin: auto;
+    }
+}

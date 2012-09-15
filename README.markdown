@@ -7,6 +7,29 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 
 ### Using KodaCMS
 
+## Using Content inside Views
+
+```html
+<ul class="slides">
+<% get_documents('slides').each do |slide_ref| %>
+<% slide = get_document 'slides', slide_ref['title'] %>
+<li class="slide new-start">
+     <div>
+         <h1 class="slide-title"><%=slide['name']%></h1>
+         <p><strong><%=slide['teaser']%></strong></p>
+         <p><%=slide['body']%></p>
+         <p class="learn-more"><a href="<%=slide['learnmorelink']%>">Learn More</a></p>
+     </div>
+ </li>
+<% end %>
+</ul>
+```
+
+`get_all_content`
+`get_documents(collection_name)`
+`get_document(collection_name, doc_ref)`
+`get_index(collection_name, index_name)`
+
 ## Creating Koda Types
 
 > To Create Koda types place a new js file in the /koda/koda-types folder  
@@ -93,7 +116,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 
 ## Backup / Restore one mongo instance to another
 
-`ruby backup.rb dump .`goo
+`ruby backup.rb dump .`   
 `ruby backup.rb restore .`
 
 ## Backup / Restore on Heroku

@@ -126,10 +126,9 @@ get '/api/:collection/indexed/:query/?' do
   collection_name = params[:collection]
 
   halt 404 if not @db_wrapper.contains_collection(collection_name)  
-  
 
-
-  search_hash = JSON.parse response.body
+  response = get_raw "/koda/koda-indexes/#{query}.js"
+  search_hash = JSON.parse response
 
   if(search_hash["sort"] != nil)
     sort_hash = search_hash["sort"]
@@ -201,7 +200,7 @@ get '/api/:collection/:resource?' do
       doc['linked_documents'] = []
       
       doc_links.each do |doc_link|
-        doc_to_include = get_document_at "#{doc_link}?include=false"
+        doc_to_include = JSON.parse(get_raw "#{doc_link}?include=false")
         if(doc_to_include)
           linked_doc_item = {
             '_koda_doc_link' => doc_link,

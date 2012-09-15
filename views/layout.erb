@@ -1,9 +1,124 @@
-<html>
-	<head>
-		<title><%=@title%></title>
-		<%=style_link('/assets/css/site.css') %>
-	</head>
-	<body>
-		<%=yield%>
-	</body>
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>KodaCMS - <%=@title%></title>
+        <meta name="description" content="Open-source powerful and robust ruby content management system.">
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1.0,user-scalable=no">
+        <%=style_link('/assets/css/main.css') %>
+        <!--[if lt IE 9]>
+            <script src="js/vendor/html5shiv.min.js"></script>
+            <script src="js/vendor/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body class="home">
+
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
+        <![endif]-->
+
+        <div class="wrap">
+
+            <header class="global-header" role="banner">
+                <hgroup>
+                    <h1 class="header-logo"><a href="index.html" title="Rebel CMS Home" rel="home">RebelCMS</a></h1>
+                    <h2 class="tagline">Open-source ASP.NET CMS</h2>
+                </hgroup>
+                <nav class="global-nav">
+                    <h1 class="visuallyhidden">Global Navigation</h1>
+                    <ul>
+                        <li><a href="/" class="current" rel="home">Home</a></li>
+                        <li><a href="/about">About</a></li>
+                        <li><a href="download.html">Download</a></li>
+                        <li><a href="forum.html">Forum</a></li>
+                        <li><a href="/blog">Blog</a></li>
+                        <li><a href="/support">Support</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <section class="slider featured-slider">
+                <h1 class="visuallyhidden">Featured</h1>
+				<ul class="slides">
+				<% get_documents('slides').each do |slide_ref| %>
+				<% slide = get_document 'slides', slide_ref['title'] %>
+				<li class="slide new-start">
+                     <div>
+                         <h1 class="slide-title"><%=slide['name']%></h1>
+                         <p><strong><%=slide['teaser']%></strong></p>
+                         <p><%=slide['body']%></p>
+                         <p class="learn-more"><a href="<%=slide['learnmorelink']%>">Learn More</a></p>
+                     </div>
+                 </li>
+				<% end %>
+                </ul>
+            </section>
+
+            <div class="main-content" role="main">
+
+                <div class="main">
+					<%=yield%>
+                </div>
+
+                <aside class="sidebar">
+
+                    <div class="features">
+                        <h2>Features</h2>
+                        <ul>
+                            <li class="feature performance"><a href="#">Blistering performance</a></li>
+                            <li class="feature support"><a href="#">Enterprise support</a></li>
+                            <li class="feature architecture"><a href="#">MVC architecture</a></li>
+                            <li class="feature api"><a href="#">REST API</a></li>
+                            <li class="more"><a href="#">More Features</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="download-buttons">
+                        <h2 class="visuallyhidden">Download Rebel CMS</h2>
+                        <ul>
+                            <li><a href="#" class="btn green download">Download Latest</a></li>
+                            <li><a href="#" class="btn github">View on GitHub</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="get-involved">
+                        <h2>Get involved</h2>
+                        <p>We're a relatively new project building upon a fantastic enterprise level product. Contributing is easy and rewarding so get involved with our <a href="#">developer introduction</a>.</p>
+                    </div>
+
+                </aside>
+
+            </div>
+
+            <footer class="global-footer" role="contentinfo">
+
+                <nav class="footer-nav">
+                    <h1 class="visuallyhidden">Footer Navigation</h1>
+                    <ul>
+                        <li><a href="index.html" class="current" rel="home">Home</a></li>
+                        <li><a href="forum.html">Forum</a></li>
+                        <li><a href="docs.html">Docs</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="https://github.com/RebelCMS">GitHub</a></li>
+                        <li><a href="support.html">Support</a></li>
+                        <li><a href="download.html">Download</a></li>
+                        <li><a href="https://twitter.com/rebel_cms">Twitter</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </nav>
+
+                <aside class="copyright">
+                    <p>Rebel CMS is built under <a href="http://opensource.org/licenses/MIT" rel="license">MIT License</a></p>
+                </aside>
+
+            </footer>
+
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<%=script_link('/assets/js/vender/jquery-1.8.1.min.js')%>')</script>
+
+        <%=script_link("/assets/js/plugins.js")%>
+  		<%=script_link("/assets/js/main.js")%>
+    </body>
 </html>

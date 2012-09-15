@@ -6,12 +6,20 @@ require 'uri'
 
 helpers do
     
-  def get_content()
+  def get_all_content()
     @db_wrapper.flat_file
-  end 
-    
-  def get_document_at(path)
-      JSON.parse get_raw(path)
+  end
+  
+  def get_documents(collection_name, skip=nil, take=nil)
+    @db_wrapper.collection(collection_name).resource_links(take, skip, nil)
+  end
+  
+  def get_document(collection_name, doc_ref)
+    @db_wrapper.collection(collection_name).find_document(doc_ref)
+  end
+  
+  def get_index(collection_name, index_name)
+    JSON.parse get_raw("/api/#{collection_Name}/indexed/#{index_name}")
   end
   
   def get_raw(url)

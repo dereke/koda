@@ -14,3 +14,8 @@ get '/' do
   content_type :html
   erb :index
 end
+
+get '/:page?' do
+  content_type :html
+  erb params[:page]
+end
