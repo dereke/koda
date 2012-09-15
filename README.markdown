@@ -25,10 +25,11 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 </ul>
 ```
 
-`get_all_content`
-`get_documents(collection_name)`
-`get_document(collection_name, doc_ref)`
-`get_index(collection_name, index_name)`
+`get_all_content`  
+`get_documents(collection_name)`  
+`get_document(collection_name, doc_ref)`  
+`get_index(collection_name, index_name)`  
+
 
 ## Creating Koda Types
 
