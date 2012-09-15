@@ -16,7 +16,12 @@
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
-			"id" : "_koda_link",
+			"id" : "_koda_indexes",
+			"control" : "hiddenstring",
+			"defaultValue" : "make,model"
+		},
+		{
+			"id" : "_koda_doc_links",
 			"title" : "Document Link",
 			"description" : "Link to another doc",
 			"control" : "kodalinkeditor",

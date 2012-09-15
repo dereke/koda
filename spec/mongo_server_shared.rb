@@ -60,7 +60,7 @@ shared_examples_for "Mongo KodaRms write interface" do
        last_response.status.should == 200
        last_response.location.should.start_with? '/api/_koda_media/'
 
-       last_response.body.should.start_with? '{"location":"/api/_koda_media/'
+       last_response.body.should.include? '/api/_koda_media/'
        last_response.content_type.should == 'application/json'
   end
   
@@ -310,7 +310,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;jammeta=list'    
+    last_response.content_type.should == 'application/json;kodameta=list'    
   end
   
   it "returns the correct collections at root" do
@@ -342,7 +342,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api/trucks'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;jammeta=list'    
+    last_response.content_type.should == 'application/json;kodameta=list'    
   end
   
 
@@ -460,14 +460,6 @@ shared_examples_for "Mongo KodaRms read interface" do
     last_response['Cache-Control'].should == 'no-cache'
   end
   
-  it "can be queried using json template" do
-    get URI.encode('/api/trucks?q={"size":"big"}')
-    
-    response_json = JSON.parse last_response.body
-    response_json.length.should == 1
-    response_json.detect { |e| e['title'] == '4db0dedb387f7123c9000001'}.should.not == nil
-  end
-  
   it "can be requested to restrict the number of results" do
     get URI.encode('/api/trucks?take=2')
     
@@ -491,58 +483,5 @@ shared_examples_for "Mongo KodaRms read interface" do
     response_json.length.should == 1
     response_json.detect { |e| e['title'] == '4 wheeled truck'}.should.not == nil    
   end
-    
-  it "can be requested to restrict the number of results for a query" do
-    get URI.encode('/api/trucks?q={"wheels":4}&take=2')
-    
-    response_json = JSON.parse last_response.body
-    response_json.length.should == 2
-  end
-
-  it "can be requested to skip results for a query" do
-    get URI.encode('/api/trucks?q={"wheels":4}&skip=2')
-    
-    response_json = JSON.parse last_response.body
-    response_json.length.should == 1
-  end
-  
-  it "can retrieve sorted resources" do
-    get URI.encode('/api/trucks?sort={"colour":"asc"}')
-    
-    response_json = JSON.parse last_response.body
-    response_json[2]['title'].should == "4 wheeled truck"
-  end
-  
-  it "can retrieve sorted resources on query" do
-    get URI.encode('/api/trucks?q={"wheels":4}&sort={"colour":"asc"}')
-    
-    response_json = JSON.parse last_response.body
-    response_json[2]['title'].should == "4 wheeled truck"
-  end
-
-  it "can retrieve desc sorted resources on query" do
-    get URI.encode('/api/trucks?q={"wheels":4}&sort={"colour":"desc"}')
-    
-    response_json = JSON.parse last_response.body
-    response_json[2]['title'].should == "smallblueone"
-  end
-  
-
-  it "can retrieve desc sorted resources" do
-    get URI.encode('/api/trucks?sort={"colour":"desc"}')
-    
-    response_json = JSON.parse last_response.body
-    response_json[2]['title'].should == "smallblueone"
-  end
-  
-  
-  it "can be requested to skip and take results for query" do
-    get URI.encode('/api/trucks?q={"wheels":4}&skip=1&take=1')
-    
-    response_json = JSON.parse last_response.body
-    response_json.length.should == 1
-    response_json.detect { |e| e['title'] == '4 wheeled truck'}.should.not == nil    
-  end
-
   
 end

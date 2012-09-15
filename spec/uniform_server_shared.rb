@@ -137,7 +137,7 @@ shared_examples_for "Uniform Spoon interface" do
       get url
       last_response.should.be.ok
       
-      if (last_response.content_type == 'application/json;jammeta=list')
+      if (last_response.content_type == 'application/json;kodameta=list')
         response_json = JSON.parse last_response.body
       
         response_json.each do |list_item|

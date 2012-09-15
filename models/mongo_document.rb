@@ -42,7 +42,6 @@ class MongoDocument
     @doc[index] 
   end
   
-  
   def standardised_document
     copy = @doc.clone
     copy['_koda_ref'] = ref
@@ -68,8 +67,8 @@ class MongoDocument
   end
   
   def doc_link 
-    if(@doc['_koda_link'])
-      @doc['_koda_link'].to_s
+    if(@doc['_koda_doc_links'])
+      @doc['_koda_doc_links'].to_s
     else
       ''
     end

@@ -16,6 +16,11 @@
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
+			"id" : "_koda_indexes",
+			"control" : "hiddenstring",
+			"defaultValue" : "name,email"
+		},
+		{
 			"id" : "name",
 			"title" : "Username",
 			"description" : "Prefered Username",

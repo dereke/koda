@@ -1,34 +1,7 @@
-<% collections = get('/api') %>
-
 <h1>Current Koda Collections</h1>
 <h3>Go to <a href="/explorer">explorer</a> or <a href="/console">to cli</a></h3>
 <ul>
-<% collections.each do |collection| %>
-	<% if collection['title'] != "objectlabs-system" %>
 	<li>
-		<h3><a href="<%=collection['href'] %>"><%=collection['title']%></a></h3>
-		<% docs = get(collection['href']) %>
-		<ul>
-			<% docs.each do |doc| %>
-				<li>
-					<h4><a href="<%=doc['href']%>"><%=doc['title']%></a></h4>
-					<% if(!doc['href'].include? "_koda_media") %>
-					<% document = get(doc['href']) %>
-					<dl>
-						<% document.each do |k,v| %>
-						<dt><%=k %></dt>
-						<% if v.include? "_koda_media" %>
-						<dd><img src="<%=v %>" width="100px"></dd>
-						<% else %>
-						<dd><%=v %><dd>
-						<% end %>
-						<% end %>
-					</dl>
-					<% end %>
-				</li>
-			<% end %>
-		</ul>
+		<% get_docs_in_folder 'blogposts'%>
 	</li>
-	<% end %>
-<% end %>
 </ul>

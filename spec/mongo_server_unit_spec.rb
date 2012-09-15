@@ -16,16 +16,15 @@ describe 'Mongo KodaRms Unit' do
   
   before do
     
-    MongoJamSpoon.instance_eval do
+    MongoConfig.instance_eval do
       
-        def GetMongoDatabase 
-          MongoDbDouble.instance
-        end
-        
-        def GetGridFS
-          MongoGridDouble.instance
-        end
-        
+      def GetMongoDatabase 
+        MongoDbDouble.instance
+      end
+      
+      def GetGridFS
+        MongoGridDouble.instance
+      end
     end
   end
 

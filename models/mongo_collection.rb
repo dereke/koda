@@ -42,6 +42,16 @@ class MongoCollection
       @collection.save(updated_doc.raw_document)
     else
       new_id = @collection.insert(raw_resource)
+      
+      if(raw_resource['_koda_indexes'] && raw_resource['_koda_indexes'] != '')
+        indexes = raw_resource['_koda_indexes'].split(',')
+        index_collection = []
+        indexes.each do |index|
+          index_collection.push [index, Mongo::ASCENDING]
+        end
+        puts @collection.ensure_index index_collection 
+      end
+      
       updated_doc = MongoDocument.new raw_resource, @collection.name, new_id, Time.now.httpdate
 
       if(ref and updated_doc.ref != ref)

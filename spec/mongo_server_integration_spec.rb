@@ -34,7 +34,7 @@ describe 'Mongo KodaRms Integration' do
   end
   
   before do
-    MongoJamSpoon.instance_eval do
+    MongoConfig.instance_eval do
      
        def GetMongoDatabase 
          Mongo::Connection.new('localhost',27017).db('kodarms_test')
