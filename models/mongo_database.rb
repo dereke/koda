@@ -44,6 +44,7 @@ class MongoDatabase
       docs_in_collection = []
       docs.each do |doc|
         doc_from_db = collection(link['title']).find_document(doc['title'])
+        
         docs_in_collection.push(doc_from_db.standardised_document)
       end
       flat_file.push({'collection'=>link['title'], 'docs' => docs_in_collection})

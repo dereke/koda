@@ -8,7 +8,7 @@ helpers do
     
   def get_content()
     @db_wrapper.flat_file
-  end  
+  end 
     
   def get_document_at(path)
       JSON.parse get_raw(path)

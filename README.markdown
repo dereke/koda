@@ -12,7 +12,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 > To Create Koda types place a new js file in the /koda/koda-types folder
 > Register your type in the _type_registration.js file and you are done!
 
-`{
+``{
 	"fields" : [
 		{
 			"id" : "_koda_ref",
@@ -59,7 +59,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 			"defaultValue" : ""
 		},
 	]
-}`
+}``
 
 ## Creating Koda Indexes
 
@@ -68,14 +68,14 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 
 > lets say we place a file `icons.js` into the indexes folder
 
-`{ // REMOVE ALL COMMENTS BEFORE USING
+``{ // REMOVE ALL COMMENTS BEFORE USING
 	"query" : { // add properties that you want to match on
 		"name" : "/Icon/" // "/substring/" for regex match or "Homepage" for exact match
 	},
 	"sort" : { // add properties that you would like to sort on
 		"name" : "1"
 	}
-}`
+}``
 
 > now just call 
 `/api/cars/indexed/icons`
