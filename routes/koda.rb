@@ -41,6 +41,10 @@ put '/api' do
   response['Allow'] = 'GET,POST'
 end
 
+get '/api/flattened/?' do
+  JSONP @db_wrapper.flat_file
+end
+
 post '/api/_koda_media/?' do  
 
   media = MongoMedia.new request, params
@@ -123,9 +127,7 @@ get '/api/:collection/indexed/:query/?' do
 
   halt 404 if not @db_wrapper.contains_collection(collection_name)  
   
-  http = Net::HTTP.new(request.host, request.port)
-  request = Net::HTTP::Get.new("/koda/koda-indexes/#{query}.js")
-  response = http.request(request)
+
 
   search_hash = JSON.parse response.body
 

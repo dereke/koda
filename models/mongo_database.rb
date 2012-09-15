@@ -37,4 +37,18 @@ class MongoDatabase
     resource_collections.include?(collection_name)  
   end
   
+  def flat_file
+    flat_file = []
+      collection_links.each do |link|
+      docs = collection(link['title']).resource_links(nil, nil, nil)
+      docs_in_collection = []
+      docs.each do |doc|
+        doc_from_db = collection(link['title']).find_document(doc['title'])
+        docs_in_collection.push(doc_from_db.standardised_document)
+      end
+      flat_file.push({'collection'=>link['title'], 'docs' => docs_in_collection})
+    end
+    flat_file
+  end
+  
 end

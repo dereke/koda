@@ -4,6 +4,7 @@ require 'json'
 require 'sinatra/jsonp'
 require 'rack-methodoverride-with-params'
 require 'erb'
+require 'net/http'
 
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/controllers/*.rb"].each {|file| require file }

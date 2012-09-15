@@ -2,8 +2,118 @@
 
 Koda is a Resource Management System that stores JSON and Images. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. 
 
-**To access the console go to your instance/console**
-**To access the explorer area go to your instance/explorer**
+*	To access the console go to your instance/console
+*	To access the explorer area go to your instance/explorer
+
+### Using KodaCMS
+
+## Creating Koda Types
+
+> To Create Koda types place a new js file in the /koda/koda-types folder
+> Register your type in the _type_registration.js file and you are done!
+
+`{
+	"fields" : [
+		{
+			"id" : "_koda_ref",
+			"control" : "hiddenstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_type",
+			"control" : "hiddenstring",
+			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
+		},	
+		{
+			"id" : "_koda_editor",
+			"control" : "hiddenstring",
+			"defaultValue" : "/koda/koda-editors/generic-editor.html"
+		},
+		{
+			"id" : "_koda_indexes",
+			"control" : "hiddenstring",
+			"defaultValue" : "" // add the indexes of your doc here
+		},
+		{
+			"id" : "name",
+			"title" : "Name",
+			"description" : "Name of the doc",
+			"control" : "textstring",
+			"defaultValue" : ""
+		},	
+/*
+	ADD YOUR CUSTOM VARS HERE BUT REMOVE ALL COMMENTS FIRST
+*/
+		{
+			"id" : "tags",
+			"title" : "Tags",
+			"description" : "Comma separated",
+			"control" : "textstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_doc_links",
+			"title" : "Document Link",
+			"description" : "Link to another doc",
+			"control" : "kodalinkeditor",
+			"defaultValue" : ""
+		},
+	]
+}`
+
+## Creating Koda Indexes
+
+> Creating a new Koda Index is as easy as placing a file into the /koda/koda-indexes folder.
+> You can then call the index on any collection
+
+> lets say we place a file `icons.js` into the indexes folder
+
+`{ // REMOVE ALL COMMENTS BEFORE USING
+	"query" : { // add properties that you want to match on
+		"name" : "/Icon/" // "/substring/" for regex match or "Homepage" for exact match
+	},
+	"sort" : { // add properties that you would like to sort on
+		"name" : "1"
+	}
+}`
+
+> now just call 
+`/api/cars/indexed/icons`
+
+> and you will receive documents that match the criteria
+
+## Backup / Restore one mongo instance to another
+
+`ruby backup.rb dump .`goo
+`ruby backup.rb restore .`
+
+## Backup / Restore on Heroku
+
+Take your application into maintenance mode.
+
+Please note: You will need your current `MONGOHQ_URL` (from your Heroku configs) available before you begin as the following steps will alter it permanently.
+
+`$ heroku maintenance:on`
+Run a mongodump of your current database.
+
+`$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`
+Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.
+
+`$ heroku addons:remove mongohq:free`
+Provision a new database for this app.
+
+`$ heroku addons:add mongohq:small`
+Make available the newly updated MONGOHQ_URL from your Heroku configs.
+
+Run a mongorestore of your locally backed up database to your new database (updating your connection info.)
+
+`$ mongorestore -h hostname.mongohq.com:port_number -d database_name -u username -p password /path/on/my/local/computer`
+Return from maintenance mode.
+
+`$ heroku maintenance:off`
+
+
+### API
 
 ## Note about links
 

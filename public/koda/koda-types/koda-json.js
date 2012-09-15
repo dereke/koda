@@ -16,6 +16,11 @@
 			"defaultValue" : "/koda/koda-editors/json-editor.html"
 		},
 		{
+			"id" : "_koda_indexes",
+			"control" : "hiddenstring",
+			"defaultValue" : "name,tags"
+		},
+		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "The name of the document",
@@ -27,6 +32,20 @@
 			"title" : "Content",
 			"description" : "The contents of the document",
 			"control" : "textarea",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "tags",
+			"title" : "Tags",
+			"description" : "Comma separated",
+			"control" : "textstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_doc_links",
+			"title" : "Document Link",
+			"description" : "Link to another doc",
+			"control" : "kodalinkeditor",
 			"defaultValue" : ""
 		}
 	]

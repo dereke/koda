@@ -1111,7 +1111,7 @@ $.Class.extend("Explorer", {}, {
 		commands.push(new UploadCommand());
 		commands.push(new GetCommand(service));
 		
-		service.getExternal('/koda/koda-types/koda-types.js?23423442', function(data){
+		service.getExternal('/koda/koda-types/_type_registration.js?23423442', function(data){
 			var controller = new KodaController(commands);
 			Window.Presenter = new ExplorerPresenter(controller, data);
 			Window.Presenter.attach();	
