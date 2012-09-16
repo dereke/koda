@@ -24,6 +24,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 <% end %>
 </ul>
 ```
+> Available methods to use inside a view   
 
 `get_all_content`  
 `get_documents(collection_name)`  
@@ -141,27 +142,22 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 > it will include those in the original
 
 ```javascript
-{
-_koda_doc_links: "/api/pages/blog",
-name: "Blog",
-tags: "root",
-_koda_ref: "blogfeedaggregator",
-linked_documents: [
-{
-_koda_doc_link: "/api/pages/blog",
-document: {
-bottomleftbody: "<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div><div><br></div>",
-_koda_indexes: "title",
-introparagraph: "Recent Posts",
-_koda_type: "/koda/koda-types/custom-genericpage.js",
-mainbody: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-_koda_editor: "/koda/koda-editors/generic-editor.html",
-tags: "page",
-_koda_ref: "blog",
-_koda_doc_links: "/api/slides"
-}
-}
-]
+{ "_koda_doc_links" : "/api/pages/blog",
+  "_koda_ref" : "blogfeedaggregator",
+  "linked_documents" : [ { "_koda_doc_link" : "/api/pages/blog",
+        "document" : { "_koda_doc_links" : "/api/slides",
+            "_koda_editor" : "/koda/koda-editors/generic-editor.html",
+            "_koda_indexes" : "title",
+            "_koda_ref" : "blog",
+            "_koda_type" : "/koda/koda-types/custom-genericpage.js",
+            "bottomleftbody" : "<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div><div><br></div>",
+            "introparagraph" : "Recent Posts",
+            "mainbody" : "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+            "tags" : "page"
+          }
+      } ],
+  "name" : "Blog",
+  "tags" : "root"
 }
 ```
 
