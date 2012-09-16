@@ -5,6 +5,8 @@ Koda is a Content Management System unlike any you might have come accross. Koda
 *	To access the console go to your instance/console
 *	To access the explorer area go to your instance/explorer
 
+View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
+
 ## Developing with Koda
 
 Koda follows a "code first" approach. This means that all your business functionality will be stored on the file system. We only store content in the database!
@@ -29,6 +31,10 @@ But enough talk... lets see what we mean...
 
 > If you are on Mac OSX, you won't need to install anything
 > If you are on Linux, you probably don't need any help
+
+`
+git clone git@github.com:KodaCMS/Default.git
+`
 
 ## Layout
 
@@ -217,7 +223,7 @@ But enough talk... lets see what we mean...
 > so to deploy koda to production just do...   
 
 ```ruby
-git clone git@github.com:marceldupr/KodaRMS.git
+git clone git@github.com:KodaCMS/Default.git
 heroku apps:create myapp
 git push heroku master
 ```
