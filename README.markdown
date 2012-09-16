@@ -406,7 +406,7 @@ POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as
 DELETE '/api/trucks/smallblueone' 
 `
 
-### Development
+### Development Quickstart
 
 *	Clone the git repo
 *	run `bundle install`
@@ -416,4 +416,14 @@ DELETE '/api/trucks/smallblueone'
 *	`gem install watchr`
 
 *	autotesting `watchr autotest.watchr`
-*	auto-reload local `shotgun -p 3000 mongo_koda_server.rb`
+*	auto-reload local `shotgun -p 3000 koda_app.rb`
+
+### Roadmap
+
+*	User Authorisation
+*	UI Niceness
+*	Browser Editing (deploy website and create from scratch)
+*	More Editors
+*	More Datatypes
+*	Workflow
+*	Plugin API
