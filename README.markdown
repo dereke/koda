@@ -378,7 +378,7 @@ Request: GET '/api/trucks/smallblueone'
 Response: {"_koda_ref":"smallblueone","size":"small","wheels":4,"colour":"blue"} 
 `
 
-## Post and Put Requests 
+## Post and Put Requests (CURRENTLY THESE ARE RESTRICTED TO LOGGED IN USERS)
 
 Documents can be created two ways - either by posting to the collection url, or putting directly to the desired url
 
@@ -403,7 +403,7 @@ bikes/bigred
 *Note* If the document did not already exist, the returned status code will be 201 (Created), otherwise 200 (OK) 
 *Note* If the "_koda_ref" field is present in the request, and contradicts, the url posted to, the url will take precedence. 
 
-## Delete Requests
+## Delete Requests (CURRENTLY THESE ARE RESTRICTED TO LOGGED IN USERS)
 
 ### Collections
 
@@ -419,7 +419,7 @@ Request DELETE '/api/bikes/bigred'
 Response: Status OK
 `
 
-## Put and Delete through overloaded Post
+## Put and Delete through overloaded Post (CURRENTLY THESE ARE RESTRICTED TO LOGGED IN USERS)
 
 In environments where Put and Delete requests are not supported, use this format instead: 
 
@@ -448,7 +448,9 @@ DELETE '/api/trucks/smallblueone'
 
 ### Roadmap
 
-*	User Authorisation
+*	~~Simple User Authorisation~~ (Janrain engage)
+*	More complex User Authorisation
+*	Token based API access for PUT/POST/DELETE from mobiles etc.
 *	UI Niceness
 *	Browser Editing (deploy website and create from scratch)
 *	More Editors
