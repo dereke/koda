@@ -29,8 +29,8 @@ But enough talk... lets see what we mean...
 > If you are on windows you would need to install ruby [here](http://rubyinstaller.org/)  
 > Also install the Ruby DevKit [here](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)  
 
-> If you are on Mac OSX, you won't need to install anything
-> If you are on Linux, you probably don't need any help
+> If you are on Mac OSX, you won't need to install anything   
+> If you are on Linux, you probably don't need any help   
 
 `
 git clone git@github.com:KodaCMS/Default.git
