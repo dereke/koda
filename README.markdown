@@ -1,6 +1,6 @@
 ###KodaRms
 
-Koda is a Resource Management System that stores JSON and Images. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. 
+Koda is a Content Management System unlike any you have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry). Create your own Views to display Koda content or hook up a mobile phone to your content and let your editors use the friendly Koda Explorer. 
 
 *	To access the console go to your instance/console
 *	To access the explorer area go to your instance/explorer
