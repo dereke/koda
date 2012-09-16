@@ -1,29 +1,64 @@
 ### What is KodaCMS
 
-Koda is a Content Management System unlike any you have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry). Create your own Views to display Koda content or hook up a mobile phone to your content and let your editors use the friendly Koda Explorer. 
+Koda is a Content Management System unlike any you might have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry). Create your own Views to display Koda content or hook up a mobile phone to your content and let your editors use the friendly Koda Explorer. 
 
 *	To access the console go to your instance/console
 *	To access the explorer area go to your instance/explorer
 
-### Using KodaCMS
+## Developing with Koda
+
+Koda follows a "code first" approach. This means that all your business functionality will be stored on the file system. We only store content in the database!
+This means that any changes you want to make to the system will be versioned and can be reverted and recreated if you use source control.
+
+The only skills needed to be able to do to develop a website on Koda is some very basic JSON and some knowledge of HTML.
+All Koda Types, Koda Filters are done using a simple JSON formatted file.
+
+Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
+
+Koda stays out of your Layouts and we do not generate any HTML. That's right. We believe that most 'CMS' systems should really be called "Site Management Systems" as they dictate your sitemap and generate your urls and routes based on their own policy. Koda is a 'true' CMS as it only manages your content. 
+
+But enough talk... lets see what we mean...
+
+## Layout
+
+> Create a file called 'layout.erb'  
+
+```html
+<html>
+  <body>
+   <%= yield %>
+  </body>
+</html>
+```
+
+> And a file called 'index.erb'  
+
+```html
+<h3>Hello <%= @name %>!</h3>
+```
+
+> We will automatically match '/' to 'index.erb' and '/[name]' to '[name].erb'  
+> however, you can add your own routes in the '/routes/site.rb' file
 
 ## Using Content inside Views
 
 ```html
 <ul class="slides">
-<% get_documents('slides').each do |slide_ref| %>
-<% slide = get_document 'slides', slide_ref['title'] %>
+<% get_filtered('slides', 'first-three').each do |slide| %>
 <li class="slide new-start">
      <div>
          <h1 class="slide-title"><%=slide['name']%></h1>
          <p><strong><%=slide['teaser']%></strong></p>
          <p><%=slide['body']%></p>
+		 <img src="<%=slide['slidephoto']%>" />
          <p class="learn-more"><a href="<%=slide['learnmorelink']%>">Learn More</a></p>
      </div>
  </li>
 <% end %>
 </ul>
 ```
+
+> The language we use in your views is called [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby)   
 > Available methods to use inside a view   
 
 `get_all_content`  
@@ -37,7 +72,8 @@ Koda is a Content Management System unlike any you have come accross. Koda provi
 
 > To Create Koda types place a new js file in the /koda/koda-types folder  
 
-> Register your type in the _type_registration.js file and you are done!  
+> Register your type in the _type_registration.js file and you can now use it in the Koda Explorer!   
+> A new type will appear under the "User Created" section on the right     
 
 
 ```javascript
@@ -131,7 +167,7 @@ Koda is a Content Management System unlike any you have come accross. Koda provi
 > these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
 
 > when we now call    
-`/api/cars/indexed/icons`
+`/api/cars/filtered/icons`
 > you will receive documents that match the criteria  
 
 ## Linked Documents
@@ -164,12 +200,30 @@ Koda is a Content Management System unlike any you have come accross. Koda provi
 
 >  To avoid circular references included documents will not include their linked documents.
 
-## Backup / Restore one mongo instance to another
+## Deploying Koda to Heroku
 
+> We know that deploying CMS's to production can be a tedious process...   
+> so to deploy koda to production just do...   
+
+```ruby
+git clone git@github.com:marceldupr/KodaRMS.git
+heroku apps:create myapp
+git push heroku master
+```
+
+## Backup / Restore one koda instance to another
+
+> Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production     
+> This couldn't be simpler with koda...   
+
+> Set up your data and run the following command on your local machine when done...   
 `ruby backup.rb dump .`   
-`ruby backup.rb restore .`
+> Commit your files or zip them up and place them on production and run the following   
+`ruby backup.rb restore .`  
 
-## Backup / Restore on Heroku
+> This will backup /restore all your data and media to file.
+
+## Backup / Restore on Heroku (or other shared hosting)
 
 Take your application into maintenance mode.
 
