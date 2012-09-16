@@ -30,6 +30,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 `get_documents(collection_name)`  
 `get_document(collection_name, doc_ref)`  
 `get_filtered(collection_name, filter_name)`  
+`search(search_hash)`  
 
 
 ## Creating Koda Types

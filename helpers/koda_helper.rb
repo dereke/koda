@@ -22,6 +22,12 @@ helpers do
     JSON.parse get_raw("/api/#{collection_Name}/filtered/#{index_name}")
   end
   
+  def search(search_hash)
+    @db_wrapper.search params
+  end
+  
+  private
+  
   def get_raw(url)
     http = Net::HTTP.new(request.host, request.port)
     request = Net::HTTP::Get.new(url)

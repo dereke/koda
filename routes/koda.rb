@@ -118,7 +118,7 @@ end
 
 get '/api/search/?' do 
   content_type :json, 'kodameta' => 'list'  
-    JSONP @db_wrapper.search params
+  JSONP @db_wrapper.search params
 end
 
 get '/api/:collection/filtered/:filter/?' do
