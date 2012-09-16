@@ -1,6 +1,6 @@
 ### What is KodaCMS
 
-Koda is a Content Management System unlike any you might have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Javascript, Mobile, Flash, Silverlight) and is language agnostic. Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry). Create your own Views to display Koda content or hook up a mobile phone to your content and let your editors use the friendly Koda Explorer. 
+Koda is a Content Management System unlike any you might have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Website, Mobile, Flash, Silverlight) and is language agnostic. Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry). Create your own Views to display Koda content or hook up a mobile phone to your content and let your editors use the friendly Koda Explorer. 
 
 *	To access the console go to your instance/console
 *	To access the explorer area go to your instance/explorer
@@ -229,10 +229,10 @@ git push heroku master
 ```
 
 > So sorry, we were actually lying... it couldn't be that simple right?  
-> Unfortunately you would have to add the free 250mb mongohq provider too...   
+> Unfortunately you would have to add the free 500mb mongohq provider too...   
 
 `
-heroku addons:add mongohq:free
+heroku addons:add mongolab:starter
 `
 
 > Everything should just work!
@@ -261,10 +261,10 @@ Run a mongodump of your current database.
 `$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`
 Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.
 
-`$ heroku addons:remove mongohq:free`
+`$ heroku addons:remove mongolab:starter`
 Provision a new database for this app.
 
-`$ heroku addons:add mongohq:small`
+`$ heroku addons:add mongolab:starter`
 Make available the newly updated MONGOHQ_URL from your Heroku configs.
 
 Run a mongorestore of your locally backed up database to your new database (updating your connection info.)
