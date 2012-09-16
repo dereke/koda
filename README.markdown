@@ -106,11 +106,11 @@ end
 > The language we use in your views is called [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby)   
 > Available methods to use inside a view   
 
-`get_all_content`  
-`get_documents(collection_name)`  
-`get_document(collection_name, doc_ref)`  
-`get_filtered(collection_name, filter_name)`  
-`search(search_hash)`  
+`all()` returns all your content (use only if you have a small site)   
+`documents(collection_name)`  eg. documents('slides')   
+`document(collection_name, doc_ref)` eg. document('pages', 'about-us')   
+`filtered(collection_name, filter_name)` eg. filtered('pages', 'homepage')   
+`search(search_hash)` eg. search({'tags' => '/page/'})   
 
 
 ## Creating Koda Types
