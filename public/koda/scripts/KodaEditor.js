@@ -415,6 +415,11 @@ Editor.Form = function(container, spec, onSubmit) {
 	container.append('<div id="status" style="display:none"></div>');
 	container.append(form);
 	
+	if(spec.is_readonly){
+		$('button[type="submit"]').attr("disabled", true);
+		$('#status').text('This form is readonly');
+	}
+	
 	return {
 		converters: Object(),
 		

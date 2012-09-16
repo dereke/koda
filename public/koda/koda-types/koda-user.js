@@ -8,7 +8,7 @@
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
-			"defaultValue" : "/koda/koda-types/custom-user.js"
+			"defaultValue" : "/koda/koda-types/koda-user.js"
 		},	
 		{
 			"id" : "_koda_editor",
@@ -21,16 +21,14 @@
 			"defaultValue" : "name,email"
 		},
 		{
-			"id" : "name",
-			"title" : "Username",
-			"description" : "Prefered Username",
-			"control" : "textstring",
+			"id" : "googleid",
+			"control" : "hiddenstring",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "fullname",
-			"title" : "Fullname",
-			"description" : "User fullname",
+			"id" : "name",
+			"title" : "Username",
+			"description" : "Prefered Username",
 			"control" : "textstring",
 			"defaultValue" : ""
 		},
@@ -42,17 +40,24 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "password",
-			"title" : "Password",
-			"description" : "Your password",
-			"control" : "passwordstring",
+			"id" : "isadmin",
+			"title" : "Is Allowed",
+			"description" : "Is this user allowed in the backoffice?",
+			"control" : "truefalse",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "confirmpassword",
-			"title" : "Confirm password",
-			"description" : "Confirm your password",
-			"control" : "passwordstring",
+			"id" : "tags",
+			"title" : "Tags",
+			"description" : "Comma separated",
+			"control" : "textstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_doc_links",
+			"title" : "Document Link",
+			"description" : "Link to another doc",
+			"control" : "kodalinkeditor",
 			"defaultValue" : ""
 		}
 	]

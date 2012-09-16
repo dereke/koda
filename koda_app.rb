@@ -5,6 +5,7 @@ require 'sinatra/jsonp'
 require 'rack-methodoverride-with-params'
 require 'erb'
 require 'net/http'
+require 'rest_client'
 
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
@@ -15,6 +16,8 @@ class KodaApp
 use Rack::MethodOverrideWithParams
 
 set :public, File.dirname(__FILE__) + '/public'
+set :sessions, true
+set :session_secret, "something"
 
 configure do
   class << Sinatra::Base

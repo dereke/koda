@@ -22,7 +22,11 @@ helpers do
   
   def document(collection_name, doc_ref)
     doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
-    doc.content
+    if(doc)
+      doc.content
+    else
+      nil
+    end
   end
   
   def filtered(collection_name, filter_name)
@@ -46,8 +50,74 @@ helpers do
     
     documents
   end
+    
+  def logged_in?
+    current_user != nil
+  end
+
+  def current_user
+      session['koda_user']
+  end
+  
+  def sign_in_return_url
+    if settings.environment == :development
+      "#{request.host}:#{request.port}"
+    else
+      "#{request.host}"
+    end
+  end
   
   private
+  
+  def authenticate(token)
+
+    response = JSON.parse(
+      RestClient.post("https://rpxnow.com/api/v2/auth_info",
+        :token => token,
+        :apiKey => "6c7c4318166d62ad9416231aedca6385e7d7978f",
+        :format => "json",
+        :extended => "true"
+      )
+    )
+
+    if response["stat"] == "ok"
+      id = response["profile"]["googleUserId"]
+      name = response["profile"]["displayName"]
+      existing_user = search({ 'googleid' => id }).first()
+      puts existing_user
+      
+      if(existing_user)
+        if(existing_user.isadmin)
+          session['koda_user']  = existing_user
+        else
+          redirect '/not-allowed'
+        end
+      else
+        is_admin = documents('users').length == 0
+        user = { 
+          '_koda_ref'=> name, 
+          'googleid' => id,
+          'name' => name, 
+          'email' => response["profile"]["email"], 
+          '_koda_indexes' => 'name,email', 
+          '_koda_type' => '/koda/koda-types/koda-user.js',
+          '_koda_editor' => '/koda/koda-editors/generic-editor.html',
+          'isadmin' => is_admin
+        }
+        new_user = @db_wrapper.collection('users').save_document(user)
+        if(is_admin)
+          session['koda_user']  = is_admin
+        else
+          redirect '/not-allowed'
+        end
+      end
+      
+      return true
+    end
+
+    return false
+  
+  end
   
   def get_raw(url)
     http = Net::HTTP.new(request.host, request.port)
