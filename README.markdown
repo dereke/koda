@@ -19,9 +19,20 @@ Koda stays out of your Layouts and we do not generate any HTML. That's right. We
 
 But enough talk... lets see what we mean...
 
+## Getting started
+
+> Follow the guide here to install mongodb on your preferred platform  
+> http://www.mongodb.org/display/DOCS/Quickstart  
+
+> If you are on windows you would need to install ruby [here](http://rubyinstaller.org/)  
+> Also install the Ruby DevKit [here](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)  
+
+> If you are on Mac OSX, you won't need to install anything
+> If you are on Linux, you probably don't need any help
+
 ## Layout
 
-> Create a file called 'layout.erb'  
+> Create a file called 'layout.erb' in the 'views' folder
 
 ```html
 <html>
@@ -34,7 +45,7 @@ But enough talk... lets see what we mean...
 > And a file called 'index.erb'  
 
 ```html
-<h3>Hello <%= @name %>!</h3>
+<h3>Hello World!</h3>
 ```
 
 > We will automatically match '/' to 'index.erb' and '/[name]' to '[name].erb'  
@@ -210,6 +221,15 @@ git clone git@github.com:marceldupr/KodaRMS.git
 heroku apps:create myapp
 git push heroku master
 ```
+
+> So sorry, we were actually lying... it couldn't be that simple right?  
+> Unfortunately you would have to add the free 250mb mongohq provider too...   
+
+`
+heroku addons:add mongohq:free
+`
+
+> Everything should just work!
 
 ## Backup / Restore one koda instance to another
 
