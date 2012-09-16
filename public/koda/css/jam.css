@@ -442,6 +442,10 @@ header[role="banner"] h2 {
 	display: none;
 }
 
+dt.kodaType > img {
+	width: 18px;
+}
+
 a.new {
 	cursor : pointer;
 }

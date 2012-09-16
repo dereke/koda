@@ -6,7 +6,7 @@
 <script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/nicEdit.js" type="text/javascript" charset="utf-8"></script>
-<script src="/koda/scripts/KodaEditor.js?99a85a5as" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/KodaEditor.js?99a855as55" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/fileuploader.js?234234a7aa6d4aa" type="text/javascript"></script>
 </head>
 <body>
@@ -35,10 +35,31 @@
 
 			var onSubmit = function(data) {				
 
+				var ref = 'twitterfeed';
+				
+				if(data.showuserfeed){
+					var doc_link = "http://search.twitter.com/search.json";
+					doc_link += '?q=from:'+data.name+'&rpp='+data.user_count;
+					data._koda_doc_links = doc_link;
+					ref = data.name.replace(/ /g,"-").toLowerCase()
+				}
+				if(data.showqueriedfeed){
+					var doc_link = "http://search.twitter.com/search.json";
+					doc_link += '?q='+data.query+'&rpp='+data.query_count;
+					if(data._koda_doc_links != ''){
+						data._koda_doc_links += ','+doc_link;
+					} 
+					else
+					{
+						data._koda_doc_links += doc_link;
+						ref = data.query.replace(/ /g,"-").toLowerCase()
+					}
+				}
+				
 				if(isNew) {
 					
-					var ref = data.name.replace(/ /g,"-").toLowerCase();
-					data._koda_ref = ref;
+					data._koda_ref = ref+'_twitterfeed';
+
 					var dataString = JSON.stringify(data, null, 2);
 					api.post(url, dataString, onUpdate);
 

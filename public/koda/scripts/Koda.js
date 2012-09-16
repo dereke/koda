@@ -15,7 +15,7 @@ $.Class.extend("RestService",
 
 				jQuery.ajax({
 				    type: "GET",
-				    url: Session.kodaUrl+"/"+location + "?" + new Date().getTime(),
+				    url: Session.kodaUrl+"/"+location + "?include=false&" + new Date().getTime(),
 				    dataType: "json",
 				    success: function(results){
 				        callback(results);

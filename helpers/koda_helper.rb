@@ -3,6 +3,7 @@ require 'sinatra'
 require 'json'
 require 'dalli'
 require 'uri'
+require 'net/https'
 
 helpers do
     
@@ -57,7 +58,8 @@ helpers do
   
   def get_raw_from_external(uri)
     http = Net::HTTP.new(uri.host, uri.port)
-    request = Net::HTTP::Get.new(uri.path)
+    http.use_ssl = true if uri.to_s.include? 'https'
+    request = Net::HTTP::Get.new("#{uri.path}?#{uri.query}")
     response = http.request(request)
     response.body
   end

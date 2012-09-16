@@ -50,7 +50,7 @@ Editor.Api = function() {
 
 				jQuery.ajax({
 				    type: "GET",
-				    url: path + "?" + new Date().getTime(),
+				    url: path + '?include=false&cachebuster=' + new Date().getTime(),
 				    dataType: "json",
 				    success: function(results){
 				        callback(results);
@@ -145,6 +145,7 @@ Editor.Controls = function() {
 			this.all['passwordstring'] = this.passwordString;
 			this.all['richtext'] = this.richText;
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
+			this.all['truefalse'] = this.trueFalse;
 		},
 		
 		hiddenString: function(identifier) {
@@ -245,6 +246,32 @@ Editor.Controls = function() {
 				setValue: function(value) {
 					if(value != undefined && value != 'undefined') {
 						$('input#'+this.id).val(value);
+					}
+				}
+			}
+			
+		},
+		
+		trueFalse: function(identifier) {
+			
+			return {
+			
+				id : identifier,
+				defaultValue: '',
+				html : '<input type="checkbox" id="'+identifier+'" name="'+identifier+'" />',
+				value: '',
+				bind : function() {},
+				create: function(id, value) {
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return $('input#'+this.id).is(':checked');
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						$('input#'+this.id).attr('checked', value);
 					}
 				}
 			}

@@ -51,6 +51,14 @@
 				"allowedin" : "collection"
 			},
 			{
+				"title" : "Twitter Feed",
+				"description" :"This will include posts of a twitter feed",
+				"icon" : "/koda/images/twitter.png",
+				"editor" : "/koda/koda-editors/twitterfeed-editor.html",
+				"type"	: "/koda/koda-types/koda-twitterfeed.js",
+				"allowedin" : "collection"
+			},
+			{
 				"title" : "Koda User",
 				"description" :"This will create a koda user",
 				"icon" : "/koda/images/group_add.png",
