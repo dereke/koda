@@ -43,17 +43,22 @@ end
 
 post '/api/_koda_media/?' do  
 
-  media = MongoMedia.new request, params
-  file_name = @grid_wrapper.save_media media
+  if(logged_in?) 
+    media = MongoMedia.new request, params
+    file_name = @grid_wrapper.save_media media
 
-  new_location = '/api/_koda_media/' + file_name
-  response['Location'] = new_location
-  status 200
-  result = {
-    'success' => 'true',
-    'location' => new_location,
-  }
-  body result.to_json
+    new_location = '/api/_koda_media/' + file_name
+    response['Location'] = new_location
+    status 200
+    result = {
+      'success' => 'true',
+      'location' => new_location,
+    }
+    body result.to_json
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 
 end
 
@@ -81,18 +86,23 @@ end
 
 put '/api/_koda_media/:filename?' do
 
-  media = MongoMedia.new request, params
-  file_name = @grid_wrapper.save_media(media, params[:filename])
+  if(logged_in?) 
+    media = MongoMedia.new request, params
+    file_name = @grid_wrapper.save_media(media, params[:filename])
 
-  new_location = '/api/_koda_media/' + file_name
+    new_location = '/api/_koda_media/' + file_name
 
-  response['Location'] = new_location
-  status 200
-  result = {
-    'success' => 'true',
-    'location' => new_location,
-  }
-  body result.to_json
+    response['Location'] = new_location
+    status 200
+    result = {
+      'success' => 'true',
+      'location' => new_location,
+    }
+    body result.to_json
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 
 end
 
@@ -102,7 +112,12 @@ post '/api/_koda_media/:filename?' do
 end
 
 delete '/api/_koda_media/:filename?' do
-  @grid_wrapper.delete_media(params[:filename])
+  if(logged_in?) 
+    @grid_wrapper.delete_media(params[:filename])
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 end
 
 options '/api/_koda_media/:filename' do
@@ -144,18 +159,23 @@ get '/api/:collection/?' do
 end
 
 post '/api/:collection/?' do
-    collection_name = params[:collection]
-    raw_doc = request.env["rack.input"].read
-    hash = JSON.parse raw_doc
-    new_doc = @db_wrapper.collection(collection_name).save_document(hash)
+    if(logged_in?) 
+      collection_name = params[:collection]
+      raw_doc = request.env["rack.input"].read
+      hash = JSON.parse raw_doc
+      new_doc = @db_wrapper.collection(collection_name).save_document(hash)
     
-    response['Location'] = new_doc.url
-    status 201
-    result = {
-      'success' => 'true',
-      'location' => new_doc.url
-    }
-    body new_doc.url
+      response['Location'] = new_doc.url
+      status 201
+      result = {
+        'success' => 'true',
+        'location' => new_doc.url
+      }
+      body new_doc.url
+    else
+      response['Allow'] = 'GET'
+      status 405
+    end
 end
 
 put '/api/:collection/?' do
@@ -164,7 +184,12 @@ put '/api/:collection/?' do
 end  
 
 delete '/api/:collection/?' do
-  @db_wrapper.collection(params[:collection]).delete()
+  if(logged_in?) 
+    @db_wrapper.collection(params[:collection]).delete()
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 end
 
 options '/api/:collection/?' do
@@ -216,38 +241,53 @@ post '/api/:collection/:resource' do
 end
 
 put '/api/:collection/:resource' do
-  collection_name=params[:collection]
-  resource_name = params[:resource]
-  hash = JSON.parse request.env["rack.input"].read
+  if(logged_in?) 
+    collection_name=params[:collection]
+    resource_name = params[:resource]
+    hash = JSON.parse request.env["rack.input"].read
   
-  if(hash['linked_documents'] != nil)
-    hash.delete 'linked_documents'
+    if(hash['linked_documents'] != nil)
+      hash.delete 'linked_documents'
+    end
+
+    doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
+    status 201 if doc.is_new
+
+    response['Location'] = doc.url
+
+    body doc.url
+  else
+    response['Allow'] = 'GET'
+    status 405
   end
-
-  doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
-  status 201 if doc.is_new
-
-  response['Location'] = doc.url
-
-  body doc.url
 end
 
 delete '/api/:collection/:resource' do
-  @db_wrapper.collection(params[:collection]).delete_document(params[:resource])  
+  if(logged_in?) 
+    @db_wrapper.collection(params[:collection]).delete_document(params[:resource])  
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 end
 
 options '/api/:collection/:resource' do
-  collection_name = params[:collection]
-  doc_ref = params[:resource]
+  if(logged_in?) 
+      collection_name = params[:collection]
+      doc_ref = params[:resource]
 
-  doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
 
-  if (doc==nil)
-    response['Allow'] = 'PUT'
-    return
+      if (doc==nil)
+        response['Allow'] = 'PUT'
+        return
+      end
+
+      response['Allow'] = 'GET,PUT,DELETE'
+  else
+    response['Allow'] = 'GET'
+    status 405
   end
-
-  response['Allow'] = 'GET,PUT,DELETE'
 end
 
 options '*' do

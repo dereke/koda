@@ -30,7 +30,7 @@ describe 'Mongo KodaRms Integration' do
   before(:each) do
     database = Mongo::Connection.new('localhost',27017).db('kodarms_test')
     clear_database database
-    populate_database_with_documents database    
+    populate_database_with_documents database
   end
   
   before do

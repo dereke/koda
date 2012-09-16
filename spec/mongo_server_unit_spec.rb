@@ -15,7 +15,6 @@ describe 'Mongo KodaRms Unit' do
   end
   
   before do
-    
     MongoConfig.instance_eval do
       
       def GetMongoDatabase 
