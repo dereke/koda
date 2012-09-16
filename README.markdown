@@ -229,7 +229,7 @@ git push heroku master
 ```
 
 > So sorry, we were actually lying... it couldn't be that simple right?  
-> Unfortunately you would have to add the free 500mb mongohq provider too...   
+> Unfortunately you would have to add the free 500mb mongolab provider too...   
 
 `
 heroku addons:add mongolab:starter
