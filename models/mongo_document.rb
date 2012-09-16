@@ -86,6 +86,10 @@ class MongoDocument
     end
   end
   
+  def content
+    @doc.to_obj
+  end
+  
   def url
     '/api/' + @collection + '/' + ref
   end

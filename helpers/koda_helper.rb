@@ -6,24 +6,44 @@ require 'uri'
 
 helpers do
     
-  def get_all_content()
-    @db_wrapper.flat_file
+  def all()
+    @db_wrapper.flat_file.to_obj
   end
   
-  def get_documents(collection_name, skip=nil, take=nil)
-    @db_wrapper.collection(collection_name).resource_links(take, skip, nil)
+  def documents(collection_name, skip=nil, take=nil)
+    documents = []
+    @db_wrapper.collection(collection_name).resource_links(take, skip, nil).each do |doc_ref|
+      documents.push document(collection_name, doc_ref.title)
+    end
+    
+    documents
   end
   
-  def get_document(collection_name, doc_ref)
-    @db_wrapper.collection(collection_name).find_document(doc_ref)
+  def document(collection_name, doc_ref)
+    doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+    doc.content
   end
   
-  def get_filtered(collection_name, filter_name)
-    JSON.parse get_raw("/api/#{collection_Name}/filtered/#{index_name}")
+  def filtered(collection_name, filter_name)
+    result = JSON.parse get_raw("/api/#{collection_name}/filtered/#{filter_name}")
+    documents = []
+    result.each do |doc_ref|      
+       documents.push document(collection_name, doc_ref.title)
+    end
+
+    documents
   end
   
   def search(search_hash)
-    @db_wrapper.search params
+    result = @db_wrapper.search search_hash
+    documents = []
+    result.each do |collection, doc_refs|   
+        doc_refs.each do |doc_ref|
+          documents.push document(collection, doc_ref.title)
+        end
+    end
+    
+    documents
   end
   
   private

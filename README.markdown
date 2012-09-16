@@ -74,19 +74,33 @@ end
 ## Using Content inside Views
 
 ```html
-<ul class="slides">
-<% get_filtered('slides', 'first-three').each do |slide| %>
-<li class="slide new-start">
-     <div>
-         <h1 class="slide-title"><%=slide['name']%></h1>
-         <p><strong><%=slide['teaser']%></strong></p>
-         <p><%=slide['body']%></p>
-		 <img src="<%=slide['slidephoto']%>" />
-         <p class="learn-more"><a href="<%=slide['learnmorelink']%>">Learn More</a></p>
-     </div>
- </li>
-<% end %>
-</ul>
+<section>
+
+    <h1>Featured</h1>
+	<ul>
+	<% documents('slides').each do |slide| %>
+	<li>
+         <div>
+             <h1><%=slide.name%></h1>
+             <p><strong><%=slide.teaser%></strong></p>
+             <p><%=slide.body%></p>
+				
+             <p><a href="<%=slide.learnmorelink%>">Learn More</a></p>
+         </div>
+     </li>
+	<% end %>
+    </ul>
+	
+	<% homepage = filtered('pages', 'homepage').first() %>
+	<ul>
+		<li class="home"><%=homepage.name%></li>
+		<% pages = search({'tags' => '/page/'}).find_all {|page| not page.tags.include? 'home'} %>
+		<% pages.each do |page| %>
+		<li><%=page.name%></li>
+		<% end %>
+	</ul>
+	
+</section>
 ```
 
 > The language we use in your views is called [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby)   

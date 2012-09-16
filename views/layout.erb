@@ -38,20 +38,22 @@
             </header>
 
             <section class="slider featured-slider">
+	
                 <h1 class="visuallyhidden">Featured</h1>
 				<ul class="slides">
-				<% get_documents('slides').each do |slide_ref| %>
-				<% slide = get_document 'slides', slide_ref['title'] %>
+				<% documents('slides').each do |slide| %>
 				<li class="slide new-start">
                      <div>
-                         <h1 class="slide-title"><%=slide['name']%></h1>
-                         <p><strong><%=slide['teaser']%></strong></p>
-                         <p><%=slide['body']%></p>
-                         <p class="learn-more"><a href="<%=slide['learnmorelink']%>">Learn More</a></p>
+                         <h1 class="slide-title"><%=slide.name%></h1>
+                         <p><strong><%=slide.teaser%></strong></p>
+                         <p><%=slide.body%></p>
+							
+                         <p class="learn-more"><a href="<%=slide.learnmorelink%>">Learn More</a></p>
                      </div>
                  </li>
 				<% end %>
                 </ul>
+			
             </section>
 
             <div class="main-content" role="main">
