@@ -4,8 +4,8 @@ Koda is a Content Management System unlike any you might have come accross. Koda
 
 Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry) or use the Explorer for a nicer user interface. (both just speaks to the default Koda API) 
 
-*	To access the console go to your instance/console
-*	To access the explorer area go to your instance/explorer
+*	To access the console go to your http://your.koda.instance/console
+*	To access the explorer area go to your http://your.koda.instance/explorer
 
 View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 
@@ -115,10 +115,10 @@ end
 
 ## Creating Koda Types
 
-> To Create Koda types place a new js file in the /koda/koda-types folder  
+> To Create Koda types place a new js file in the `/public/koda/koda-types` folder  
 
-> Register your type in the _type_registration.js file and you can now use it in the Koda Explorer!   
-> A new type will appear under the "User Created" section on the right     
+> Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
+> A new type will appear under the "User Created" section on the right.     
 
 
 ```javascript
@@ -174,7 +174,7 @@ end
 
 ## Creating Koda Filters
 
-> Creating a new Koda Filter is as easy as placing a file into the /koda/koda-filters folder.   
+> Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
 
 > You can then call the filter on any collection   
 
@@ -211,7 +211,7 @@ end
 
 > these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
 
-> when we now call    
+> when we 'GET' (or visit the url)    
 `/api/cars/filtered/icons`
 > you will receive documents that match the criteria  
 
@@ -315,27 +315,27 @@ The only addition is the "title" field, which when present indicates a human rea
 >  Regex Match  
 
 `
-Request:GET '/api/search?tags=/page/'
+Request:GET '/api/search?tags=/page/'   
 Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
 `
 >  Exact Match  
 
 `
-Request:GET '/api/search?tags=home'
+Request:GET '/api/search?tags=home'  
 Response:[{"href":"/api/pages/homepage","rel":"full"}] 
 `
 
 > Combining  
 
 `
-Request:GET '/api/search?tags=/page/&someotherproperty=true'
+Request:GET '/api/search?tags=/page/&someotherproperty=true'   
 Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
 `
 
 > Skip and Take  
 
 `
-Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'
+Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'   
 Response:[{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
 `
 
@@ -346,7 +346,7 @@ Response:[{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact",
 '/' returns the a list of urls for the 'user' (non-system) collections, for example 
 
 `
-Request:GET '/api/' 
+Request:GET '/api/'    
 Response:[{"href":"/trucks","rel":"full"},{"href":"/iguanas","rel":"full"},{"href":"/cars","rel":"full"}] 
 `
 
