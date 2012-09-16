@@ -87,6 +87,7 @@ helpers do
     if response["stat"] == "ok"
       id = response["profile"]["googleUserId"]
       name = response["profile"]["displayName"]
+      ref = name.gsub(/\s+/, "-").downcase 
       existing_user = search({ 'googleid' => id }).first()
       puts existing_user
       
@@ -99,7 +100,7 @@ helpers do
       else
         is_admin = documents('users').length == 0
         user = { 
-          '_koda_ref'=> name, 
+          '_koda_ref'=> ref, 
           'googleid' => id,
           'name' => name, 
           'email' => response["profile"]["email"], 
