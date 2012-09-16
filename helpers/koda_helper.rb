@@ -18,8 +18,8 @@ helpers do
     @db_wrapper.collection(collection_name).find_document(doc_ref)
   end
   
-  def get_index(collection_name, index_name)
-    JSON.parse get_raw("/api/#{collection_Name}/indexed/#{index_name}")
+  def get_filtered(collection_name, filter_name)
+    JSON.parse get_raw("/api/#{collection_Name}/filtered/#{index_name}")
   end
   
   def get_raw(url)

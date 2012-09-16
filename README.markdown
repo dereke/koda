@@ -28,7 +28,7 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 `get_all_content`  
 `get_documents(collection_name)`  
 `get_document(collection_name, doc_ref)`  
-`get_index(collection_name, index_name)`  
+`get_filtered(collection_name, filter_name)`  
 
 
 ## Creating Koda Types
@@ -89,31 +89,83 @@ Koda is a Resource Management System that stores JSON and Images. Koda provides 
 }
 ```
 
-## Creating Koda Indexes
+## Creating Koda Filters
 
-> Creating a new Koda Index is as easy as placing a file into the /koda/koda-indexes folder.  
+> Creating a new Koda Filter is as easy as placing a file into the /koda/koda-filters folder.   
 
-> You can then call the index on any collection  
+> You can then call the filter on any collection   
 
-
-> lets say we place a file `icons.js` into the indexes folder  
+> lets say we place a file `music.js` into the filters folder that wants to show a list things tagged as "music" in a collection  
 
 
 ```javascript
-{ // REMOVE ALL COMMENTS BEFORE USING
-	"query" : { // add properties that you want to match on
-		"name" : "/Icon/" // "/substring/" for regex match or "Homepage" for exact match
+{ 
+	"filter" : { 
+		"tags" : "/music/" // add the forward-slashes means it will match the value using a regex
 	},
-	"sort" : { // add properties that you would like to sort on
+	"sort" : { 
 		"name" : "1"
 	}
 }
 ```
 
-> now just call   
-`/api/cars/indexed/icons`
+> You can also do more advanced filtering  
 
-> and you will receive documents that match the criteria   
+```javascript
+{ 
+	"filter" : { 
+		"somenumber" : { $gt: 10 }, // greater than 10
+		"someproperty" : { $exists : true },
+		"age" : { $in : [18,19,20] },
+		"name" : { $ne : "Adolf" }
+	},
+	"sort" : { 
+		"name" : "1",
+		"age"  : "1"
+	}
+}
+```
+
+> these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
+
+> when we now call    
+`/api/cars/indexed/icons`
+> you will receive documents that match the criteria  
+
+## Linked Documents
+
+> You can add the urls of other documents, search queries or even filters to a document and it will
+> Include the documents inside the result of the main doc
+
+> Eg. If you set a field on a document called 'linked_documents' to '/api/pages/blog, /api/pages/filtered/last-two-days'  
+> it will include those in the original
+
+```javascript
+{
+_koda_doc_links: "/api/pages/blog",
+name: "Blog",
+tags: "root",
+_koda_ref: "blogfeedaggregator",
+linked_documents: [
+{
+_koda_doc_link: "/api/pages/blog",
+document: {
+bottomleftbody: "<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div><div><br></div>",
+_koda_indexes: "title",
+introparagraph: "Recent Posts",
+_koda_type: "/koda/koda-types/custom-genericpage.js",
+mainbody: "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+_koda_editor: "/koda/koda-editors/generic-editor.html",
+tags: "page",
+_koda_ref: "blog",
+_koda_doc_links: "/api/slides"
+}
+}
+]
+}
+```
+
+>  To avoid circular references included documents will not include their linked documents.
 
 ## Backup / Restore one mongo instance to another
 
@@ -153,6 +205,35 @@ Return from maintenance mode.
 All references to other resources follow the json schema format, as specified at http://json-schema.org/json-ref
 The only addition is the "title" field, which when present indicates a human readable phrase that is suitable to describe the item.
 
+## Search
+
+>  Regex Match  
+
+`
+Request:GET '/api/search?tags=/page/'
+Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
+`
+>  Exact Match  
+
+`
+Request:GET '/api/search?tags=home'
+Response:[{"href":"/api/pages/homepage","rel":"full"}] 
+`
+
+> Combining  
+
+`
+Request:GET '/api/search?tags=/page/&someotherproperty=true'
+Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
+`
+
+> Skip and Take  
+
+`
+Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'
+Response:[{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
+`
+
 ## Get Requests
 
 ###Root Document 
@@ -160,7 +241,7 @@ The only addition is the "title" field, which when present indicates a human rea
 '/' returns the a list of urls for the 'user' (non-system) collections, for example 
 
 `
-Request:GET '/' 
+Request:GET '/api/' 
 Response:[{"href":"/trucks","rel":"full"},{"href":"/iguanas","rel":"full"},{"href":"/cars","rel":"full"}] 
 `
 
@@ -169,7 +250,7 @@ Response:[{"href":"/trucks","rel":"full"},{"href":"/iguanas","rel":"full"},{"hre
 '/collectioname' returns a list of urls of the documents stored in the collection, for example 
 
 `
-Request:GET '/trucks' 
+Request:GET '/api/trucks' 
 Response:[{"href":"/trucks/4db0dedb387f7123c9000001","title":"4db0dedb387f7123c9000001","rel":"full"},{"href":"/trucks/smallblueone","title":"smallblueone","rel":"full"}]
 `
 
@@ -178,17 +259,17 @@ Response:[{"href":"/trucks/4db0dedb387f7123c9000001","title":"4db0dedb387f7123c9
 
 ###Documents
 
-'/collectionname/documentname' returns the Mongo document stored in that collection. 
+'/api/collectionname/documentname' returns the Mongo document stored in that collection. 
 There are two ways documents can be referred to. First is by the internal Mongo ID, for example 
 
 `
-Request: GET '/trucks/4db0dedb387f7123c9000001' 
+Request: GET '/api/trucks/4db0dedb387f7123c9000001' 
 Response: {"size":"big","wheels":4,"colour":"green","_koda_ref":"4db0dedb387f7123c9000001"} 
 `
 
 Secondly is by the '_koda_ref' value, for example 
 `
-Request: GET 'trucks/smallblueone' 
+Request: GET '/api/trucks/smallblueone' 
 Response: {"_koda_ref":"smallblueone","size":"small","wheels":4,"colour":"blue"} 
 `
 
@@ -199,7 +280,7 @@ Documents can be created two ways - either by posting to the collection url, or 
 ###Post
 
 `
-Request: POST '/bikes' => {'cost':'expensive', 'speed':'fast', 'gears':27 } 
+Request: POST '/api/bikes' => {'cost':'expensive', 'speed':'fast', 'gears':27 } 
 Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'  
 /bikes/4db0dedb387f7123c9000007  
 `
@@ -209,7 +290,7 @@ Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'
 ###Put
 
 `
-Request: POST '/bikes/bigred' => {'cost':'expensive', 'speed':'slow', 'gears':27, 'colour':'red' } 
+Request: POST '/api/bikes/bigred' => {'cost':'expensive', 'speed':'slow', 'gears':27, 'colour':'red' } 
 Response: Status 201, Location 'bikes/bigred' 
 bikes/bigred  
 `
@@ -222,14 +303,14 @@ bikes/bigred
 ### Collections
 
 `
-Request: DELETE '/trucks' 
+Request: DELETE '/api/trucks' 
 Response: Status OK
 `
 
 ### Documents
 
 `
-Request DELETE '/bikes/bigred' 
+Request DELETE '/api/bikes/bigred' 
 Response: Status OK
 `
 
@@ -238,14 +319,14 @@ Response: Status OK
 In environments where Put and Delete requests are not supported, use this format instead: 
 
 `
-POST '/collectioname/document?_method=METHOD' 
+POST '/api/collectioname/document?_method=METHOD' 
 `
 
 For example 
 
 `
-POST '/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
-DELETE 'trucks/smallblueone' 
+POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
+DELETE '/api/trucks/smallblueone' 
 `
 
 ### Development

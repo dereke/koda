@@ -52,4 +52,51 @@ class MongoDatabase
     flat_file
   end
   
+  def search(params)
+    
+    search_hash = Hash.new
+    sort_hash = Hash.new
+
+    if(params && params.length > 0)
+      params.each do |k,v|
+        if(v.include? '/')
+          search_hash[k] = eval v
+        else
+          search_hash[k] = v
+        end
+        sort_hash[k] = 1
+      end
+
+      results = Hash.new
+
+      all_user_collections.each do |collection|
+        results[collection] = collection(collection).query(search_hash, params[:take], params[:skip], sort_hash)
+      end
+      
+      results
+  
+    else
+      flat_file
+    end
+    
+  end
+  
+  def filter(collection_name, search_hash, take, skip)
+    
+    if(search_hash["sort"] != nil)
+      sort_hash = search_hash["sort"]
+    end
+
+    search_hash["filter"].each do |k,v|
+      if(v.include? '/')
+        search_hash["filter"][k] = eval v
+      else
+        search_hash["filter"][k] = v
+      end
+    end
+
+    collection(collection_name).query(search_hash["filter"], take, skip, sort_hash)
+    
+  end
+  
 end

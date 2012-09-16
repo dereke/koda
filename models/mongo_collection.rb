@@ -33,11 +33,15 @@ class MongoCollection
 
   def save_document raw_resource, ref=nil
 
+    if(raw_resource['linked_documents'] != nil)
+      raw_resource.delete 'linked_documents'
+    end
+
     if !(ref==nil)
       existing_doc = find_document(ref)
     end
 
-    if !(existing_doc == nil)
+    if !(existing_doc == nil)      
       updated_doc = MongoDocument.new raw_resource, @collection.name, existing_doc.id, Time.now.httpdate
       @collection.save(updated_doc.raw_document)
     else

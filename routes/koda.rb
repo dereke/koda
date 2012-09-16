@@ -41,10 +41,6 @@ put '/api' do
   response['Allow'] = 'GET,POST'
 end
 
-get '/api/flattened/?' do
-  JSONP @db_wrapper.flat_file
-end
-
 post '/api/_koda_media/?' do  
 
   media = MongoMedia.new request, params
@@ -120,28 +116,22 @@ options '/api/_koda_media/:filename' do
   response['Allow'] = 'GET,PUT,DELETE'
 end
 
-get '/api/:collection/indexed/:query/?' do
-  query = params[:query]
+get '/api/search/?' do 
+  content_type :json, 'kodameta' => 'list'  
+    JSONP @db_wrapper.search params
+end
+
+get '/api/:collection/filtered/:filter/?' do
+  filter = params[:filter]
   content_type :json, 'kodameta' => 'list'
   collection_name = params[:collection]
 
   halt 404 if not @db_wrapper.contains_collection(collection_name)  
 
-  response = get_raw "/koda/koda-indexes/#{query}.js"
+  response = get_raw "/koda/koda-filters/#{filter}.js"
   search_hash = JSON.parse response
-
-  if(search_hash["sort"] != nil)
-    sort_hash = search_hash["sort"]
-  end
   
-  search_hash["query"].each do |k,v|
-    if(v.include? '/')
-      search_hash["query"][k] = eval v
-      search_hash["query"][k]
-    end
-  end
-  
-  JSONP @db_wrapper.collection(collection_name).query(search_hash["query"], params[:take], params[:skip], sort_hash)
+  JSONP @db_wrapper.filter collection_name, search_hash, params[:take], params[:skip]
 end
 
 get '/api/:collection/?' do
@@ -158,10 +148,6 @@ post '/api/:collection/?' do
     raw_doc = request.env["rack.input"].read
     hash = JSON.parse raw_doc
     new_doc = @db_wrapper.collection(collection_name).save_document(hash)
-    
-    if(hash['linked_documents'] != nil)
-      hash.delete 'linked_documents'
-    end
     
     response['Location'] = new_doc.url
     status 201

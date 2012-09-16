@@ -1,5 +1,5 @@
 {
-	"query" : {
+	"filter" : {
 		"tags" : "/home/"
 	},
 	"sort" : {
