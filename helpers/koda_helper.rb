@@ -111,7 +111,7 @@ helpers do
         }
         new_user = @db_wrapper.collection('users').save_document(user)
         if(is_admin)
-          session['koda_user']  = is_admin
+          session['koda_user']  = user
         else
           redirect '/not-allowed'
         end
