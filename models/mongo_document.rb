@@ -54,7 +54,11 @@ class MongoDocument
     if (@doc['name'])
       @doc['name']
     else
-      ref
+      if(@doc['_koda_title'])
+        @doc['_koda_title']
+      else
+        ref
+      end
     end
   end
   

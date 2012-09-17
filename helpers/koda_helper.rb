@@ -14,7 +14,7 @@ helpers do
   def documents(collection_name, skip=nil, take=nil)
     documents = []
     @db_wrapper.collection(collection_name).resource_links(take, skip, nil).each do |doc_ref|
-      documents.push document(collection_name, doc_ref.title)
+      documents.push document(collection_name, doc_ref._koda_ref)
     end
     
     documents
@@ -33,7 +33,7 @@ helpers do
     result = JSON.parse get_raw("/api/#{collection_name}/filtered/#{filter_name}")
     documents = []
     result.each do |doc_ref|      
-       documents.push document(collection_name, doc_ref.title)
+       documents.push document(collection_name, doc_ref._koda_ref)
     end
 
     documents
@@ -44,7 +44,7 @@ helpers do
     documents = []
     result.each do |collection, doc_refs|   
         doc_refs.each do |doc_ref|
-          documents.push document(collection, doc_ref.title)
+          documents.push document(collection, doc_ref._koda_ref)
         end
     end
     
