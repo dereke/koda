@@ -1,1 +1,0 @@
-{indexes:[{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "heroku_app7243822.pages", "name" : "_id_" }, { "v" : 1, "key" : { "name" : 1, "tags" : 1 }, "ns" : "heroku_app7243822.pages", "name" : "name_1_tags_1" }, { "v" : 1, "key" : { "title" : 1 }, "ns" : "heroku_app7243822.pages", "name" : "title_1" }]}
