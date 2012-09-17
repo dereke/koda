@@ -437,6 +437,7 @@ DELETE '/api/trucks/smallblueone'
 ### Development Quickstart
 
 *	Clone the git repo
+*	sudo gem install bundler
 *	run `bundle install`
 
 *	`gem install shotgun`

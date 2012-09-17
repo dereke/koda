@@ -8,18 +8,18 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   
   it "accepts a resource into an existing collection" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes', bike
 
     last_response.status.should == 201
     last_response.location.should.start_with? '/api/bikes/'
     last_response.body.should.start_with? '/api/bikes/'
-    last_response.content_type.should == 'application/json'
+    last_response.content_type.should == 'application/json;charset=utf-8'
   end
   
   it "actually creates the resource added into an existing collection" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes', bike
 
@@ -35,7 +35,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   end
   
   it "creates a resource at the right location when jam ref supplied" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'_koda_ref'=>'thefastexpensiveone','cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes', bike
 
@@ -61,7 +61,7 @@ shared_examples_for "Mongo KodaRms write interface" do
        last_response.location.should.start_with? '/api/_koda_media/'
 
        last_response.body.should.include? '/api/_koda_media/'
-       last_response.content_type.should == 'application/json'
+       last_response.content_type.should == 'application/json;charset=utf-8'
   end
   
   it "create retrievable media at the right location" do
@@ -144,18 +144,18 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   
   it "accepts a resource into an existing collection when trailing slash added" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes/', bike
 
     last_response.status.should == 201
     last_response.location.should.start_with? '/api/bikes/'
     last_response.body.should.start_with? '/api/bikes/'
-    last_response.content_type.should == 'application/json'
+    last_response.content_type.should == 'application/json;charset=utf-8'
   end
 
   it "creates a new resource at a set location through put" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     new_truck = {'size' => 'biggest', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/api/trucks/4db0dedb387f7123c9900001', new_truck
@@ -172,7 +172,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   end
   
   it "creates a new resource at a set non-id location through put" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     new_truck = {'size' => 'biggest', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/api/trucks/bigone', new_truck
@@ -190,7 +190,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   end
 
   it "replaces an existing resource through put" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     new_truck = {'size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/api/trucks/4db0dedb387f7123c9000001', new_truck
@@ -203,7 +203,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   end
   
   it "replaces an existing resource through put to overridden ref" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     new_truck = {'_koda_ref'=>'smallblueone','size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/api/trucks/smallblueone', new_truck
@@ -216,7 +216,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   end
 
   it "replaces an existing resource through put method override of post" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     new_truck = {'size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     post '/api/trucks/4db0dedb387f7123c9000001?_method=put', new_truck
@@ -310,7 +310,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;kodameta=list'    
+    last_response.content_type.should == 'application/json;kodameta=list, charset=utf-8'    
   end
   
   it "returns the correct collections at root" do
@@ -342,7 +342,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api/trucks'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;kodameta=list'    
+    last_response.content_type.should == 'application/json;kodameta=list, charset=utf-8'    
   end
   
 
@@ -443,7 +443,7 @@ shared_examples_for "Mongo KodaRms read interface" do
   end
   
   it "returns not modified for an unchanged resource url" do
-    header 'Content-Type', 'application/json'
+    header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes/', bike
 

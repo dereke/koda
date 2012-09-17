@@ -30,7 +30,6 @@ end
 
 post "/signed-in" do
   if authenticate(params[:token])
-    puts session['return_url']
     redirect session['return_url']
   else
     redirect "/sign-in"
