@@ -310,7 +310,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;kodameta=list, charset=utf-8'    
+    last_response.content_type.should == 'application/json;charset=utf-8, kodameta=list'    
   end
   
   it "returns the correct collections at root" do
@@ -342,7 +342,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     get '/api/trucks'
     
     last_response.should.be.ok
-    last_response.content_type.should == 'application/json;kodameta=list, charset=utf-8'    
+    last_response.content_type.should == 'application/json;charset=utf-8, kodameta=list'    
   end
   
 

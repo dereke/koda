@@ -134,7 +134,7 @@ Editor.Controls = function() {
 		all: new Object(),
 		
 		registerControl: function(key, control){
-			this.controls[key] = control;
+			this.all[key] = control;
 		},
 		
 		load: function() {
@@ -147,22 +147,21 @@ Editor.Controls = function() {
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
 			this.all['truefalse'] = this.trueFalse;
 			this.all['readonlystring'] = this.readOnlyString;
+			this.all['collection'] = this.collection;
 		},
 		
-		hiddenString: function(identifier) {
+		hiddenString: function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="hidden" id="'+identifier+'" name="'+identifier+'" />',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="hidden" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function(form) {
-					
+				bind : function(callback) {
+					callback();
 				},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -177,18 +176,16 @@ Editor.Controls = function() {
 			
 		},
 		
-		kodaLinkEditor : function(identifier) {
+		kodaLinkEditor : function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" />',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -202,19 +199,67 @@ Editor.Controls = function() {
 			}
 			
 		},
+		/*
+			USAGE:
+			"source" : "/api",
+			"text" : "title",
+			"value" : "title"
 			
-		textString: function(identifier) {
+			OR
+			
+			"values" : "comma,separated,values"
+		*/
+		collection: function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="text" id="'+identifier+'" name="'+identifier+'"/>',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<select id="'+field.id+'" name="'+field.id+'"/>',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {
+					var control = $('select#'+this.id);
+					if(field.values) {
+						var options = field.values.split(',');
+						options.splice(0,0,"--Select--");
+						var id = field.id;
+						$.each(options, function(i, item){
+							control.append('<option value="'+item+'">'+item+'</option>');
+						});
+						callback();
+					} else if(field.source){
+						var id = field.id;
+						Editor.Api.get(field.source, function(data){
+							$.each(data, function(i, item){
+								control.append('<option value="'+item[field.text]+'">'+item[field.value]+'</option>');
+							});
+							callback();
+						});
+					}
+				},
+				create: function() {
+					return this.html;
+				},
+				getValue: function(){
+					return $('select#'+this.id).val();
+				},
+				setValue: function(value) {
+					$('select#'+this.id).val(value);
+				}
+			}
+			
+		},
+			
+		textString: function(field) {
+			
+			return {
+			
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="text" id="'+field.id+'" name="'+field.id+'"/>',
+				value: '',
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -229,18 +274,16 @@ Editor.Controls = function() {
 			
 		},
 		
-		readOnlyString: function(identifier) {
+		readOnlyString: function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" disabled="disabled"/>',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" disabled="disabled"/>',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -255,18 +298,16 @@ Editor.Controls = function() {
 			
 		},
 		
-		passwordString: function(identifier) {
+		passwordString: function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="password" id="'+identifier+'" name="'+identifier+'"/>',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="password" id="'+field.id+'" name="'+field.id+'"/>',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -281,18 +322,16 @@ Editor.Controls = function() {
 			
 		},
 		
-		trueFalse: function(identifier) {
+		trueFalse: function(field) {
 			
 			return {
 			
-				id : identifier,
-				defaultValue: '',
-				html : '<input type="checkbox" id="'+identifier+'" name="'+identifier+'" />',
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="checkbox" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -307,18 +346,16 @@ Editor.Controls = function() {
 			
 		},
 		
-		textArea: function(identifier) {
+		textArea: function(field) {
 			
 			return {
 			
-				defaultValue: '',
-				id : '',
-				html : '<textarea id="'+identifier+'" name="'+identifier+'" class="input-xlarge"></textarea>',
+				defaultValue: field.defaultValue,
+				id : field.id,
+				html : '<textarea id="'+field.id+'" name="'+field.id+'" class="input-xlarge"></textarea>',
 				value: '',
-				bind : function() {},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				bind : function(callback) {callback();},
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -333,21 +370,20 @@ Editor.Controls = function() {
 			
 		},
 		
-		richText: function(identifier) {
+		richText: function(field) {
 			
 			return {
 			
-				defaultValue: '',
-				id : '',
-				html : '<div class="richTextEditor" style="display:none"><textarea id="'+identifier+'" name="'+identifier+'"></textarea></div>',
+				defaultValue: field.defaultValue,
+				id : field.id,
+				html : '<div class="richTextEditor" style="display:none"><textarea id="'+field.id+'" name="'+field.id+'"></textarea></div>',
 				value: '',
-				bind : function() {
+				bind : function(callback) {
 					$('.richTextEditor').show();
-					new nicEditor().panelInstance(identifier);					
+					new nicEditor().panelInstance(field.id);					
+					callback();
 				},
-				create: function(id, value) {
-					this.id = id;
-					this.defaultValue = value;
+				create: function() {
 					return this.html;
 				},
 				getValue: function(){
@@ -362,37 +398,36 @@ Editor.Controls = function() {
 			
 		},
 		
-		imageUpload: function(identifier) {
+		imageUpload: function(field) {
 			
 			return {
 			
-				defaultValue: '',
+				defaultValue: field.defaultValue,
 				mediaKey: '',
-				id : '',
-				html : '<input type="hidden" id="'+identifier+'_file" /><ul id="'+identifier+'" class="unstyled fileuploader"></ul>',
+				id : field.id,
+				html : '<input type="hidden" id="'+field.id+'_file" /><ul id="'+field.id+'" class="unstyled fileuploader"></ul>',
 				value: '',
-				bind : function(){
+				bind : function(callback){
 					var uploader = new qq.FileUploader({
 						element: $('.fileuploader')[0],
 					    action: PathHelper.getPath('/_koda_media'),
 						onComplete : this.complete
 					});
+					callback();
 				},
-				create: function(id, value) {					
-					this.id = id;
-					this.defaultValue = value;
+				create: function() {					
 					return this.html;
 				},
 				getValue: function(){
-					return $('#'+identifier+'_file').val();
+					return $('#'+this.id+'_file').val();
 				},
 				setValue: function(value) {
-					$('#'+identifier+'_file').val(value);
-					$('#'+identifier+'_file').prev().append('<img class="uploadedImage" id="'+this.id+'_image" src="'+value+'" />');
+					$('#'+this.id+'_file').val(value);
+					$('#'+this.id+'_file').prev().append('<img class="uploadedImage" id="'+this.id+'_image" src="'+value+'" />');
 				},
 				complete : function(id, filename, response){
-					$('#'+identifier+'_file').val(response.location);
-					$('#'+identifier+'_image').attr('src', response.location+'?'+Math.random());
+					$('#'+this.id+'_file').val(response.location);
+					$('#'+this.id+'_image').attr('src', response.location+'?'+Math.random());
 				}
 				
 			}
@@ -419,7 +454,7 @@ Editor.Form = function(container, spec, onSubmit) {
 		
 		var controlGroup = $('<div class="control-group"></div>');
 		
-		var newControl = $.extend(true, {}, controls.all[field.control](field.id));
+		var newControl = $.extend(true, {}, controls.all[field.control](field));
 		controlsCollection[field.id] = newControl;
 		
 		if(field.title) {
@@ -427,7 +462,7 @@ Editor.Form = function(container, spec, onSubmit) {
 			controlGroup.append(labelHtml);
 		}
 
-		var controlHtml = $(newControl.create(field.id, field.defaultValue));
+		var controlHtml = $(newControl.create());
 		controlGroup.append(controlHtml);
 		
 		if(field.description) {
@@ -480,18 +515,18 @@ Editor.Form = function(container, spec, onSubmit) {
 
 			for (var key in controlsCollection) {
 				var control = controlsCollection[key];
-				
-				if(key in this.converters){
-					this.converters[key](content[key], control);
-				} else {
-					if(content[key] != undefined && content[key] != null){
-			  			control.setValue(content[key]);
+				var converters = this.converters;
+				control.bind(function(){
+					if(key in converters){
+						converters[key](content[key], control);
 					} else {
-						control.setValue(control.defaultValue);
+						if(content[key] != undefined && content[key] != null){
+				  			control.setValue(content[key]);
+						} else {
+							control.setValue(control.defaultValue);
+						}
 					}
-					
-					control.bind();
-				}
+				});
 			}
 			
 		}

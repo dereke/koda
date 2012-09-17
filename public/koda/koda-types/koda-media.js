@@ -30,9 +30,10 @@
 		{
 			"id" : "type",
 			"title" : "Type",
-			"description" : "Media type",
-			"control" : "textstring",
-			"defaultValue" : ""
+			"description" : "Pick a media type",
+			"control" : "collection",
+			"values" : "png,jpg,mp3,avi",
+			"defaultValue" : "jpg"
 		},
 		{
 			"id" : "file",

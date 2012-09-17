@@ -15,4 +15,5 @@ set :short_ttl, 400
 set :long_ttl, 4600
 set :sessions, true
 set :session_secret, "something"
+
 run Sinatra::Application
