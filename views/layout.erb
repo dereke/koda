@@ -110,8 +110,8 @@
                 </nav>
 
                 <aside class="copyright">
-                    <p data-cached="<%=settings.enable_cache%>">Koda CMS is built under <a href="http://opensource.org/licenses/MIT" rel="license">MIT License</a> : <%=settings.environment%></p>
-					<p>></p>
+                    <p data-cached="<%=settings.enable_cache%>" data-env="<%=ENV['RACK_ENV']%>">Koda CMS is built under <a href="http://opensource.org/licenses/MIT" rel="license">MIT License</a> : <%=settings.environment%></p>
+					<p></p>
                 </aside>
 
             </footer>
