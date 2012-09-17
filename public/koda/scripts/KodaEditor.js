@@ -156,7 +156,9 @@ Editor.Controls = function() {
 				defaultValue: '',
 				html : '<input type="hidden" id="'+identifier+'" name="'+identifier+'" />',
 				value: '',
-				bind : function(form) {},
+				bind : function(form) {
+					
+				},
 				create: function(id, value) {
 					this.id = id;
 					this.defaultValue = value;
@@ -206,7 +208,7 @@ Editor.Controls = function() {
 			
 				id : identifier,
 				defaultValue: '',
-				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" />',
+				html : '<input type="text" id="'+identifier+'" name="'+identifier+'"/>',
 				value: '',
 				bind : function() {},
 				create: function(id, value) {
@@ -232,7 +234,7 @@ Editor.Controls = function() {
 			
 				id : identifier,
 				defaultValue: '',
-				html : '<input type="password" id="'+identifier+'" name="'+identifier+'" />',
+				html : '<input type="password" id="'+identifier+'" name="'+identifier+'"/>',
 				value: '',
 				bind : function() {},
 				create: function(id, value) {
@@ -284,7 +286,7 @@ Editor.Controls = function() {
 			
 				defaultValue: '',
 				id : '',
-				html : '<textarea id="'+identifier+'" name="'+identifier+'"></textarea>',
+				html : '<textarea id="'+identifier+'" name="'+identifier+'" class="input-xlarge"></textarea>',
 				value: '',
 				bind : function() {},
 				create: function(id, value) {
@@ -380,20 +382,33 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	var controlsCollection = new Object();
 
-	var form = $('<form id="koda-form" name="koda-form" method="post"></form>');
+	var form = $('<form id="koda-form" name="koda-form" method="post" class="form-horizontal"></form>');
+	var fieldset = $('<fieldset></fieldset>');
+	var legend = $('<legend>Koda Type Editor</legend>');
+	
+	fieldset.append(legend);
 	
 	$.each(spec.fields, function(i, field){
+		
+		var controlGroup = $('<div class="control-group"></div>');
 		
 		var newControl = $.extend(true, {}, controls.all[field.control](field.id));
 		controlsCollection[field.id] = newControl;
 		
 		if(field.title) {
-			var labelHtml = $('<label>'+field.title+'<span class="small">'+field.description+'</span></label>');
-			form.append(labelHtml);
+			var labelHtml = $('<label class="control-label" for="'+field.id+'">'+field.title+'</label>');
+			controlGroup.append(labelHtml);
 		}
 
 		var controlHtml = $(newControl.create(field.id, field.defaultValue));
-		form.append(controlHtml);
+		controlGroup.append(controlHtml);
+		
+		if(field.description) {
+			var descriptionHtml = $('<span class="help-inline">'+field.description+'</span>');
+			controlGroup.append(descriptionHtml);
+		}
+		
+		fieldset.append(controlGroup);
 		
 	});
 	
@@ -410,15 +425,22 @@ Editor.Form = function(container, spec, onSubmit) {
 		
 	});
 	
-	form.append('<button type="submit">Save</button><div class="spacer"></div>');
+	var actionGroup = $('<div class="form-actions"></div>');
 	
-	container.append('<div id="status" style="display:none"></div>');
-	container.append(form);
+	actionGroup.append('<button type="submit" class="btn btn-primary">Save</button><div class="spacer"></div>');
+	
+	actionGroup.append('<div id="status" style="display:none"></div>');
+	fieldset.append(actionGroup);
 	
 	if(spec.is_readonly){
 		$('button[type="submit"]').attr("disabled", true);
 		$('#status').text('This form is readonly');
 	}
+	
+	form.append(fieldset);
+	container.append(form);
+	
+	$('input[type="hidden"]').parent().addClass('no-wrap');
 	
 	return {
 		converters: Object(),

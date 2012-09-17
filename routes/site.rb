@@ -1,7 +1,7 @@
 get '/console' do
   if(logged_in?)
     content_type :html
-    File.new('public/koda/console.html').readlines
+    erb :koda_console, :layout => false, :escape_html => true
   else
     session['return_url'] = '/console'
     redirect '/sign-in'
@@ -11,7 +11,7 @@ end
 get '/explorer' do
   if(logged_in?)
     content_type :html
-    File.new('public/koda/explorer.html').readlines
+    erb :koda_explorer, :layout => false, :escape_html => true
   else
     session['return_url'] = '/explorer'
     redirect '/sign-in'

@@ -1033,6 +1033,7 @@
 	};
 
 	$.fancybox.init = function() {
+		
 		if ($("#fancybox-wrap").length) {
 			return;
 		}
@@ -1148,9 +1149,7 @@
 		onClosed : function(){},
 		onError : function(){}
 	};
-
-	$(document).ready(function() {
-		$.fancybox.init();
-	});
+	
+	$.fancybox.init();
 
 })(jQuery);

@@ -242,8 +242,6 @@ $.Class.extend("ExplorerPresenter",
 		},
 		
 		toggleRoot: function(root) {
-			$('#help dl').show();
-			$('#help h1').show();
 			if(root){
 				$('.allowed-in-root').show();
 				$('.allowed-in-collection').hide();
@@ -252,34 +250,24 @@ $.Class.extend("ExplorerPresenter",
 				$('.allowed-in-collection').show();
 			}
 			
-			// hide empty lists
-			$.each($("#help dl"), function(i, dl){
-				if($(dl).find('dt:visible').length == 0){
-					$(dl).prev().hide();
-					$(dl).hide();
-				}
-			});
 			// rebind events
-			$('#help a.new').unbind('click');
-			$('#help a.new').click(this.new);
+			$('.kodaType a.new').unbind('click');
+			$('.kodaType a.new').click(this.new);
 		},
 		
 		attach: function() {
 			
 			$.each(this.Class.kodaTypes, function(i, group){
 				
-				var header = '<h1>'+group.title+'</h1>';
-				var dl = $('<dl></dl>');
-				
+				var header = '<li class="nav-header">'+group.title+'</li>'
+				$(header).appendTo('ul.nav-list')
 				$.each(group.types, function(i, kodaType){
-					var dt = '<dt class="kodaType allowed-in-'+kodaType.allowedin+'"><img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'">'+kodaType.title+'</a></dt>'
-					var dd = '<dd class="allowed-in-'+kodaType.allowedin+'">'+kodaType.description+'</dd>'
-					$(dt).appendTo(dl);
-					$(dd).appendTo(dl)
+					var li = $('<li class="kodaType allowed-in-'+kodaType.allowedin+'"></li>');
+					var a_img = '<img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'" title="'+kodaType.description+'">'+kodaType.title+'</a>'
+					$(a_img).appendTo(li);
+					$(li).appendTo('ul.nav-list');
 				});
 				
-				$(header).appendTo('#help')
-				$(dl).appendTo('#help');
 			});
 			this.find('');
 			this.toggleRoot(true);
@@ -290,13 +278,13 @@ $.Class.extend("ExplorerPresenter",
 			var self = this;
 			self.Class.controller.findCommand('list', function(cmd) {
 				cmd.execute([path], function(results){
-					var list = $('<ul/>').attr('id', path);
+					var list = $('<ul class="explorer-items"/>').attr('id', path);
 					$.each(results, function(i, item) {
-						
-						if(item.title.indexOf('_koda_media') == -1 && item.title.indexOf('objectlabs-system') == -1) {
+
+						if(item.id.indexOf('_koda_media') == -1 && item.id.indexOf('objectlabs-system') == -1) {
 							
-							var listItem = $('<li />').attr('id', item.title);
-							var link = $('<a />').text(item.title).addClass(item.type);
+							var listItem = $('<li class="well" id="'+item.id+'"/>');
+							var link = $('<a id="'+item.id+'"/>').text(item.name).addClass(item.type);
 							
 							if(item.type != "collection"){
 								self.findType(item._koda_type, function(kodaType){
@@ -349,11 +337,11 @@ $.Class.extend("ExplorerPresenter",
 			
 			var self = Window.Presenter;
 			var type = $(this).find('a').attr('class');
-			var currentItem = $(this).text();
+			var currentItem = $(this).find('a').attr('id');
 			
 			if(type == 'collection') {
 				$('#back-button').remove();
-				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.Class.panel);
+				var backButton = $('<div id="back-button" class="well"><a>Back</a></div>').appendTo(self.Class.panel);
 				backButton.click(self.back);
 				self.Class.panel.find('ul').remove();
 				Session.currentFolder = currentItem;
@@ -376,7 +364,7 @@ $.Class.extend("ExplorerPresenter",
 				self.find('');
 				self.toggleRoot(true);
 			} else {
-				var backButton = $('<div id="back-button"><a>Back</a></div>').appendTo(self.Class.panel);
+				var backButton = $('<div id="back-button" class="well"><a>Back</a></div>').appendTo(self.Class.panel);
 				backButton.click(self.back);
 				self.Class.panel.find('ul').remove();
 				Session.currentFolder = collection;
@@ -412,7 +400,7 @@ $.Class.extend("ExplorerPresenter",
 			var self = Window.Presenter;
 			
 			self.Class.controller.findCommand('rm', function(cmd) {
-				cmd.execute([$(item).find('a').text()], function(result){
+				cmd.execute([$(item).find('a').attr('id')], function(result){
 					self.Class.panel.find('ul').hide('slow').remove();
 					self.find($(item).parent().attr('id'));
 				});
@@ -425,7 +413,8 @@ $.Class.extend("ExplorerPresenter",
 			var self = Window.Presenter;
 			
 			var type = $(item).find('a').attr('class');
-			var currentItem = $(item).text();
+			var currentItem = $(item).find('a').attr('id');
+			
 			if(type == 'collection') {
 				self.editDialog(currentItem, "collection", function(item) {
 					self.refresh(Session.currentFolder);
@@ -473,6 +462,7 @@ $.Class.extend("ExplorerPresenter",
 		launchEditor: function(base, typeUrl, itemUrl, isNew, callback) {
 			
 			var fullUrl = base + "?url="+itemUrl+"&kodatype="+typeUrl+"&isnew="+isNew+"&date=" + new Date().getTime();
+
 			$("#media-trigger").attr("href", fullUrl);
 			$("#media-trigger").fancybox({
 					'transitionIn'	:	'elastic',
@@ -879,13 +869,13 @@ $.Class.extend("LsCommand",
 							var href = item.href;
 							var count = href.split("/").length - 1
 							var indicator = count > 2 ? "<FILE>  " : "<DIR>  ";
-							output += indicator+item.title + "\n";
-							Session.history.push(item.title);
+							output += indicator+item._koda_ref + "\n";
+							Session.history.push(item._koda_ref);
 						
 						});					
 					} else {
-						output += "<FILE>  "+data.title + "\n";
-						Session.history.push(data.title);
+						output += "<FILE>  "+data._koda_ref + "\n";
+						Session.history.push(data._koda_ref);
 					}
 					
 					callback(output);
@@ -920,11 +910,13 @@ $.Class.extend("ListCommand",
 						var href = item.href;
 						var count = href.split("/").length - 1
 						var indicator = count > 2 ? "file" : "collection";
-						output.push({ title: item.title, _koda_type : item._koda_type, type: indicator});
+						var name = item.name ? item.name : item.title
+						output.push({ id: item._koda_ref, name : name, _koda_type : item._koda_type, type: indicator});
 
 					});					
 				} else {
-					output.push({ title: data.title, type: "file"});
+					var name = item.name ? item.name : item.title
+					output.push({ id: data._koda_ref, name : name, _koda_type : data._koda_type, type: 'file'});
 				}
 
 				callback(output);
@@ -964,38 +956,6 @@ $.Class.extend("OpenCommand",
 				}).trigger("click");
 				
 			$('#fancybox-frame').addClass('prettyprint');
-			callback("opening...");				
-						
-		}
-		
-	}
-);
-
-$.Class.extend("UploadCommand", 
-	{
-		key: "upload",
-		help: "usage: 'upload' this will open the upload manager in a window and store your media in the _koda_media folder",
-		kodaUrl: ''
-	}, 
-	{
-		init : function() { 
-			this.Class.kodaUrl = Session.kodaUrl; 
-		},
-		
-		execute: function(args, callback) {
-			
-			var url = this.Class.kodaUrl + "/_koda_media";
-			
-			$("#media-trigger").attr("href", "/media_poster.html?url="+url);
-			$("#media-trigger").fancybox({
-					'transitionIn'	:	'elastic',
-					'transitionOut'	:	'elastic',
-					'speedIn'		:	600, 
-					'speedOut'		:	200, 
-					'overlayShow'	:	false,
-					'width'			: 	800, 
-					'height'		: 	480 
-				}).trigger("click");
 			callback("opening...");				
 						
 		}
@@ -1108,7 +1068,6 @@ $.Class.extend("Explorer", {}, {
 		commands.push(new RemoveCommand(service));
 		commands.push(new OpenCommand());
 		commands.push(new MkDirCommand(service));
-		commands.push(new UploadCommand());
 		commands.push(new GetCommand(service));
 		
 		service.getExternal('/koda/koda-types/_type_registration.js?23423442', function(data){
@@ -1139,7 +1098,6 @@ $.Class.extend("Console", {}, {
 		commands.push(new RemoveCommand(service));
 		commands.push(new OpenCommand());
 		commands.push(new MkDirCommand(service));
-		commands.push(new UploadCommand());
 
 		var controller = new KodaController(commands);
 		Window.Presenter = new ConsolePresenter(controller);

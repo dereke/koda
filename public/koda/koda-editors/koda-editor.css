@@ -1,0 +1,54 @@
+.nicEdit-panelContain {
+	width: 100% !important;
+}
+
+.nicEdit-main {
+	min-height: 100px !important;
+}
+
+input, textarea {
+	width: 50% !important;
+}
+
+.form-horizontal .control-label {
+	width: 150px !important;
+	padding-top: 1px !important;
+	padding-right: 10px !important;
+}
+
+.help-inline {
+	clear: both;
+	float: right;
+	width: 80%;
+	font-size: smaller;
+	color: gray;
+}
+
+.richTextEditor {
+	position: relative;
+	left: 20%;
+	top: -20px;
+}
+
+.uploadedImage {
+	position: relative;
+	left: 173px;
+	top: 21px;
+	height: 99px;
+	margin-bottom: 25px;
+	margin-top: 11px;
+}
+
+.no-wrap {
+	margin: 0px !important;
+	padding: 0px !important;
+}
+
+#status {
+	float: right;
+	position: relative;
+	top: -23px;
+	right: 21px;
+	padding: 5px;
+	background-color: yellowGreen;
+}

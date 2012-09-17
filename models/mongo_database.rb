@@ -11,7 +11,7 @@ class MongoDatabase
   
   def collection_links 
     all_user_collections.map do |collection|
-      {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection}
+      {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection, '_koda_ref' => collection}
     end
   end
   
