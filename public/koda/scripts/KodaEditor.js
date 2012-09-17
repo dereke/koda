@@ -227,14 +227,6 @@ Editor.Controls = function() {
 							control.append('<option value="'+item+'">'+item+'</option>');
 						});
 						callback();
-					} else if(field.source){
-						var id = field.id;
-						Editor.Api.get(field.source, function(data){
-							$.each(data, function(i, item){
-								control.append('<option value="'+item[field.text]+'">'+item[field.value]+'</option>');
-							});
-							callback();
-						});
 					}
 				},
 				create: function() {
@@ -391,7 +383,7 @@ Editor.Controls = function() {
 				},
 				setValue: function(value) {
 					if(value != undefined && value != 'undefined') {
-						$('textarea#'+this.id).val(value);
+						nicEditors.findEditor(this.id).setContent(value);
 					}
 				}
 			}
@@ -413,6 +405,7 @@ Editor.Controls = function() {
 					    action: PathHelper.getPath('/_koda_media'),
 						onComplete : this.complete
 					});
+					
 					callback();
 				},
 				create: function() {					
@@ -422,12 +415,12 @@ Editor.Controls = function() {
 					return $('#'+this.id+'_file').val();
 				},
 				setValue: function(value) {
-					$('#'+this.id+'_file').val(value);
-					$('#'+this.id+'_file').prev().append('<img class="uploadedImage" id="'+this.id+'_image" src="'+value+'" />');
+					$('#'+field.id+'_file').val(value);
+					$('#'+field.id+'_file').prev().append('<img class="uploadedImage" id="'+field.id+'_image" src="'+value+'" />');
 				},
 				complete : function(id, filename, response){
-					$('#'+this.id+'_file').val(response.location);
-					$('#'+this.id+'_image').attr('src', response.location+'?'+Math.random());
+					$('#'+field.id+'_file').val(response.location);
+					$('#'+field.id+'_image').attr('src', response.location+'?'+Math.random());
 				}
 				
 			}
