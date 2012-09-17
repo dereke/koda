@@ -39,10 +39,16 @@ end
 
 get '/' do
   content_type :html
+  @current_page = search({'tags'=>'/home/'}).first()
   erb :index, :escape_html => true
 end
 
 get '/:page?' do
   content_type :html
-  erb :generic, :escape_html => true
+  @current_page = document('pages', params[:page])
+  if(@current_page)
+    erb :generic, :escape_html => true
+  else
+    redirect '/'
+  end
 end

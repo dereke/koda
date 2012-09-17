@@ -28,6 +28,13 @@
 			"defaultValue" : ""
 		},
 		{
+			"id" : "_koda_ref",
+			"title" : "Url slug",
+			"description" : "This will be generated from the title",
+			"control" : "readonlystring",
+			"defaultValue" : ""
+		},
+		{
 			"id" : "maintitle",
 			"title" : "Main title of the content",
 			"description" : "Shown just above the body",

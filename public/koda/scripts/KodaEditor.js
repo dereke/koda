@@ -146,6 +146,7 @@ Editor.Controls = function() {
 			this.all['richtext'] = this.richText;
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
 			this.all['truefalse'] = this.trueFalse;
+			this.all['readonlystring'] = this.readOnlyString;
 		},
 		
 		hiddenString: function(identifier) {
@@ -209,6 +210,32 @@ Editor.Controls = function() {
 				id : identifier,
 				defaultValue: '',
 				html : '<input type="text" id="'+identifier+'" name="'+identifier+'"/>',
+				value: '',
+				bind : function() {},
+				create: function(id, value) {
+					this.id = id;
+					this.defaultValue = value;
+					return this.html;
+				},
+				getValue: function(){
+					return $('input#'+this.id).val();
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						$('input#'+this.id).val(value);
+					}
+				}
+			}
+			
+		},
+		
+		readOnlyString: function(identifier) {
+			
+			return {
+			
+				id : identifier,
+				defaultValue: '',
+				html : '<input type="text" id="'+identifier+'" name="'+identifier+'" disabled="disabled"/>',
 				value: '',
 				bind : function() {},
 				create: function(id, value) {

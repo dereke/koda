@@ -203,32 +203,7 @@ get '/api/:collection/:resource?' do
   should_include = params[:include] != 'false'
 
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
-  if(doc)
-    
-    koda_doc_links = doc['_koda_doc_links']
-    if(should_include && doc && koda_doc_links && koda_doc_links != '')
-      puts should_include
-      doc_links = koda_doc_links.split(',')
-      doc['linked_documents'] = []
-      
-      doc_links.each do |doc_link|
-        if(doc_link.include? 'http')
-          doc_to_include = JSON.parse(get_raw_from_external URI(doc_link))
-        else
-          doc_to_include = JSON.parse(get_raw "#{doc_link}?include=false")
-        end
-        if(doc_to_include)
-          linked_doc_item = {
-            '_koda_doc_link' => doc_link,
-            'document' => doc_to_include
-          }
-          doc['linked_documents'].push linked_doc_item
-        end
-      end
-
-    end
-    
-  end
+  fetch_linked_docs doc if should_include
 
   halt 404 if doc==nil
 

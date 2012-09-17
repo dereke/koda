@@ -21,7 +21,9 @@ helpers do
   end
   
   def document(collection_name, doc_ref)
-    doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+
+    doc = get_document_from_cache collection_name, doc_ref
+    
     if(doc)
       doc.content
     else
@@ -50,6 +52,35 @@ helpers do
     
     documents
   end
+  
+  def fetch_linked_docs doc
+    if(doc)
+
+      koda_doc_links = doc['_koda_doc_links']
+      if(doc && koda_doc_links && koda_doc_links != '')
+  
+        doc_links = koda_doc_links.split(',')
+        doc['linked_documents'] = []
+
+        doc_links.each do |doc_link|
+          if(doc_link.include? 'http')
+            doc_to_include = JSON.parse(get_raw_from_external URI(doc_link))
+          else
+            doc_to_include = JSON.parse(get_raw "#{doc_link}?include=false")
+          end
+          if(doc_to_include)
+            linked_doc_item = {
+              '_koda_doc_link' => doc_link,
+              'document' => doc_to_include
+            }
+            doc['linked_documents'].push linked_doc_item
+          end
+        end
+
+      end
+
+    end
+  end
     
   def logged_in?
     if(settings.environment == :test)
@@ -72,6 +103,25 @@ helpers do
   end
   
   private
+  
+  def get_document_from_cache(collection_name, doc_ref, time_to_live=settings.long_ttl)
+
+    key = "#{collection_name}_#{doc_ref}"
+
+    if(!settings.enable_cache)
+      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+      fetch_linked_docs doc
+      return doc
+    end
+    if(settings.cache.get(key) == nil)
+      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+      fetch_linked_docs doc
+      settings.cache.set(key, doc, ttl=time_to_live+rand(100))
+    end
+
+    return settings.cache.get(key)
+
+  end
   
   def authenticate(token)
 

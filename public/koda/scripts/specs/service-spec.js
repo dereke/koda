@@ -49,7 +49,7 @@ require(["classes/jam-service"], function(){
 				var jamRef = data[0].title;
 				jamService.get("articles"+"/"+data[0].title, function(resource){
 					// assert
-					ok(resource._koda_ref == jamRef, "value was " + data._koda_ref);				
+					ok(resource.ref == jamRef, "value was " + data.ref);				
 					start();
 				})
 			
@@ -68,12 +68,12 @@ require(["classes/jam-service"], function(){
 			var jamService = new JamService();
 			
 			// act
-			jamService.post("articles", "{\"_koda_ref\":\"testing123\"}", function(data) {
+			jamService.post("articles", "{\"ref\":\"testing123\"}", function(data) {
 
 				var jamRef = "testing123";
 				jamService.get("articles/testing123", function(resource){
 					// assert
-					ok(resource._koda_ref == jamRef, "value was " + data._koda_ref);				
+					ok(resource.ref == jamRef, "value was " + data.ref);				
 					start();
 					
 					jamService.delete("articles/testing123");

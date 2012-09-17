@@ -37,10 +37,11 @@
 
 			var onSubmit = function(data) {				
 
-				if(isNew) {
-					
-					var ref = data.name.replace(/ /g,"-").toLowerCase();
-					data._koda_ref = ref;
+				var ref = data.name.replace(/ /g,"-").toLowerCase();
+				data._koda_ref = ref;
+				
+				if(isNew) {					
+
 					var dataString = JSON.stringify(data, null, 2);
 					api.post(url, dataString, onUpdate);
 

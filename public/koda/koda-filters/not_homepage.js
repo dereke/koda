@@ -1,6 +1,6 @@
 {
 	"filter" : {
-		"tags" : "/home/"
+		"tags" : "/^((?!page,home).)/"
 	},
 	"sort" : {
 		"tags" : "1"

@@ -6,6 +6,7 @@ require 'rack-methodoverride-with-params'
 require 'erb'
 require 'net/http'
 require 'rest_client'
+require 'dalli'
 
 Dir[File.dirname(__FILE__) + "/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
@@ -18,6 +19,10 @@ use Rack::MethodOverrideWithParams
 set :public, File.dirname(__FILE__) + '/public'
 set :sessions, true
 set :session_secret, "something"
+set :cache, Dalli::Client.new
+set :enable_cache, settings.environment != :development
+set :short_ttl, 400
+set :long_ttl, 4600
 
 configure do
   class << Sinatra::Base
