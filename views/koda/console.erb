@@ -134,7 +134,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="/koda/scripts/plugins/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 	<script>
-		<% if(settings.environment == :production) %>
+		<% if(settings.environment != :development) %>
 		Box("http://www.kodacms.org/koda/scripts/", [
 		<% else %>
 		Box("/koda/scripts/", [
