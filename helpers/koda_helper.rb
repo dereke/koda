@@ -107,6 +107,9 @@ helpers do
   def get_document_from_cache(collection_name, doc_ref, time_to_live=settings.long_ttl)
 
     key = "#{collection_name}_#{doc_ref}"
+    
+    puts settings.environment
+    puts settings.enable_cache
 
     if(!settings.enable_cache)
       doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
