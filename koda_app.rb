@@ -17,8 +17,8 @@ class KodaApp
 use Rack::MethodOverrideWithParams
 
 set :public, File.dirname(__FILE__) + '/public'
-if ENV['RACK_ENV']
-  set :environment, ENV['RACK_ENV']
+if ENV['ENVIRONMENT']
+  set :environment, ENV['ENVIRONMENT']
 end
 if ENV['ENABLE_CACHE']
   set :enable_cache, ENV['ENABLE_CACHE']
