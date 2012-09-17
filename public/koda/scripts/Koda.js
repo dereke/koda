@@ -238,7 +238,6 @@ $.Class.extend("ExplorerPresenter",
 			this.Class.panel = $('#explorer-panel');
 			this.Class.panel.delegate('li', 'click', this.selectItem);
 			this.Class.kodaTypes = kodaTypes;
-			
 		},
 		
 		toggleRoot: function(root) {
@@ -257,6 +256,8 @@ $.Class.extend("ExplorerPresenter",
 		
 		attach: function() {
 			
+			var self = this;
+			
 			$.each(this.Class.kodaTypes, function(i, group){
 				
 				var header = '<li class="nav-header">'+group.title+'</li>'
@@ -269,6 +270,12 @@ $.Class.extend("ExplorerPresenter",
 				});
 				
 			});
+			
+			$('.navbar-link').click(function(evt){
+				Session.currentFolder = 'users';
+				self.edit($(this).text(), 'file');
+			});
+			
 			this.find('');
 			this.toggleRoot(true);
 		},
@@ -348,8 +355,7 @@ $.Class.extend("ExplorerPresenter",
 				self.find(currentItem);
 				self.toggleRoot(false);	
 			} else {
-				var path = currentItem;
-				self.edit($(this));
+				self.edit(currentItem, type);
 			}
 			
 		},
@@ -388,7 +394,9 @@ $.Class.extend("ExplorerPresenter",
 			
 			var self = Window.Presenter;
 			if(action == 'edit') {
-				self.edit(el);
+				var type = $(el).find('a').attr('class');
+				var currentItem = $(el).find('a').attr('id');				
+				self.edit(currentItem, type);
 			} else if(action == 'delete') {
 				self.delete(el);
 			}
@@ -408,12 +416,11 @@ $.Class.extend("ExplorerPresenter",
 		
 		},
 		
-		edit : function(item) {
+		edit : function(ref, type) {
 			
 			var self = Window.Presenter;
 			
-			var type = $(item).find('a').attr('class');
-			var currentItem = $(item).find('a').attr('id');
+			var currentItem = ref;
 			
 			if(type == 'collection') {
 				self.editDialog(currentItem, "collection", function(item) {
