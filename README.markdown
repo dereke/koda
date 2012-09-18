@@ -48,6 +48,8 @@ Changes you make to the system will be versioned and can be reverted and recreat
 The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
 All Koda Types, Koda Filters are done using a simple JSON formatted file. 
 
+To use content inside your views you can choose your own [view engine](http://sinatra-book.gittr.com/#templates) (default erb)
+
 Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
 
 ### Getting started with Code First Development
