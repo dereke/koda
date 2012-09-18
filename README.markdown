@@ -36,7 +36,7 @@ ETA - October / November 2012
 
 # Developing with Koda
 
-You can use Koda just like Wordpress or Umbraco by installing an instance and building your website the Koda back-office, but... with Koda, you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
+You can use Koda just like Wordpress or Umbraco by installing an instance and building your website the Koda back-office (in progress), but... with Koda, you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
 Changes you make to the system will be versioned and can be reverted and recreated if you use source control.
 
 The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
