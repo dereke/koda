@@ -21,6 +21,10 @@ View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302b
 *	Always free! Open source MIT Licence
 *	Developers: Build your own DataTypes, KodaTypes, Filters, Indexes. We don't touch your front-end code and we don't enforce a site structure.
 
+## Some Screenshots
+
+
+
 ## Where are we now?
 
 We still need to finish the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
@@ -159,7 +163,7 @@ You can easily map the content returned by the api to your views by using our cl
 </section>
 ```
 
-> The language we use in your views is called [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby)   
+> The default view-engine is [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby), but you can configure your own [from these choices](http://sinatra-book.gittr.com/#templates)!
 > But we also provide a very versatile, yet simple client API to use in your views   
 
 `all()` returns all your content (if you'd like to load ALL the content only once (it will be slow first time but cached after))   
