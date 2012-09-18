@@ -27,8 +27,9 @@ View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b
 
 ## Where are we now?
 
-We still need to do the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
+We still need to finish the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
 
+*	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients)
 *	Type Editor
 *	View Editor
 *	Filter Editor
