@@ -174,28 +174,29 @@ Most CMS systems have a hierarchical structure. Koda have no such limits. You ca
 
 Eg.
 
-> Lets say I create a new folder called 'MyStuff'
-> I can then add a few 'GenericText' docs, a few 'Media' docs and also a few 'MyOwnCustomType' docs.
-> I can then create a 'KodaFilter' that could give me all the images in that folder OR anything tagged with 'wedding' OR some other really complicated querying options. And even better... 'KodaFilter's can be reused between folders. If you created a 'ImagesFilter', you can reuse it by calling   
+Lets say I create a new folder called 'MyStuff'   
+I can then add a few 'GenericText' docs, a few 'Media' docs and also a few 'MyOwnCustomType' docs.   
+I can then create a 'KodaFilter' that could give me all the images in that folder OR anything tagged with 'wedding' OR some other really complicated query. 
+And even better... 'KodaFilter's can be reused between folders. If you created a 'ImagesFilter', you can reuse it by calling   
 
-`/api/myfolder/filtered/images`
+`/api/myfolder/filtered/images`   
 OR   
-`/api/anothermyfolder/filtered/taggedasnew`
+`/api/anothermyfolder/filtered/taggedasnew`   
 
 These filters will be cached by your browser automatically as they will be seen as json documents   
 This isn't the only way to query data though, we have a full search api and you can even specify indexes on docs to speed up the queries!   
 
 `/api/search?tags=equals_me&someotherproperty=true`     
-`/api/search?tags=/include_me/&someotherproperty=true`   
+`/api/search?tags=/include_me/&someotherproperty=true&skip=2&take=4`   
 
 ### Creating Koda Types (Code First)
 
-Koda Types are schemas for documents. Think 'Umbraco - DocumentTypes'   
+Koda Types are schemas for documents. Think 'Umbraco - DocumentTypes'    
 
-> To Create Koda types place a new js file in the `/public/koda/koda-types` folder  
+To Create Koda types place a new js file in the `/public/koda/koda-types` folder    
 
-> Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
-> A new type will appear under the "User Created" section on the right.     
+Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
+A new type will appear under the "User Created" section on the right.     
 
 
 ```javascript
@@ -253,11 +254,9 @@ Koda Types are schemas for documents. Think 'Umbraco - DocumentTypes'
 
 Koda filters can be re-used and applied to any collection and will be cached by your browser.   
 
-> Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
-
-> You can then call the filter on any collection   
-
-> lets say we place a file `music.js` into the filters folder that wants to show a list things tagged as "music" in a collection  
+Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
+You can then call the filter on any collection   
+lets say we place a file `music.js` into the filters folder that wants to show a list things tagged as "music" in a collection  
 
 
 ```javascript
@@ -271,7 +270,7 @@ Koda filters can be re-used and applied to any collection and will be cached by 
 }
 ```
 
-> You can also do more advanced filtering  
+You can also do more advanced filtering  
 
 ```javascript
 { 
@@ -291,16 +290,16 @@ Koda filters can be re-used and applied to any collection and will be cached by 
 > these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
 
 > when we 'GET' (or visit the url)    
-`/api/cars/filtered/icons`   
+> `/api/cars/filtered/icons`   
 > you will receive documents that match the criteria  
 
 ### Linked Documents to Queries, Indexes, Filters, External JSON Feeds (like twitter)
 
-> You can add the urls of other documents, search queries or even filters to a document and it will
-> Include the documents inside the result of the main doc
+You can add the urls of other documents, search queries or even filters to a document and it will   
+Include the documents inside the result of the main doc   
 
-> Eg. If you set a field on a document called 'linked_documents' to '/api/pages/blog, /api/pages/filtered/last-two-days'  
-> it will include those in the original
+Eg. If you set a field on a document called 'linked_documents' to '/api/pages/blog, /api/pages/filtered/last-two-days'   
+it will include those in the original   
 
 ```javascript
 { "_koda_doc_links" : "/api/pages/blog",
@@ -326,8 +325,8 @@ Koda filters can be re-used and applied to any collection and will be cached by 
 
 ### Deploying Koda to Heroku
 
-> We know that deploying CMS's to production can be a tedious process...   
-> so to deploy koda to production just do...   
+We know that deploying CMS's to production can be a tedious process...   
+so to deploy koda to production just do...   
 
 ```ruby
 git clone git@github.com:KodaCMS/Default.git
@@ -338,40 +337,40 @@ git push heroku master
 
 ### Backup / Restore one koda instance to another
 
-> Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production     
-> This couldn't be simpler with koda...   
+Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production     
+This couldn't be simpler with koda...   
 
 > Set up your data and run the following command on your local machine when done...   
 `ruby backup.rb dump .`   
 > Commit your files or zip them up and place them on production and run the following   
 `ruby backup.rb restore .`  
 
-> This will backup /restore all your data and media to file.
+This will backup /restore all your data and media to file.  
 
 ### Backup / Restore on Heroku (or other shared hosting)
 
-Take your application into maintenance mode.
+Take your application into maintenance mode.   
 
-Please note: You will need your current `MONGOLAB_URI` (from your Heroku configs) available before you begin as the following steps will alter it permanently.
+Please note: You will need your current `MONGOLAB_URI` (from your Heroku configs) available before you begin as the following steps will alter it permanently.  
 
-`$ heroku maintenance:on`
-Run a mongodump of your current database.
+`$ heroku maintenance:on`  
+Run a mongodump of your current database.  
 
-`$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`
-Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.
+`$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`  
+Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.  
 
-`$ heroku addons:remove mongolab:starter`
-Provision a new database for this app.
+`$ heroku addons:remove mongolab:starter`  
+Provision a new database for this app.  
 
-`$ heroku addons:add mongolab:starter`
-Make available the newly updated MONGOLAB_URI from your Heroku configs.
+`$ heroku addons:add mongolab:starter`  
+Make available the newly updated MONGOLAB_URI from your Heroku configs.  
 
-Run a mongorestore of your locally backed up database to your new database (updating your connection info.)
+Run a mongorestore of your locally backed up database to your new database (updating your connection info.)  
 
-`$ mongorestore -h hostname.mongolab.com:port_number -d database_name -u username -p password /path/on/my/local/computer`
-Return from maintenance mode.
+`$ mongorestore -h hostname.mongolab.com:port_number -d database_name -u username -p password /path/on/my/local/computer`  
+Return from maintenance mode.  
 
-`$ heroku maintenance:off`
+`$ heroku maintenance:off`   
 
 
 # Koka RESTful API Reference
@@ -383,27 +382,28 @@ The only addition is the "title" field, which when present indicates a human rea
 
 ## Search
 
->  Regex Match  
+Regex Match  
 
 `
 Request:GET '/api/search?tags=/page/'   
 Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
-`
->  Exact Match  
+`  
+
+Exact Match  
 
 `
 Request:GET '/api/search?tags=home'  
 Response:[{"href":"/api/pages/homepage","rel":"full"}] 
 `
 
-> Combining  
+Combining   
 
 `
 Request:GET '/api/search?tags=/page/&someotherproperty=true'   
 Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
 `
 
-> Skip and Take  
+Skip and Take  
 
 `
 Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'   
