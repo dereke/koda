@@ -91,17 +91,36 @@ Once you have this installed, simply...
 ```
 
 > We will automatically match '/' to 'index.erb' and '/[name]' to '[name].erb'  
-> however, you can add your own routes in the '/routes/site.rb' file
+> however, you can add your own routes in the '/routes/site.rb' file for example...   
 
 ```ruby
 get '/' do
   content_type :html
-  erb :index
+  # could do things like
+  # @current_page = search({'tags'=>'/home/'}).first()
+  erb :index, :escape_html => true
 end
 
 get '/:page?' do
   content_type :html
-  erb params[:page]
+  # could do thinks lik
+  # @current_page = document('pages', params[:page])
+  if(@current_page)
+    erb :generic, :escape_html => true
+  else
+    redirect '/'
+  end
+end
+
+get '/:folder/:page?' do
+  content_type :html
+  # could do thinks lik
+  # @current_page = document(params[:folder], params[:page])
+  if(@current_page)
+    erb :generic, :escape_html => true
+  else
+    redirect '/'
+  end
 end
 ```
 
