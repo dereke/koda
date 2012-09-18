@@ -1,6 +1,6 @@
 # What is KodaCMS
 
-Koda is a new CMS unlike any you might have come accross. 
+Koda is a new CMS unlike any you might have come accross. I allows you to create your own conventions and changes the way you think about data!
 Before you say, 'Oh God... another CMS', have a read through our features first :)
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
@@ -14,12 +14,15 @@ View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302b
 *	Full RESTful API to your data (great for providing content to mobile apps or single page js apps)
 *	Platform independent (Built with Sinatra, Html and Javascript)
 *	Incredibly fast (Indexed Queries, Filters, and even Search queries can be cached)
+*	Fast Node.js Koda thin-client (optional)
 *	Almost no learning curve! (We will release a 5min video with our beta to prove this)
 *	No rules or limits to your creativity (we don't force a schema or convention on you, use your creativity to provide the best structure for your data)
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Loads of documentation will be provided including training videos
 *	Always free! Open source MIT Licence
 *	Developers: Build your own DataTypes, KodaTypes, Filters, Indexes. We don't touch your front-end code and we don't enforce a site structure.
+
+In a nutshell, Koda can be used to build 1 website or many more. Use one Koda instance to create a server for many thin clients OR create many Koda instances with one thin client. The sky is the limit.
 
 ## Some Screenshots
 
