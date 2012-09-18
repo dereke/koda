@@ -1,4 +1,4 @@
-### What is KodaCMS
+# What is KodaCMS
 
 Koda is a new 'state-of-the-art' CMS unlike any you might have come accross. 
 Before you say, 'Oh God... another CMS', have a read through our features first :)
@@ -35,7 +35,7 @@ We still need to finish the following before we can Release a beta of KodaCMS, b
 *	Action permissions for specific users
 *	Lots of Testing!
 
-## Developing with Koda
+# Developing with Koda
 
 You can use Koda just like Wordpress or Umbraco where you install an instance and build your website right there in the back-office, but... Koda you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. 
 This means that any changes you want to make to the system will be versioned and can be reverted and recreated if you use source control.
@@ -78,7 +78,7 @@ Once you have this installed, simply...
 *	Go to http://localhost:3000 to see your instance
 
 
-## Creating Layouts and Views
+### Creating Layouts and Views
 
 > Create a file called 'layout.erb' in the 'views' folder
 
@@ -111,7 +111,7 @@ get '/:page?' do
 end
 ```
 
-## Using Content inside Views
+### Using Content inside Views
 
 ```html
 <section>
@@ -153,7 +153,7 @@ end
 `search(search_hash)` eg. search({'tags' => '/page/'})   
 
 
-## Creating Koda Types
+### Creating Koda Types
 
 > To Create Koda types place a new js file in the `/public/koda/koda-types` folder  
 
@@ -212,7 +212,7 @@ end
 }
 ```
 
-## Creating Koda Filters
+### Creating Koda Filters
 
 > Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
 
@@ -285,7 +285,7 @@ end
 
 >  To avoid circular references included documents will not include their linked documents.
 
-## Deploying Koda to Heroku
+### Deploying Koda to Heroku
 
 > We know that deploying CMS's to production can be a tedious process...   
 > so to deploy koda to production just do...   
@@ -305,7 +305,7 @@ heroku addons:add mongolab:starter
 
 > Everything should just work!
 
-## Backup / Restore one koda instance to another
+### Backup / Restore one koda instance to another
 
 > Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production     
 > This couldn't be simpler with koda...   
@@ -317,7 +317,7 @@ heroku addons:add mongolab:starter
 
 > This will backup /restore all your data and media to file.
 
-## Backup / Restore on Heroku (or other shared hosting)
+### Backup / Restore on Heroku (or other shared hosting)
 
 Take your application into maintenance mode.
 
@@ -343,7 +343,7 @@ Return from maintenance mode.
 `$ heroku maintenance:off`
 
 
-### Koka RESTful API Reference
+# Koka RESTful API Reference
 
 ## Note about links
 
@@ -474,7 +474,7 @@ POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as
 DELETE '/api/trucks/smallblueone' 
 `
 
-### Roadmap
+# Roadmap
 
 *	~~Simple User Authorisation~~ (Janrain engage)
 *	More complex User Authorisation
