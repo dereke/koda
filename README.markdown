@@ -90,8 +90,8 @@ Once you have this installed, simply...
 <h3>Hello World!</h3>
 ```
 
-> We will automatically match '/' to 'index.erb' and '/[name]' to '[name].erb'  
-> however, you can add your own routes in the '/routes/site.rb' file for example...   
+> We will provide basic sitemap support, but you can add your own routes
+> For Example:
 
 ```ruby
 get '/' do
@@ -118,6 +118,11 @@ get '/:folder/:page?' do
   else
     redirect '/'
   end
+end
+
+get '/my-twitter-feed/?' do
+  content_type :json
+  JSONP document('twitter', 'kodacms_twitterfeed')
 end
 ```
 
