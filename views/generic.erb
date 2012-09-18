@@ -1,38 +1,45 @@
 <div class="activity-feed">
     <h1>Latest project activity</h1>
+
+	<!-- 
+		WARNING: 
+		THESE ARE ONLY EXAMPLES AND WONT WORK WITHOUT THE PROPER DATA 
+		
+		-->
+
     <ol class="items">
-        <li class="item twitter">
-            <p class="content"><a href="#">@shanselman</a> That's a fantastic idea. Have added it to the issue tracker to be addressed: <a href="#">http://issues.rebelcms.com/issue/RCMS-275</a></p>
-            <p class="posted"><a href="#">20 minutes ago</a></p>
-        </li>
+		<%document('twitter','rebel_cms_twitterfeed').linked_documents.each do |feed|%>
+			<% if feed.document && feed.document.results && feed.document.results.length > 0 %>
+				<% feed.document.results.each do |result|%>
+				 <li class="item twitter">
+			            <p class="content"><a href="https://twitter.com/<%=result.from_user%>">@<%=result.from_user%></a>  <%=result.text%></p>
+			            <p class="posted"><a href="#"><%=result.created_at%></a></p>
+			        </li>
+				<% end %>
+			<% end %>
+		<% end%>
+		
+		<%documents('posts').each do |blogpost|%>
         <li class="item blog">
-            <p class="content"><strong>From the Blog:</strong> <a href="#">Announcing our plans for a new Backoffice</a></p>
+            <p class="content"><strong>From the Blog:</strong> <a href="#"><%=blogpost.name%></a><br /> <%=blogpost.teaser%></p>
             <p class="posted"><a href="#">1 hour ago</a></p>
-        </li>
-        <li class="item facebook">
-            <p class="content">If you're having any problems with Rebel CMS head on over to our Support section: <a href="#">http://rebelcms.com/support</a></p>
-            <p class="posted"><a href="#">4 hours ago</a></p>
-        </li>
-        <li class="item forum">
-            <p class="content"><strong>From the Forum:</strong> <a href="#">Trouble setting up blog - help please!</a></p>
-            <p class="posted"><a href="#">9 hours ago</a></p>
-        </li>
-        <li class="item github">
-            <p class="content"><a href="#">@autonomatt</a> pushed to master at <a href="#">RebelCMS/rebelcmsxu5</a> - <a href="#">536630c</a> Clean-up of Backoffice </p>
-            <p class="posted"><a href="#">12 hours ago</a></p>
-        </li>
+        </li>		
+		<%end%>
+		
     </ol>
 </div>
 
 <article class="project-summary">
     <h2>Project summary</h2>
-    <h3 class="summary">Rebel CMS is a powerful and robust ASP.NET content management system.</h3>
+    <h3 class="summary">Koda CMS is a powerful and robust content management system.</h3>
     <p class="description">Built from the ground up to cater for today's enterprise level needs, this open-source project is at the bleeding edge of web content management. Interested? <a href="#" class="learn-more">Learn more</a></p>
 </article>
 
 <article class="blog-latest">
     <h2>Blog latest</h2>
-    <p class="timestamp"><time datetime="2012-07-38">28<sup>th</sup> July</time></p>
-    <h3 class="title"><a href="#">Announcing our plans for a new Backoffice</a></h3>
-    <p class="snippet">As is no secret, the Backoffice of Rebel CMS is in need of a serious UX and design overhaul. Today we're...</p>
+	<% post = documents('posts').first() %>
+    <p class="timestamp"><time datetime="2012-07-38">28<sup>th</sup> August</time></p>
+    <h3 class="title"><a href="#"><%=post.name%></a></h3>
+    <p class="snippet"><%=post.teaser%></p>
+	<% end %>
 </article>

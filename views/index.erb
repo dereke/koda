@@ -31,13 +31,15 @@
 
 <article class="project-summary">
     <h2>Project summary</h2>
-    <h3 class="summary">Rebel CMS is a powerful and robust ASP.NET content management system.</h3>
+    <h3 class="summary">Koda CMS is a powerful and robust content management system.</h3>
     <p class="description">Built from the ground up to cater for today's enterprise level needs, this open-source project is at the bleeding edge of web content management. Interested? <a href="#" class="learn-more">Learn more</a></p>
 </article>
 
 <article class="blog-latest">
     <h2>Blog latest</h2>
-    <p class="timestamp"><time datetime="2012-07-38">28<sup>th</sup> July</time></p>
-    <h3 class="title"><a href="#">Announcing our plans for a new Backoffice</a></h3>
-    <p class="snippet">As is no secret, the Backoffice of Rebel CMS is in need of a serious UX and design overhaul. Today we're...</p>
+	<% post = documents('posts').first() %>
+    <p class="timestamp"><time datetime="2012-07-38">28<sup>th</sup> August</time></p>
+    <h3 class="title"><a href="#"><%=post.name%></a></h3>
+    <p class="snippet"><%=post.teaser%></p>
+	<% end %>
 </article>
