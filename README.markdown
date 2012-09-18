@@ -4,6 +4,7 @@ Koda is a new CMS unlike any you might have come accross. It allows you to creat
 Before you say, 'Oh God... another CMS', have a read through our features first :)
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
+Twitter: @kodacms
 
 ## Features
 
@@ -528,3 +529,8 @@ For example
 POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
 DELETE '/api/trucks/smallblueone' 
 `
+
+# Any Questions?
+
+KodaCMS on Twitter: @kodacms  
+Marcel du Preez on Twitter: @marceldupreez  
