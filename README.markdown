@@ -9,6 +9,31 @@ Koda Explorer will allow you to create your own document types, create filters a
 
 View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 
+## Features
+
+*	Code first approach (USiteBuilder) OR Instance editing (ala Wordpress, Umbraco)
+*	NoSQL (MongoDb)
+*	Back-office Explorer built with Twitter Bootstrap (drop box like interface for managing your content)
+*	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
+*	Full RESTful API to your data (great for providing content to mobile apps)
+*	Platform independent (Built with Sinatra, Html and Javascript)
+*	Incredibly fast (Indexed Queries, Filters, and even Search queries can be cached)
+*	Almost NO learning curve! (We will release a 5min video with our beta to prove this)
+*	No rules or limits to your creativity (we don't force a schema or convention on you, use your creativity to provide the best structure for your data)
+*	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
+*	Loads of documentation will be provided including training videos
+*	Always free! Open source MIT Licence
+*	Developers: Build your own DataTypes, KodaTypes, Filters, Indexes. We don't touch your front-end code and we don't enforce a site structure.
+
+## Where are we now?
+
+We still need to do the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
+
+*	Type Editor
+*	View Editor
+*	Filter Editor
+*	Action permissions for specific users
+
 ## Developing with Koda
 
 Koda follows a "code first" approach. This means that all your business functionality will be stored on the file system. We only store content in the database!
