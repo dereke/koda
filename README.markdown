@@ -1,8 +1,7 @@
 ### What is KodaCMS
 
-Koda is a Content Management System unlike any you might have come accross. Koda provides a RESTful API to store and retrieve your content from any type of HTTP client (Website, Mobile, Flash, Silverlight) and is language agnostic. Koda comes with its own templating engine and can be used to create a website (similar to wordpress, umbraco etc), but Koda can also be used as a JSON Server. You can create multiple websites or create mobile apps that uses the content API.   
-
-Koda Explorer will allow you to create your own document types, create filters and even link documents to filters or other documents. KodaCMS is built with Sinatra and MongoDb and is really fast. Use the Console for a quick familiar browse through your content (if you are in a hurry) or use the Explorer for a nicer user interface. (both just speaks to the default Koda API) 
+Koda is a new 'state-of-the-art' CMS unlike any you might have come accross. 
+Before you say, 'Oh God... another CMS', have a read through our features first :)
 
 *	To access the console go to your http://your.koda.instance/console
 *	To access the explorer area go to your http://your.koda.instance/explorer
