@@ -151,8 +151,7 @@ You can easily map the content returned by the api to your views by using our cl
 	<% homepage = filtered('pages', 'homepage').first() %>
 	<ul>
 		<li class="home"><%=homepage.name%></li>
-		<% pages = search({'tags' => '/page/'}).find_all {|page| not page.tags.include? 'home'} %>
-		<% pages.each do |page| %>
+		<% search({'tags' => '/page/'}).each do |page| %>
 		<li><%=page.name%></li>
 		<% end %>
 	</ul>
