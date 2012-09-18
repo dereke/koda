@@ -96,15 +96,13 @@ Once you have this installed, simply...
 ```ruby
 get '/' do
   content_type :html
-  # could do things like
-  # @current_page = search({'tags'=>'/home/'}).first()
+  @current_page = search({'tags'=>'/home/'}).first()
   erb :index, :escape_html => true
 end
 
 get '/:page?' do
   content_type :html
-  # could do thinks like
-  # @current_page = document('pages', params[:page])
+  @current_page = document('pages', params[:page])
   if(@current_page)
     erb :generic, :escape_html => true
   else
@@ -114,8 +112,7 @@ end
 
 get '/:folder/:page?' do
   content_type :html
-  # could do thinks lik
-  # @current_page = document(params[:folder], params[:page])
+  @current_page = document(params[:folder], params[:page])
   if(@current_page)
     erb :generic, :escape_html => true
   else
