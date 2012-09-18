@@ -5,6 +5,7 @@ Before you say, 'Oh God... another CMS', have a read through our features first 
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
+http://www.kodacms.org/
 
 ## Features
 
