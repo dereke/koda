@@ -1,6 +1,6 @@
 # What is KodaCMS
 
-Koda is a new CMS unlike any you might have come accross. I allows you to create your own conventions and changes the way you think about data!
+Koda is a new CMS unlike any you might have come accross. It allows you to create your own conventions and changes the way you think about data!
 Before you say, 'Oh God... another CMS', have a read through our features first :)
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
