@@ -33,6 +33,7 @@ We still need to do the following before we can Release a beta of KodaCMS, but p
 *	View Editor
 *	Filter Editor
 *	Action permissions for specific users
+*	Lots of Testing!
 
 ## Developing with Koda
 
