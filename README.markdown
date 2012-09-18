@@ -23,7 +23,9 @@ View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302b
 
 ## Some Screenshots
 
-
+![Console](https://raw.github.com/KodaCMS/Default/master/screenshots/console.png)
+![Explorer](https://raw.github.com/KodaCMS/Default/master/screenshots/explorer.png)
+![Content Editing](https://raw.github.com/KodaCMS/Default/master/screenshots/adding-content.png)
 
 ## Where are we now?
 
