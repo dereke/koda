@@ -1,10 +1,6 @@
 {
 	"fields" : [
-		{
-			"id" : "_koda_ref",
-			"control" : "hiddenstring",
-			"defaultValue" : ""
-		},
+
 		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
@@ -27,8 +23,18 @@
 			"control" : "textstring",
 			"defaultValue" : ""
 		},	
+		{
+			"id" : "_koda_ref",
+			"title" : "Alias",
+			"description" : "This will be generated from the name",
+			"control" : "readonlystring",
+			"defaultValue" : ""
+		},
 /*
-	ADD YOUR CUSTOM VARS HERE BUT REMOVE ALL COMMENTS FIRST
+	ALL Fields above are required for use with the generic editors. 
+	You can specify your own rules if you use your own editor.
+	
+	add your custom variables below this comment... for example...
 */
 		{
 			"id" : "tags",

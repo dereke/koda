@@ -1,7 +1,10 @@
 /*
 	REMOVE ALL COMMENTS BEFORE USING
 	querying the properties that you have indexed would be very fast
-	using properties that you have not indexes will be slower
+	using properties that you have not indexed will be slower
+	
+	Guidelines mongo queries 
+	http://www.mongodb.org/display/DOCS/Advanced+Queries
 */
 { 
 	"filter" : { 

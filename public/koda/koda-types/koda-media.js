@@ -1,11 +1,6 @@
 {
 	"fields" : [
 		{
-			"id" : "_koda_ref",
-			"control" : "hiddenstring",
-			"defaultValue" : ""
-		},
-		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
 			"defaultValue" : "/koda/koda-types/koda-media.js"
@@ -25,6 +20,13 @@
 			"title" : "Name",
 			"description" : "The name of the image",
 			"control" : "textstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_ref",
+			"title" : "Alias",
+			"description" : "This will be generated from the title",
+			"control" : "readonlystring",
 			"defaultValue" : ""
 		},
 		{

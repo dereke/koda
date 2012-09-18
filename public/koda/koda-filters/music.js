@@ -1,6 +1,6 @@
 {
 	"filter" : {
-		"tags" : "/^((?!page,home).)/"
+		"tags" : "/music/"
 	},
 	"sort" : {
 		"tags" : "1"

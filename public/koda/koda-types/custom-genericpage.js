@@ -1,11 +1,6 @@
 {
 	"fields" : [
 		{
-			"id" : "_koda_ref",
-			"control" : "hiddenstring",
-			"defaultValue" : ""
-		},
-		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
 			"defaultValue" : "/koda/koda-types/custom-genericpage.js"
@@ -29,7 +24,7 @@
 		},
 		{
 			"id" : "_koda_ref",
-			"title" : "Url slug",
+			"title" : "Alias",
 			"description" : "This will be generated from the title",
 			"control" : "readonlystring",
 			"defaultValue" : ""
@@ -49,59 +44,31 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "mainbody",
-			"title" : "Main body of the content",
-			"description" : "Shown just under the intro paragraph",
+			"id" : "column1",
+			"title" : "Left Column",
+			"description" : "Shown on the left",
 			"control" : "richtext",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "bottomlefttitle",
-			"title" : "Bottom Left Title",
-			"description" : "The title of the part on the lower left side of page",
-			"control" : "textstring",
+			"id" : "image1",
+			"title" : "Left Image",
+			"description" : "Upload an image",
+			"control" : "imageupload",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "bottomleftintro",
-			"title" : "Bottom Left Intro",
-			"description" : "Small heading under title",
-			"control" : "textstring",
-			"defaultValue" : ""
-		},
-		{
-			"id" : "bottomleftbody",
-			"title" : "Bottom Left Body",
-			"description" : "The body of the summary",
+			"id" : "column2",
+			"title" : "Right Column",
+			"description" : "Shown on the right",
 			"control" : "richtext",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "bottomleftlink",
-			"title" : "Bottom Left Link",
-			"description" : "The 'learn more' link",
-			"control" : "textstring",
-			"defaultValue" : ""
-		},		
-		{
-			"id" : "bottomrighttitle",
-			"title" : "Bottom Right Title",
-			"description" : "The bottom right section title",
-			"control" : "textstring",
-			"defaultValue" : ""
-		},
-		{
-			"id" : "bottomrightbody",
-			"title" : "Bottom Right Body",
-			"description" : "The bottom right section body",
+			"id" : "sidebartext",
+			"title" : "Sidebar content",
+			"description" : "Shown on the right bottom",
 			"control" : "richtext",
-			"defaultValue" : ""
-		},	
-		{
-			"id" : "bottomrightlink",
-			"title" : "Bottom Right Link",
-			"description" : "The bottom right section link",
-			"control" : "textstring",
 			"defaultValue" : ""
 		},
 		{

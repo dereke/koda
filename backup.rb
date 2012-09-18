@@ -126,7 +126,7 @@ def dump
   # ---------------------
   # Call dump without fs.chunks
   # ---------------------
-  db_name = 'kodarms'
+  db_name = 'kodacms'
   # Strange issue with command line options, password seem to require no space after -p selector
   mongo_dump_command = "#{MongoDump} -d #{db_name} --out #{base_dump_path} "  
   db.collection_names.select {|n| n != FsChunksCollection }.each do |collection|      
@@ -179,7 +179,7 @@ def restore
   # Import mongodumps with mongorestore
   # ---------------------
   
-  db_name = 'kodarms'
+  db_name = 'kodacms'
   db    = get_db()
   grid  = Grid.new(db)     
   

@@ -1,11 +1,6 @@
 {
 	"fields" : [
 		{
-			"id" : "_koda_ref",
-			"control" : "hiddenstring",
-			"defaultValue" : ""
-		},
-		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
 			"defaultValue" : "/koda/koda-types/koda-user.js"
@@ -30,6 +25,13 @@
 			"title" : "Username",
 			"description" : "Prefered Username",
 			"control" : "textstring",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "_koda_ref",
+			"title" : "Alias",
+			"description" : "This will be generated from the username",
+			"control" : "readonlystring",
 			"defaultValue" : ""
 		},
 		{

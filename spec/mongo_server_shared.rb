@@ -306,13 +306,6 @@ shared_examples_for "Mongo KodaRms read interface" do
     response_json.count.should.be > 0
   end
   
-  it "root returns list content type" do
-    get '/api'
-    
-    last_response.should.be.ok
-    last_response.content_type.should == 'application/json;charset=utf-8, kodameta=list'    
-  end
-  
   it "returns the correct collections at root" do
     get '/api'
 
@@ -336,13 +329,6 @@ shared_examples_for "Mongo KodaRms read interface" do
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
     response_json.count.should.be > 0
-  end
-  
-  it "collection returns list content type" do
-    get '/api/trucks'
-    
-    last_response.should.be.ok
-    last_response.content_type.should == 'application/json;charset=utf-8, kodameta=list'    
   end
   
 

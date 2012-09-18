@@ -1,11 +1,6 @@
 {
 	"fields" : [
 		{
-			"id" : "_koda_ref",
-			"control" : "hiddenstring",
-			"defaultValue" : ""
-		},
-		{
 			"id" : "_koda_type",
 			"control" : "hiddenstring",
 			"defaultValue" : "/koda/koda-types/koda-post.js"
@@ -26,7 +21,14 @@
 			"description" : "Title of post",
 			"control" : "textstring",
 			"defaultValue" : ""
-		},	
+		},
+		{
+			"id" : "_koda_ref",
+			"title" : "Alias",
+			"description" : "This will be generated from the title",
+			"control" : "readonlystring",
+			"defaultValue" : ""
+		},
 		{
 			"id" : "teaser",
 			"title" : "Teaser",

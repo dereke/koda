@@ -28,7 +28,7 @@ describe 'Mongo KodaRms Integration' do
   end
   
   before(:each) do
-    database = Mongo::Connection.new('localhost',27017).db('kodarms_test')
+    database = Mongo::Connection.new('localhost',27017).db('kodacms_test')
     clear_database database
     populate_database_with_documents database
   end
@@ -37,7 +37,7 @@ describe 'Mongo KodaRms Integration' do
     MongoConfig.instance_eval do
      
        def GetMongoDatabase 
-         Mongo::Connection.new('localhost',27017).db('kodarms_test')
+         Mongo::Connection.new('localhost',27017).db('kodacms_test')
        end
        
    end

@@ -73,14 +73,6 @@
 		"title" : "User Created",
 		"types" : [
 			{
-				"title" : "Home Page",
-				"description" :"For creating a home page",
-				"icon" : "/koda/images/layout_add.png",
-				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type"	: "/koda/koda-types/custom-homepage.js",
-				"allowedin" : "collection"
-			},
-			{
 				"title" : "Generic Page",
 				"description" :"For creating a generic page",
 				"icon" : "/koda/images/layout_add.png",
