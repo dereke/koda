@@ -1,5 +1,12 @@
 <div class="activity-feed">
     <h1>Latest project activity</h1>
+
+	<!-- 
+		WARNING: 
+		THESE ARE ONLY EXAMPLES AND WONT WORK WITHOUT THE PROPER DATA 
+		
+		-->
+
     <ol class="items">
 		<%document('twitter','rebel_cms_twitterfeed').linked_documents.each do |feed|%>
 			<% if feed.document && feed.document.results && feed.document.results.length > 0 %>
