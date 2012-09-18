@@ -199,16 +199,7 @@ Editor.Controls = function() {
 			}
 			
 		},
-		/*
-			USAGE:
-			"source" : "/api",
-			"text" : "title",
-			"value" : "title"
-			
-			OR
-			
-			"values" : "comma,separated,values"
-		*/
+		
 		collection: function(field) {
 			
 			return {
