@@ -39,6 +39,7 @@ We still need to finish the following before we can Release a beta of KodaCMS, b
 *	View Editor in back-office
 *	Filter Editor in back-office
 *	More robust Auth (action permissions for specific users etc.)
+*	More refined Plugin API
 *	Lots of Testing! (Currently best browser to use = Chrome)
 
 ETA - October / November 2012
