@@ -162,7 +162,7 @@ You can easily map the content returned by the api to your views by using our cl
 > The language we use in your views is called [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby)   
 > But we also provide a very versatile, yet simple client API to use in your views   
 
-`all()` returns all your content (use only if you have a small site)   
+`all()` returns all your content (if you'd like to load ALL the content only once (it will be slow first time but cached after))   
 `documents(collection_name)`  eg. documents('slides')   
 `document(collection_name, doc_ref)` eg. document('pages', 'about-us')   
 `filtered(collection_name, filter_name)` eg. filtered('pages', 'homepage')   
