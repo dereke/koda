@@ -1,3 +1,6 @@
+#
+# MODIFY THESE IF YOU WANT A DIFFERENT LOGIN STRATEGY
+#
 get '/console' do
   if(logged_in?)
     content_type :html
@@ -36,18 +39,16 @@ post "/signed-in" do
   end
 end
 
+# ADD your own routes below
+
 get '/' do
   content_type :html
-  @current_page = search({'tags'=>'/home/'}).first()
+  @title = 'Home'
   erb :index, :escape_html => true
 end
 
 get '/:page?' do
   content_type :html
-  @current_page = document('pages', params[:page])
-  if(@current_page)
-    erb :generic, :escape_html => true
-  else
-    redirect '/'
-  end
+  @title = params[:page]
+  erb :generic, :escape_html => true
 end

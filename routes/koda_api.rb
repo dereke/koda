@@ -1,3 +1,7 @@
+#
+# DO NOT MODIFY THESE UNLESS YOU KNOW WHAT YOU ARE DOING
+#
+
 get '/koda/koda-types/*' do 
   response['Allow'] = 'GET'
 end
