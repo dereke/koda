@@ -384,6 +384,13 @@ Return from maintenance mode.
 
 `$ heroku maintenance:off`   
 
+# What about Plugins?
+
+Plugins will be very simple with our NoSql and file storage choices.  
+We will offer a tool to help create an install package by saving your data to a json file and bundling up your kodatypes, kodaeditors, kodadatatypes etc.  
+A user would then simply 'install' a plugin. These plugins could come in the form of starter-kits, custom editors, workflow backoffice-integrations.     
+
+------------------
 
 # Koka RESTful API Reference
 
