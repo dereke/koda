@@ -103,7 +103,7 @@ end
 
 get '/:page?' do
   content_type :html
-  # could do thinks lik
+  # could do thinks like
   # @current_page = document('pages', params[:page])
   if(@current_page)
     erb :generic, :escape_html => true
