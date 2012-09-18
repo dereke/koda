@@ -37,10 +37,10 @@ We still need to finish the following before we can Release a beta of KodaCMS, b
 
 ## Developing with Koda
 
-Koda follows a "code first" approach. This means that all your business functionality will be stored on the file system. We only store content in the database!
+You can use Koda just like Wordpress or Umbraco where you install an instance and build your website right there in the back-office, but... Koda you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. 
 This means that any changes you want to make to the system will be versioned and can be reverted and recreated if you use source control.
 
-The only skills needed to be able to do to develop a website on Koda is some very basic JSON and some knowledge of HTML.
+The only skills needed to be able to do to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
 All Koda Types, Koda Filters are done using a simple JSON formatted file.
 
 Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
@@ -49,7 +49,7 @@ Koda stays out of your Layouts and we do not generate any HTML. That's right. We
 
 But enough talk... lets see what we mean...
 
-## Getting started
+### Getting started with Code First Development
 
 > Follow the guide here to install mongodb on your preferred platform  
 > http://www.mongodb.org/display/DOCS/Quickstart  
@@ -60,11 +60,25 @@ But enough talk... lets see what we mean...
 > If you are on Mac OSX, you won't need to install anything   
 > If you are on Linux, you probably don't need any help   
 
-`
-git clone git@github.com:KodaCMS/Default.git
-`
+Once you have this installed, simply...
 
-## Layout
+*	`git clone git@github.com:KodaCMS/Default.git`
+*	`sudo gem install bundler`
+*	`bundle install`
+
+*	`gem install shotgun`
+*	`gem install rspec`
+*	`gem install watchr`
+
+*	autotesting `watchr autotest.watchr`
+*	auto-reload webserver `shotgun -p 3000`
+
+* 	Use your favourite editor to start developing
+*	Install [Growl and Growl Notify](http://growl.info/) if you want to see visual feedback on autotesting
+*	Go to http://localhost:3000 to see your instance
+
+
+## Creating Layouts and Views
 
 > Create a file called 'layout.erb' in the 'views' folder
 
@@ -241,7 +255,7 @@ end
 `/api/cars/filtered/icons`
 > you will receive documents that match the criteria  
 
-## Linked Documents
+### Linked Documents to Queries, Indexes, Filters, External JSON Feeds (like twitter)
 
 > You can add the urls of other documents, search queries or even filters to a document and it will
 > Include the documents inside the result of the main doc
@@ -329,7 +343,7 @@ Return from maintenance mode.
 `$ heroku maintenance:off`
 
 
-### API
+### Koka RESTful API Reference
 
 ## Note about links
 
@@ -459,19 +473,6 @@ For example
 POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
 DELETE '/api/trucks/smallblueone' 
 `
-
-### Development Quickstart
-
-*	Clone the git repo
-*	sudo gem install bundler
-*	run `bundle install`
-
-*	`gem install shotgun`
-*	`gem install rspec`
-*	`gem install watchr`
-
-*	autotesting `watchr autotest.watchr`
-*	auto-reload local `shotgun -p 3000 koda_app.rb`
 
 ### Roadmap
 
