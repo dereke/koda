@@ -1,23 +1,20 @@
 # What is KodaCMS
 
-Koda is a new 'state-of-the-art' CMS unlike any you might have come accross. 
+Koda is a new CMS unlike any you might have come accross. 
 Before you say, 'Oh God... another CMS', have a read through our features first :)
 
-*	To access the console go to your http://your.koda.instance/console
-*	To access the explorer area go to your http://your.koda.instance/explorer
-
-View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
+View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 
 ## Features
 
 *	Code first approach (USiteBuilder) OR Instance editing (ala Wordpress, Umbraco)
 *	NoSQL (MongoDb)
-*	Back-office Explorer built with Twitter Bootstrap (drop box like interface for managing your content)
+*	Back-office Explorer built with Twitter Bootstrap ('DropBox'-like interface for managing your content)
 *	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
-*	Full RESTful API to your data (great for providing content to mobile apps)
+*	Full RESTful API to your data (great for providing content to mobile apps or single page js apps)
 *	Platform independent (Built with Sinatra, Html and Javascript)
 *	Incredibly fast (Indexed Queries, Filters, and even Search queries can be cached)
-*	Almost NO learning curve! (We will release a 5min video with our beta to prove this)
+*	Almost no learning curve! (We will release a 5min video with our beta to prove this)
 *	No rules or limits to your creativity (we don't force a schema or convention on you, use your creativity to provide the best structure for your data)
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Loads of documentation will be provided including training videos
@@ -28,26 +25,24 @@ View our board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b
 
 We still need to finish the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
 
-*	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients)
-*	Type Editor
-*	View Editor
-*	Filter Editor
+*	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
+*	Type Editor in back-office
+*	View Editor in back-office
+*	Filter Editor in back-office
 *	Action permissions for specific users
 *	Lots of Testing!
 
+ETA - October / November 2012
+
 # Developing with Koda
 
-You can use Koda just like Wordpress or Umbraco where you install an instance and build your website right there in the back-office, but... Koda you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. 
-This means that any changes you want to make to the system will be versioned and can be reverted and recreated if you use source control.
+You can use Koda just like Wordpress or Umbraco by installing an instance and building your website the Koda back-office, but... with Koda, you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
+Changes you make to the system will be versioned and can be reverted and recreated if you use source control.
 
-The only skills needed to be able to do to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
-All Koda Types, Koda Filters are done using a simple JSON formatted file.
+The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
+All Koda Types, Koda Filters are done using a simple JSON formatted file. 
 
 Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
-
-Koda stays out of your Layouts and we do not generate any HTML. That's right. We believe that most 'CMS' systems should really be called "Site Management Systems" as they dictate your sitemap and generate your urls and routes based on their own policy. Koda is a 'true' CMS as it only manages your content. 
-
-But enough talk... lets see what we mean...
 
 ### Getting started with Code First Development
 
@@ -76,7 +71,6 @@ Once you have this installed, simply...
 * 	Use your favourite editor to start developing
 *	Install [Growl and Growl Notify](http://growl.info/) if you want to see visual feedback on autotesting
 *	Go to http://localhost:3000 to see your instance
-
 
 ### Creating Layouts and Views
 
@@ -112,6 +106,8 @@ end
 ```
 
 ### Using Content inside Views
+
+You can easily map the content returned by the api to your views by using our client api.   
 
 ```html
 <section>
@@ -152,8 +148,29 @@ end
 `filtered(collection_name, filter_name)` eg. filtered('pages', 'homepage')   
 `search(search_hash)` eg. search({'tags' => '/page/'})   
 
+### Structuring Data
 
-### Creating Koda Types
+Most CMS systems have a hierarchical structure. Koda have no such limits. You can store any type of document in any folder and create filters to give you certain document types.
+
+Eg.
+
+> Lets say I create a new folder called 'MyStuff'
+> I can then add a few 'GenericText' docs, a few 'Media' docs and also a few 'MyOwnCustomType' docs.
+> I can then create a 'KodaFilter' that could give me all the images in that folder OR anything tagged with 'wedding' OR some other really complicated querying options. And even better... 'KodaFilter's can be reused between folders. If you created a 'ImagesFilter', you can reuse it by calling   
+
+`/api/myfolder/filtered/images`
+OR   
+`/api/anothermyfolder/filtered/taggedasnew`
+
+These filters will be cached by your browser automatically as they will be seen as json documents   
+This isn't the only way to query data though, we have a full search api and you can even specify indexes on docs to speed up the queries!   
+
+`/api/search?tags=equals_me&someotherproperty=true`     
+`/api/search?tags=/include_me/&someotherproperty=true`   
+
+### Creating Koda Types (Code First)
+
+Koda Types are schemas for documents. Think 'Umbraco - DocumentTypes'   
 
 > To Create Koda types place a new js file in the `/public/koda/koda-types` folder  
 
@@ -212,7 +229,9 @@ end
 }
 ```
 
-### Creating Koda Filters
+### Creating Koda Filters (Code First)
+
+Koda filters can be re-used and applied to any collection and will be cached by your browser.   
 
 > Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
 
@@ -252,7 +271,7 @@ end
 > these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
 
 > when we 'GET' (or visit the url)    
-`/api/cars/filtered/icons`
+`/api/cars/filtered/icons`   
 > you will receive documents that match the criteria  
 
 ### Linked Documents to Queries, Indexes, Filters, External JSON Feeds (like twitter)
@@ -293,17 +312,9 @@ end
 ```ruby
 git clone git@github.com:KodaCMS/Default.git
 heroku apps:create myapp
+heroku addons:add mongolab:starter
 git push heroku master
 ```
-
-> So sorry, we were actually lying... it couldn't be that simple right?  
-> Unfortunately you would have to add the free 500mb mongolab provider too...   
-
-`
-heroku addons:add mongolab:starter
-`
-
-> Everything should just work!
 
 ### Backup / Restore one koda instance to another
 
@@ -473,15 +484,3 @@ For example
 POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
 DELETE '/api/trucks/smallblueone' 
 `
-
-# Roadmap
-
-*	~~Simple User Authorisation~~ (Janrain engage)
-*	More complex User Authorisation
-*	Token based API access for PUT/POST/DELETE from mobiles etc.
-*	UI Niceness
-*	Browser Editing (deploy website and create from scratch)
-*	More Editors
-*	More Datatypes
-*	Workflow
-*	Plugin API
