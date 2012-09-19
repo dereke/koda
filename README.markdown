@@ -1,6 +1,7 @@
 # What is KodaCMS
 
-Koda is a new CMS unlike any you might have come accross. It allows you to create your own conventions and changes the way you think about data!
+Koda is a new CMS unlike any you might have come accross.
+It allows you to create your own conventions and changes the way you think about data!
 Before you say, 'Oh God... another CMS', have a read through our features first :)
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
@@ -9,7 +10,6 @@ http://www.kodacms.org/
 
 ## Features
 
-*	Code first approach (USiteBuilder) OR Instance editing (ala Wordpress, Umbraco)
 *	NoSQL (MongoDb)
 *	Back-office Explorer built with Twitter Bootstrap ('DropBox'-like interface for managing your content)
 *	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
@@ -40,9 +40,8 @@ In a nutshell, Koda can be used to build 1 website or many more. Use one Koda in
 We still need to finish the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
 
 *	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
-*	Type Editor in back-office
-*	View Editor in back-office
-*	Filter Editor in back-office
+*	Type generator
+*	Filter generator
 *	More robust Auth (action permissions for specific users etc.)
 *	More refined Plugin API
 *	Lots of Testing! (Currently best browser to use = Chrome)
@@ -51,8 +50,11 @@ ETA - October / November 2012
 
 # Developing with Koda
 
-You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office (in progress), but... with Koda, you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
-Changes you make to the system will be versioned and can be reverted and recreated if you use source control.
+You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office and using the built-in types,
+You can also follow a "code first" approach to create your own types and editors for a more unique editorial experience.  
+
+We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
+Changes you make to the system will be versioned and can be reverted and recreated if you use source control.  
 
 The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
 All Koda Types, Koda Filters are done using a simple JSON formatted file. 
