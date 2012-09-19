@@ -1,7 +1,7 @@
 # What is KodaCMS
 
-Koda is a new CMS unlike any you might have come accross. It allows you to create your own conventions and changes the way you think about data!
-Before you say, 'Oh God... another CMS', have a read through our features first :)
+KodaCMS gives anyone the ability to create great websites with limited or no programming knowledge.   
+Think of Koda as a merge between Wordpress and Dropbox but with a the ability to easily change any aspect of the system to fit your needs.
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
@@ -9,22 +9,15 @@ http://www.kodacms.org/
 
 ## Features
 
-*	Code first approach (USiteBuilder) OR Instance editing (ala Wordpress, Umbraco)
 *	NoSQL (MongoDb)
 *	Back-office Explorer built with Twitter Bootstrap ('DropBox'-like interface for managing your content)
 *	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
 *	Full RESTful API to your data (great for providing content to mobile apps or single page js apps)
 *	Platform independent (Built with Sinatra, Html and Javascript)
 *	Incredibly fast (Indexed Queries, Filters, and even Search queries can be cached)
-*	Fast Node.js Koda thin-client (optional)
 *	Almost no learning curve! (We will release a 5min video with our beta to prove this)
-*	No rules or limits to your creativity (we don't force a schema or convention on you, use your creativity to provide the best structure for your data)
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
-*	Loads of documentation will be provided including training videos
 *	Always free! Open source MIT Licence
-*	Developers: Build your own DataTypes, KodaTypes, Filters, Indexes. We don't touch your front-end code and we don't enforce a site structure.
-
-In a nutshell, Koda can be used to build 1 website or many more. Use one Koda instance to create a server for many thin clients OR create many Koda instances with one thin client. The sky is the limit.
 
 ## Some Screenshots
 
@@ -37,31 +30,16 @@ In a nutshell, Koda can be used to build 1 website or many more. Use one Koda in
 
 ## Where are we now?
 
-We still need to finish the following before we can Release a beta of KodaCMS, but please follow us and keep up to date.
+In the pipeline
 
 *	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
-*	Type Editor in back-office
-*	View Editor in back-office
-*	Filter Editor in back-office
 *	More robust Auth (action permissions for specific users etc.)
 *	More refined Plugin API
 *	Lots of Testing! (Currently best browser to use = Chrome)
 
 ETA - October / November 2012
 
-# Developing with Koda
-
-You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office (in progress), but... with Koda, you can also follow a "code first" approach. We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
-Changes you make to the system will be versioned and can be reverted and recreated if you use source control.
-
-The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
-All Koda Types, Koda Filters are done using a simple JSON formatted file. 
-
-To use content inside your views you can choose your own [view engine](http://sinatra-book.gittr.com/#templates) (default erb)
-
-Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
-
-### Getting started with Code First Development
+### Getting started (Create starter kits or custom sites)
 
 > Follow the guide here to install mongodb on your preferred platform  
 > http://www.mongodb.org/display/DOCS/Quickstart  
@@ -387,15 +365,7 @@ Run a mongorestore of your locally backed up database to your new database (upda
 `$ mongorestore -h hostname.mongolab.com:port_number -d database_name -u username -p password /path/on/my/local/computer`  
 Return from maintenance mode.  
 
-`$ heroku maintenance:off`   
-
-# What about Plugins?
-
-Plugins will be very simple with our NoSql and file storage choices.  
-
-We will offer a tool to help create an install package by saving your data to a json file and bundling up your kodatypes, kodaeditors, kodadatatypes etc.  
-A user would then simply 'install' a plugin. These plugins could come in the form of starter-kits, custom editors, workflow backoffice-integrations etc.
-Everything else is stored on the file system, so potentially you could change anything in Koda.     
+`$ heroku maintenance:off`      
 
 ------------------
 
