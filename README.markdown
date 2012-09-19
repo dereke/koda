@@ -41,6 +41,21 @@ ETA - October / November 2012
 
 ### Getting started (Create starter kits or custom sites)
 
+You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office and using the built-in types,
+You can also follow a "code first" approach to create your own types and editors for a more unique editorial experience.  
+
+We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
+Changes you make to the system will be versioned and can be reverted and recreated if you use source control.  
+
+The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
+All Koda Types, Koda Filters are done using a simple JSON formatted file. 
+
+To use content inside your views you can choose your own [view engine](http://sinatra-book.gittr.com/#templates) (default erb)
+
+Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
+
+### Getting started with Code First Development
+
 > Follow the guide here to install mongodb on your preferred platform  
 > http://www.mongodb.org/display/DOCS/Quickstart  
 
