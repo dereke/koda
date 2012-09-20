@@ -123,6 +123,15 @@ helpers do
 
   end
   
+  def refresh_cache(collection_name, doc_ref, doc)
+    key = "#{collection_name}_#{doc_ref}"
+    
+    if(settings.enable_cache)
+      settings.cache.delete key
+      settings.cache.set(key, doc, ttl=time_to_live+rand(100))
+    end
+  end
+  
   def authenticate(token)
 
     response = JSON.parse(

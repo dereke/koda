@@ -214,29 +214,29 @@ A new type will appear under the "User Created" section on the right.
 	"fields" : [
 		{
 			"id" : "_koda_ref",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "" // add the indexes of your doc here
 		},
 		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "Name of the doc",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},	
 /*
@@ -246,7 +246,7 @@ A new type will appear under the "User Created" section on the right.
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{

@@ -2,45 +2,46 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/custom-genericpage.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "title"
 		},
 		{
 			"id" : "name",
 			"title" : "Title",
 			"description" : "Title of page",
-			"control" : "textstring",
+			"control" : "input-text",
+			"properties" : "required",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",
-			"control" : "readonlystring",
+			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "maintitle",
 			"title" : "Main title of the content",
 			"description" : "Shown just above the body",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "introparagraph",
 			"title" : "Main intro of the content",
 			"description" : "Shown just under the body title",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
@@ -75,7 +76,7 @@
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{

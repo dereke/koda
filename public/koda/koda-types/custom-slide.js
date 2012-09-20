@@ -2,38 +2,39 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/custom-slide.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "name,tags"
 		},
 		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "Title of the slide",
-			"control" : "textstring",
-			"defaultValue" : ""
+			"control" : "input-text",
+			"defaultValue" : "",
+			"properties" : "required"
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",
-			"control" : "readonlystring",
+			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "teaser",
 			"title" : "Teaser text",
 			"description" : "The bold text under heading",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
@@ -47,7 +48,7 @@
 			"id" : "learnmorelink",
 			"title" : "Learn more link",
 			"description" : "Link to read more",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
@@ -61,7 +62,7 @@
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{

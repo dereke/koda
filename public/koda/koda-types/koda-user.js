@@ -2,43 +2,45 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/koda-user.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "name,email"
 		},
 		{
 			"id" : "googleid",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "name",
 			"title" : "Username",
 			"description" : "Prefered Username",
-			"control" : "textstring",
+			"control" : "input-text",
+			"properties" : "required placeholder='joeblogs'",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
 			"description" : "This will be generated from the username",
-			"control" : "readonlystring",
+			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "email",
 			"title" : "Email address",
 			"description" : "email address of user",
-			"control" : "textstring",
+			"control" : "input-email",
+			"properties" : "required placeholder='joe@blogs.com'",
 			"defaultValue" : ""
 		},
 		{
@@ -46,13 +48,14 @@
 			"title" : "Is Allowed",
 			"description" : "Is this user allowed in the backoffice?",
 			"control" : "truefalse",
-			"defaultValue" : ""
+			"properties" : "required",
+			"defaultValue" : false
 		},
 		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{

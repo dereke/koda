@@ -6,6 +6,7 @@ require File.join(File.dirname(__FILE__), %w[doubles/mongo_grid_double])
 require File.join(File.dirname(__FILE__), %w[doubles/mongo_collection_double])
 
 set :environment, :test
+set :enable_cache, false
 
 describe 'Mongo KodaRms Unit' do
   include Rack::Test::Methods

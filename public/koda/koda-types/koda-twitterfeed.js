@@ -2,17 +2,17 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/koda-twitterfeed.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/twitterfeed-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "name,tags"
 		},
 		{
@@ -26,22 +26,23 @@
 			"id" : "name",
 			"title" : "Twitter handle",
 			"description" : "The screen name of the twitter feed",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",
-			"control" : "readonlystring",
+			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "user_count",
 			"title" : "How many?",
-			"description" : "The amount of latest messages to include",
-			"control" : "textstring",
-			"defaultValue" : ""
+			"description" : "The amount of latest messages to include (1-10)",
+			"control" : "input-range",
+			"defaultValue" : "",
+			"properties" : "min='1' max='10'"
 		},
 		{
 			"id" : "showqueriedfeed",
@@ -54,26 +55,27 @@
 			"id" : "query",
 			"title" : "Custom query",
 			"description" : "The query or tag to search",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "query_count",
 			"title" : "How many?",
-			"description" : "The amount of latest messages to include",
-			"control" : "textstring",
-			"defaultValue" : ""
+			"description" : "The amount of latest messages to include (1-10)",
+			"control" : "input-range",
+			"defaultValue" : "",
+			"properties" : "min='1' max='10'"
 		},
 		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_doc_links",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : ""
 		}
 	]

@@ -4,6 +4,7 @@ require File.join(File.dirname(__FILE__), %w[uniform_server_shared])
 require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
 
 set :environment, :test
+set :enable_cache, false
 
 describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
@@ -29,6 +30,7 @@ describe 'Mongo KodaRms Integration' do
   
   before(:each) do
     database = Mongo::Connection.new('localhost',27017).db('kodacms_test')
+    settings.enable_cache = false
     clear_database database
     populate_database_with_documents database
   end

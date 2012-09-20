@@ -138,25 +138,42 @@ Editor.Controls = function() {
 		},
 		
 		load: function() {
-			this.all['hiddenstring'] = this.hiddenString;
-			this.all['textstring'] = this.textString;
+			
+			this.all['input-hidden'] = this.inputType;
+			this.all['input-color'] = this.inputType;
+			this.all['input-date'] = this.inputType;
+			this.all['input-text'] = this.inputType;
+			this.all['input-password'] = this.inputType;
+			this.all['input-email'] = this.inputType;
+			this.all['input-url'] = this.inputType;
+			this.all['input-number'] = this.inputType;
+			this.all['input-range'] = this.inputType;
+			this.all['input-readonly'] = this.readOnlyString;
 			this.all['imageupload'] = this.imageUpload;
 			this.all['textarea'] = this.textArea;
-			this.all['passwordstring'] = this.passwordString;
 			this.all['richtext'] = this.richText;
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
 			this.all['truefalse'] = this.trueFalse;
-			this.all['readonlystring'] = this.readOnlyString;
 			this.all['collection'] = this.collection;
+			
 		},
 		
-		hiddenString: function(field) {
+		inputType : function(field) {
 			
+			var sections = field.control.split('-');
+			
+			if(sections.length < 2) {
+				throw 'Invalid control identifier';
+			}
+			
+			var type = sections[1];
+			var properties = field.properties ? field.properties : '';
+
 			return {
-			
+				
 				id : field.id,
 				defaultValue: field.defaultValue,
-				html : '<input type="hidden" id="'+field.id+'" name="'+field.id+'" />',
+				html : '<input type="'+type+'" id="'+field.id+'" name="'+field.id+'" '+properties+' />',
 				value: '',
 				bind : function(callback) {
 					callback();
@@ -165,17 +182,18 @@ Editor.Controls = function() {
 					return this.html;
 				},
 				getValue: function(){
-					return $('input#'+this.id).val();
+					return $('input#'+field.id).val();
 				},
 				setValue: function(value) {
 					if(value != undefined && value != 'undefined') {
-						$('input#'+this.id).val(value);
+						$('input#'+field.id).val(value);
 					}
 				}
+				
 			}
 			
 		},
-		
+				
 		kodaLinkEditor : function(field) {
 			
 			return {
@@ -232,31 +250,7 @@ Editor.Controls = function() {
 			}
 			
 		},
-			
-		textString: function(field) {
-			
-			return {
-			
-				id : field.id,
-				defaultValue: field.defaultValue,
-				html : '<input type="text" id="'+field.id+'" name="'+field.id+'"/>',
-				value: '',
-				bind : function(callback) {callback();},
-				create: function() {
-					return this.html;
-				},
-				getValue: function(){
-					return $('input#'+this.id).val();
-				},
-				setValue: function(value) {
-					if(value != undefined && value != 'undefined') {
-						$('input#'+this.id).val(value);
-					}
-				}
-			}
-			
-		},
-		
+					
 		readOnlyString: function(field) {
 			
 			return {
@@ -280,31 +274,7 @@ Editor.Controls = function() {
 			}
 			
 		},
-		
-		passwordString: function(field) {
-			
-			return {
-			
-				id : field.id,
-				defaultValue: field.defaultValue,
-				html : '<input type="password" id="'+field.id+'" name="'+field.id+'"/>',
-				value: '',
-				bind : function(callback) {callback();},
-				create: function() {
-					return this.html;
-				},
-				getValue: function(){
-					return $('input#'+this.id).val();
-				},
-				setValue: function(value) {
-					if(value != undefined && value != 'undefined') {
-						$('input#'+this.id).val(value);
-					}
-				}
-			}
-			
-		},
-		
+				
 		trueFalse: function(field) {
 			
 			return {
@@ -423,6 +393,8 @@ Editor.Controls = function() {
 
 Editor.Form = function(container, spec, onSubmit) {
 
+	if(!spec) throw 'Could not parse KodaType';
+	
 	var controls = Editor.Controls;
 	controls.load();
 	
@@ -434,7 +406,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	fieldset.append(legend);
 	
-	$.each(spec.fields, function(i, field){
+	$.each(spec.fields, function(i, field) {
 		
 		var controlGroup = $('<div class="control-group"></div>');
 		

@@ -2,38 +2,39 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/koda-link.js"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "hiddenstring",
+			"control" : "input-hidden",
 			"defaultValue" : "name,tags"
 		},
 		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "The name of the image",
-			"control" : "textstring",
+			"control" : "input-text",
+			"properties" : "required",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",
-			"control" : "readonlystring",
+			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
-			"control" : "textstring",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{

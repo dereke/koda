@@ -207,6 +207,8 @@ get '/api/:collection/:resource?' do
   should_include = params[:include] != 'false'
 
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+  refresh_cache collection_name, doc_ref, doc
+  
   fetch_linked_docs doc if should_include
 
   halt 404 if doc==nil
