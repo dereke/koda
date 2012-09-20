@@ -213,35 +213,29 @@ A new type will appear under the "User Created" section on the right.
 {
 	"fields" : [
 		{
-			"id" : "_koda_ref",
-			"control" : "input-hidden",
-			"defaultValue" : ""
-		},
-		{
-			"id" : "_koda_type",
-			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
-		},	
-		{
-			"id" : "_koda_editor",
-			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-editors/generic-editor.html"
-		},
-		{
-			"id" : "_koda_indexes",
-			"control" : "input-hidden",
-			"defaultValue" : "" // add the indexes of your doc here
-		},
-		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "Name of the doc",
 			"control" : "input-text",
-			"defaultValue" : ""
+			"defaultValue" : "",
+			"properties" : "required placeholder='my placeholder'"
 		},	
-/*
-	ADD YOUR CUSTOM VARS HERE BUT REMOVE ALL COMMENTS FIRST
-*/
+		{
+			"id" : "age",
+			"title" : "Age",
+			"description" : "Your age",
+			"control" : "input-range",
+			"defaultValue" : "",
+			"properties" : "min='10' max='80'"
+		},
+		{
+			"id" : "url",
+			"title" : "Url",
+			"description" : "Your website",
+			"control" : "input-range",
+			"defaultValue" : "",
+			"properties" : "pattern='https?://.+'"
+		},
 		{
 			"id" : "tags",
 			"title" : "Tags",
@@ -259,6 +253,8 @@ A new type will appear under the "User Created" section on the right.
 	]
 }
 ```
+
+[KodaTypes supports most HTML5 input types and validation](http://www.the-art-of-web.com/html/html5-form-validation/)
 
 ### Creating Koda Filters (Code First)
 
