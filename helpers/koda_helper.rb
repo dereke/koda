@@ -102,6 +102,17 @@ helpers do
     end
   end
   
+  def show_document_help(collection, doc_name, doc)
+     result = "<% doc = document('#{collection}','#{doc_name}') %>\n"
+     doc.each do |k,v|
+       if v.kind_of? Hash
+         show_document_help(doc)
+       end
+       result += "<p><%=doc.#{k} %></p>\n"
+     end
+     return result
+  end
+  
   private
   
   def get_document_from_cache(collection_name, doc_ref, time_to_live=settings.long_ttl)

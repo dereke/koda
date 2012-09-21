@@ -35,6 +35,28 @@ options '/api' do
   response['Allow'] = 'GET'
 end
 
+get '/api/usage/:collection/:resource?' do
+  collection_name = params[:collection]
+  doc_ref = params[:resource]
+  should_include = params[:include] != 'false'
+
+  doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+  
+  fetch_linked_docs doc if should_include
+
+  halt 404 if doc==nil
+
+  last_modified(doc.last_modified)  
+  standard_doc = doc.standardised_document
+  standard_doc.delete '_koda_indexes'
+  standard_doc.delete '_koda_ref'
+  standard_doc.delete '_koda_type'
+  standard_doc.delete '_koda_editor'
+
+  show_document_help collection_name,doc_ref,standard_doc
+  
+end
+
 get '/api/_koda_media/?' do
   content_type :json, 'kodameta' => 'list'
   media = @grid_wrapper.media_links.to_json
@@ -168,7 +190,7 @@ post '/api/:collection/?' do
       raw_doc = request.env["rack.input"].read
       hash = JSON.parse raw_doc
       new_doc = @db_wrapper.collection(collection_name).save_document(hash)
-    
+      
       response['Location'] = new_doc.url
       status 201
       result = {
@@ -202,12 +224,13 @@ options '/api/:collection/?' do
 end
 
 get '/api/:collection/:resource?' do
+  
+  puts 'hellp'
   collection_name = params[:collection]
   doc_ref = params[:resource]
   should_include = params[:include] != 'false'
 
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
-  refresh_cache collection_name, doc_ref, doc
   
   fetch_linked_docs doc if should_include
 
@@ -232,6 +255,8 @@ put '/api/:collection/:resource' do
     end
 
     doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
+    refresh_cache collection_name, resource_name, doc   
+    
     status 201 if doc.is_new
 
     response['Location'] = doc.url
