@@ -52,6 +52,7 @@ get '/api/usage/:collection/:resource?' do
   standard_doc.delete '_koda_ref'
   standard_doc.delete '_koda_type'
   standard_doc.delete '_koda_editor'
+  standard_doc.delete '_koda_doc_links'
 
   show_document_help collection_name,doc_ref,standard_doc
   
