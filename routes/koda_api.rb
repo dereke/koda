@@ -47,12 +47,7 @@ get '/api/usage/:collection/:resource?' do
   halt 404 if doc==nil
 
   last_modified(doc.last_modified)  
-  standard_doc = doc.standardised_document
-  standard_doc.delete '_koda_indexes'
-  standard_doc.delete '_koda_ref'
-  standard_doc.delete '_koda_type'
-  standard_doc.delete '_koda_editor'
-  standard_doc.delete '_koda_doc_links'
+  standard_doc = doc.stripped_document
 
   show_document_help collection_name,doc_ref,standard_doc
   
@@ -226,19 +221,23 @@ end
 
 get '/api/:collection/:resource?' do
   
-  puts 'hellp'
   collection_name = params[:collection]
   doc_ref = params[:resource]
   should_include = params[:include] != 'false'
+  stripped = params[:stripped] == 'true'
 
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+  halt 404 if doc==nil
+  last_modified(doc.last_modified)
   
   fetch_linked_docs doc if should_include
 
-  halt 404 if doc==nil
+  if(stripped) 
+    JSONP doc.stripped_document
+  else
+    JSONP doc.standardised_document
+  end
 
-  last_modified(doc.last_modified)  
-  JSONP doc.standardised_document
 end
 
 post '/api/:collection/:resource' do

@@ -103,12 +103,9 @@ helpers do
   end
   
   def show_document_help(collection, doc_name, doc)
-     result = "<% doc = document('#{collection}','#{doc_name}') %>\n"
+    result = "<% document('#{collection}','#{doc_name}') %>\n"
      doc.each do |k,v|
-       if v.kind_of? Hash
-         show_document_help(doc)
-       end
-       result += "<p><%=doc.#{k} %></p>\n"
+       result += "<p><%=#{collection}.#{k} %></p>\n"
      end
      return result
   end

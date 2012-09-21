@@ -77,6 +77,18 @@ class MongoDocument
       ''
     end
   end
+  
+  def stripped_document
+    copy = @doc.clone
+    copy.delete('_id')
+    copy.delete('_koda_last_modified')
+    copy.delete '_koda_indexes'
+    copy.delete '_koda_ref'
+    copy.delete '_koda_type'
+    copy.delete '_koda_editor'
+    copy.delete '_koda_doc_links'
+    copy
+  end
 
   def ref=(value)
       @doc['_koda_ref'] = value
