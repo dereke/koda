@@ -4,10 +4,10 @@ def run_all_tests
   result_text = `rspec spec`
   result = result_text.include? '0 failures'
   if not result
-    `growlnotify --image fail.jpeg -m 'Unit Tests Failed' Rspec`
+    `growlnotify --image spec/fail.jpeg -m 'Unit Tests Failed' Rspec`
 	puts result_text
   else
-    `growlnotify --image success.png -m 'All Unit Tests Passed' Rspec`
+    `growlnotify --image spec/success.png -m 'All Unit Tests Passed' Rspec`
 	puts result_text
   end
 end
