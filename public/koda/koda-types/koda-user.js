@@ -52,6 +52,14 @@
 			"defaultValue" : false
 		},
 		{
+			"id" : "isadmin",
+			"title" : "Is Admin",
+			"description" : "Access to console and can do anything.",
+			"control" : "truefalse",
+			"properties" : "required",
+			"defaultValue" : false
+		},
+		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",

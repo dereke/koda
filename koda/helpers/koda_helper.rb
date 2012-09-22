@@ -35,7 +35,7 @@ helpers do
     result = JSON.parse get_raw("/content/#{collection_name}/filtered/#{filter_name}")
     documents = []
     result.each do |doc_ref|      
-       documents.push document(collection_name, doc_ref._koda_ref)
+       documents.push document(collection_name, doc_ref.title)
     end
 
     documents
@@ -46,7 +46,7 @@ helpers do
     documents = []
     result.each do |collection, doc_refs|   
         doc_refs.each do |doc_ref|
-          documents.push document(collection, doc_ref._koda_ref)
+          documents.push document(collection, doc_ref.title)
         end
     end
     
@@ -81,13 +81,49 @@ helpers do
 
     end
   end
+  
+  def log_out
+    session['koda_user'] = nil
+  end
     
   def logged_in?
     if(settings.environment == :test)
+      session['koda_user'] = { 
+        '_koda_ref' => 'test_user',
+        'isadmin' => true,
+        'isallowed' => true
+      }
       true
     else
       current_user != nil
     end
+  end
+  
+  def is_allowed?(action, collection)
+
+    if(logged_in?)
+      if(settings.environment == :test)
+        true
+      else
+        access_control = document(collection, 'access-control')
+        return true if is_admin?
+        return true if access_control == nil
+        if(action == :read)
+          return true if access_control.read_users == "*"
+          return true if access_control.read_users.include? current_user._koda_ref
+        elsif(action == :write)
+          return true if access_control.write_users == "*"
+          return true if access_control.write_users.include? current_user._koda_ref          
+        elsif(action == :modify)
+          return true if access_control.modify_users == "*"
+          return true if access_control.modify_users.include? current_user._koda_ref
+        end
+        false
+      end
+    else
+      false
+    end
+    
   end
   
   def is_admin?
@@ -155,8 +191,8 @@ helpers do
       id = response["profile"]["googleUserId"]
       name = response["profile"]["displayName"]
       ref = name.gsub(/\s+/, "-").downcase 
-      existing_user = search({ 'googleid' => id }).first()
-      puts existing_user
+      existing_user = document('users', ref)
+
       if(existing_user)
         if(existing_user.isallowed)
           session['koda_user']  = existing_user

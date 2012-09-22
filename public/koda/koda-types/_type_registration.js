@@ -11,7 +11,7 @@
 				"allowedin" : "root"
 			},
 			{
-				"title" : "Generic Text",
+				"title" : "Text File",
 				"description" :"This will create a simple text document",
 				"icon" : "/koda/images/database_table.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
@@ -19,7 +19,7 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Generic Media",
+				"title" : "Image File",
 				"description" :"Image, Video or Audio",
 				"icon" : "/koda/images/image_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
@@ -27,27 +27,11 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Doc or Index link",
+				"title" : "Link to a document",
 				"description" :"Link to a document or Index",
 				"icon" : "/koda/images/feed_link.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
 				"type" : "/koda/koda-types/koda-link.js",
-				"allowedin" : "collection"
-			},
-			{
-				"title" : "Generic Json",
-				"description" :"This will create a simple json document",
-				"icon" : "/koda/images/database_table.png",
-				"editor" : "/koda/koda-editors/json-editor.html",
-				"type"	: "/koda/koda-types/koda-json.js",
-				"allowedin" : "collection"
-			},
-			{
-				"title" : "Generic Post",
-				"description" :"This will create a simple page document",
-				"icon" : "/koda/images/page_white_edit.png",
-				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type"	: "/koda/koda-types/koda-post.js",
 				"allowedin" : "collection"
 			},
 			{
@@ -57,7 +41,14 @@
 				"editor" : "/koda/koda-editors/twitterfeed-editor.html",
 				"type"	: "/koda/koda-types/koda-twitterfeed.js",
 				"allowedin" : "collection"
-			},
+			}
+		]
+	},
+	{
+		"group" : "admin",
+		"title" : "Administration",
+		"admin_users" : true,
+		"types" : [
 			{
 				"title" : "Koda User",
 				"description" :"This will create a koda user",
@@ -67,18 +58,18 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Koda Restriction",
-				"description" :"This will create a koda restriction",
+				"title" : "Koda Access",
+				"description" :"Control access to a folder",
 				"icon" : "/koda/images/group_key.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type"	: "/koda/koda-types/koda-restriction.js",
+				"type"	: "/koda/koda-types/koda-access.js",
 				"allowedin" : "collection"
 			}
 		]
 	},
 	{
-		"group" : "koda",
-		"title" : "User Created",
+		"group" : "custom",
+		"title" : "Custom",
 		"types" : [
 			{
 				"title" : "Generic Page",
@@ -86,14 +77,6 @@
 				"icon" : "/koda/images/layout_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
 				"type"	: "/koda/koda-types/custom-genericpage.js",
-				"allowedin" : "collection"
-			},
-			{
-				"title" : "Slide",
-				"description" :"Slides on home page",
-				"icon" : "/koda/images/photo_add.png",
-				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type"	: "/koda/koda-types/custom-slide.js",
 				"allowedin" : "collection"
 			}
 		]

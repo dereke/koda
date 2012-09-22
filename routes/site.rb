@@ -27,6 +27,13 @@ get "/sign-in" do
   show_koda :login
 end
 
+get "/sign-out" do
+  puts 'current_user'
+  log_out
+  puts current_user
+  redirect '/'
+end
+
 get "/not-allowed" do
   show_koda :not_allowed
 end

@@ -45,10 +45,16 @@ Editor.Api = function() {
 			typeUrl : typeUrl,
 			
 			itemUrl: itemUrl,
+			
+			getError : function(error) {
+				if(error.status == 405){
+					return 'You were not allowed to perform this action!'
+				}
+				
+				return error.statusText;
+			},
 
 			get: function(path, callback) {
-
-				console.log(path)
 				
 				jQuery.ajax({
 				    type: "GET",
@@ -58,7 +64,7 @@ Editor.Api = function() {
 				        callback(results);
 				    },
 				    error: function(XMLHttpRequest, textStatus, errorThrown){
-						callback(null);
+				        callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 				    }
 				});
 
@@ -73,8 +79,8 @@ Editor.Api = function() {
 				    success: function(result){
 				        callback("OK");
 				    },
-				    error: function(result){
-				        callback(result);
+				    error: function(XMLHttpRequest, textStatus, errorThrown){
+				        callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 				    }
 				});
 
@@ -90,12 +96,12 @@ Editor.Api = function() {
 				    success: function(result){
 				        callback("OK");
 				    },
-				    error: function(result){
-				        if(result.status == "201" || result.status == "200") {
+				    error: function(XMLHttpRequest){
+				        if(XMLHttpRequest.status == "201" || XMLHttpRequest.status == "200") {
 							callback("OK")
 						}
 						else {
-							callback(result.status);
+							callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 						}
 				    }
 				});
@@ -113,13 +119,12 @@ Editor.Api = function() {
 				    success: function(result){
 						callback("OK");
 				    },
-				    error: function(result){
-
-				        if(result.status == "201" || result.status == "200") {
+				    error: function(XMLHttpRequest){
+				        if(XMLHttpRequest.status == "201" || XMLHttpRequest.status == "200") {
 							callback("OK")
 						}
 						else {
-							callback(result.status);
+							callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 						}
 				    }
 				});

@@ -7,7 +7,7 @@
 <script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/nicEdit.js?2333da323d3234aa" type="text/javascript" charset="utf-8"></script>
-<script src="/koda/scripts/KodaEditor.js?11333as23aa2s42394" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/KodaEditor.js?11333asd23aa2s42394" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/fileuploader.js?2342234a7aa6ad4aa" type="text/javascript"></script>
 </head>
 <body>
@@ -23,15 +23,13 @@
 		
 		api.get(api.typeUrl, function(kodaType) {
 			
-			console.log(kodaType);
-			
 			var onUpdate = function(sdata){
 
 				if(sdata == "OK") {					
 					$('#status').text("Document Saved!");
 					$('#status').show().fadeOut(2000);	
 				} else {				
-					$('#status').text("Saving Failed!");				
+					$('#status').text(sdata.error);				
 					$('#status').show().fadeOut(2000);
 				}
 

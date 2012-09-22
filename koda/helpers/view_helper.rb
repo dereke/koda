@@ -20,9 +20,10 @@ def render_partial(template, locals={})
 end
 
 def render_doc(doc)
-  result = "<dl id='#{doc._koda_ref}'>\n"
+  return "<p>No content has yet been added...</p>\n" if(doc == nil)
+  result = "<dl id='#{doc._koda_ref}'>\n" 
   doc.delete '_koda_ref'
-  if !(doc ==nil) 
+
     doc.each do |k,v|
       if(v.to_s.include? '_koda_media')
         result += "<img src='#{v}' title='#{k}' \>\n"
@@ -31,8 +32,6 @@ def render_doc(doc)
       end
     end  
   else
-    result += "<p>No content has yet been added...</p>\n"
-  end
   
   result += "</dl>"
   result

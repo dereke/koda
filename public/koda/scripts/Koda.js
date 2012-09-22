@@ -8,10 +8,19 @@ $.Class.extend("RestService",
 		{}, 
 		{
 			init : function() {	},
+			
+			getError : function(error) {
+				if(error.status == 405){
+					return 'You were not allowed to perform this action!'
+				}
+				
+				return error.statusText;
+			},
 
 			get: function(path, callback) {
 
 				var location = path != undefined ? path : StringUtil.empty;
+				self = this;
 
 				jQuery.ajax({
 				    type: "GET",
@@ -21,7 +30,7 @@ $.Class.extend("RestService",
 				        callback(results);
 				    },
 				    error: function(XMLHttpRequest, textStatus, errorThrown){
-				        callback(null);
+				        callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 				    }
 				});
 
@@ -37,7 +46,7 @@ $.Class.extend("RestService",
 				        callback(results);
 				    },
 				    error: function(XMLHttpRequest, textStatus, errorThrown){
-				        callback(null);
+				        callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 				    }
 				});
 
@@ -54,8 +63,8 @@ $.Class.extend("RestService",
 				    success: function(result){
 				        callback("OK");
 				    },
-				    error: function(result){
-				        callback(result);
+				    error: function(XMLHttpRequest){
+				        callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 				    }
 				});
 
@@ -73,12 +82,12 @@ $.Class.extend("RestService",
 				    success: function(result){
 				        callback("OK");
 				    },
-				    error: function(result){
-				        if(result.status == "201" || result.status == "200") {
+				    error: function(XMLHttpRequest){
+				        if(XMLHttpRequest.status == "201" || XMLHttpRequest.status == "200") {
 							callback("OK")
 						}
 						else {
-							callback(result.status);
+							callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 						}
 				    }
 				});
@@ -98,13 +107,13 @@ $.Class.extend("RestService",
 				    success: function(result){
 						callback("OK");
 				    },
-				    error: function(result){
+				    error: function(XMLHttpRequest){
 
-				        if(result.status == "201" || result.status == "200") {
+				        if(XMLHttpRequest.status == "201" || XMLHttpRequest.status == "200") {
 							callback("OK")
 						}
 						else {
-							callback(result.status);
+							callback({error: self.getError(XMLHttpRequest), code: XMLHttpRequest.status});
 						}
 				    }
 				});
@@ -254,12 +263,20 @@ $.Class.extend("ExplorerPresenter",
 			$('.kodaType a.new').click(this.new);
 		},
 		
+		showInfo : function(message){	
+			$('#status-text').text(message);
+			$('#status-text').show().fadeOut(7000);
+		},
+		
 		attach: function() {
 			
 			var self = this;
 			
 			$.each(this.Class.kodaTypes, function(i, group){
 				
+				if(group.admin_users && !Window.current_user.isadmin) {
+					return;
+				}
 				var header = '<li class="nav-header">'+group.title+'</li>'
 				$(header).appendTo('ul.nav-list')
 				$.each(group.types, function(i, kodaType){
@@ -267,8 +284,7 @@ $.Class.extend("ExplorerPresenter",
 					var a_img = '<img src="'+kodaType.icon+'" class="img-icon" /><a class="new" data-editor-url="'+kodaType.editor+'" data-type-url="'+kodaType.type+'" title="'+kodaType.description+'">'+kodaType.title+'</a>'
 					$(a_img).appendTo(li);
 					$(li).appendTo('ul.nav-list');
-				});
-				
+				});				
 			});
 			
 			$('.navbar-link').click(function(evt){
@@ -285,11 +301,17 @@ $.Class.extend("ExplorerPresenter",
 			var self = this;
 			self.Class.controller.findCommand('list', function(cmd) {
 				cmd.execute([path], function(results){
+
+					if(results.error){
+						self.showInfo(results.error);
+						return;
+					}
+					
 					var list = $('<ul class="explorer-items"/>').attr('id', path);
 					$.each(results, function(i, item) {
 
 						if(item.id.indexOf('_koda_media') == -1 && item.id.indexOf('objectlabs-system') == -1) {
-							
+														
 							var listItem = $('<li class="well" id="'+item.id+'"/>');
 							var link = $('<a id="'+item.id+'"/>').text(item.name).addClass(item.type);
 							
@@ -409,6 +431,10 @@ $.Class.extend("ExplorerPresenter",
 			
 			self.Class.controller.findCommand('rm', function(cmd) {
 				cmd.execute([$(item).find('a').attr('id')], function(result){
+					if(result.error){
+						self.showInfo(result.error);
+						return;
+					}
 					self.Class.panel.find('ul').hide('slow').remove();
 					self.find($(item).parent().attr('id'));
 				});
@@ -710,14 +736,14 @@ $.Class.extend("MkDirCommand",
 
 						});					
 					} else {				
-						callback("folder could not be created");				
+						callback("folder could not be created, "+sdata);				
 					}
 
 				});
 			
 			} else {
 				
-				callback("at the moment folders can only be greated in root dir");
+				callback("at the moment folders can only be created in root dir");
 				
 			}
 			
@@ -910,6 +936,11 @@ $.Class.extend("ListCommand",
 		execute: function(args, callback) {
 
 			this.Class.restService.get(args[0].toLowerCase(), function(data) {
+
+				if(data.error){
+					callback(data);
+					return;
+				}
 				var output = [];
 
 				if(data.constructor == Array) {
@@ -1042,7 +1073,7 @@ $.Class.extend("RemoveCommand",
 				if(data == "OK"){
 					callback("the item was deleted");					
 				} else{
-					callback("failed to delete the item: "+data.toString());
+					callback(data);
 				}
 				
 			});			
@@ -1077,11 +1108,17 @@ $.Class.extend("Explorer", {}, {
 		commands.push(new MkDirCommand(service));
 		commands.push(new GetCommand(service));
 		
-		service.getExternal('/koda/koda-types/_type_registration.js?23423442', function(data){
-			var controller = new KodaController(commands);
-			Window.Presenter = new ExplorerPresenter(controller, data);
-			Window.Presenter.attach();	
-		})
+		service.getExternal('/session/current_user', function(user){
+			
+			Window.current_user = user;
+			
+			service.getExternal('/koda/koda-types/_type_registration.js?23423442', function(data){
+				var controller = new KodaController(commands);
+				Window.Presenter = new ExplorerPresenter(controller, data);
+				Window.Presenter.attach();	
+			})
+			
+		});
 	}
 });
 
@@ -1105,7 +1142,7 @@ $.Class.extend("Console", {}, {
 		commands.push(new RemoveCommand(service));
 		commands.push(new OpenCommand());
 		commands.push(new MkDirCommand(service));
-
+		
 		var controller = new KodaController(commands);
 		Window.Presenter = new ConsolePresenter(controller);
 		Window.Presenter.attach();

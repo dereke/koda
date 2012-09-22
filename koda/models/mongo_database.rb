@@ -9,22 +9,29 @@ class MongoDatabase
     resource_collections.map {|e| '/' + e }	    
   end
   
-  def collection_links 
-    all_user_collections.map do |collection|
+  def collection_links user,isadmin=false
+    all_user_collections(user).map do |collection|
       {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection, '_koda_ref' => collection}
     end
   end
   
-  def content_collection_links 
-    collections = all_user_collections.clone
-    collections.delete '_koda_media'
+  def content_collection_links user,isadmin=false
+    collections = all_user_collections(user).clone
     collections.map do |collection|
       { 'href' => '/content/' + collection, 'title' => collection }
     end
   end
   
-  def all_user_collections
-    resource_collections.push '_koda_media'
+  def all_user_collections(user,isadmin=false)
+    user_collections = resource_collections.clone
+    return user_collections if(isadmin)
+    user_collections.each do |collection|
+  	  access_control = collection(collection).find_document('access-control')
+  	  if(access_control && access_control['read_users'] != "*" && !(access_control['read_users'].include? user))
+  	    user_collections.delete collection
+	    end
+	  end
+	  user_collections
   end
   
   def collection collection_name
@@ -38,6 +45,7 @@ class MongoDatabase
   	collections.delete '_koda_meta'
   	collections.delete 'fs.chunks'  
   	collections.delete 'fs.files'
+  	  	
     collections
   end
   
@@ -47,16 +55,17 @@ class MongoDatabase
   
   def flat_file
     flat_file = []
-      collection_links.each do |link|
-      docs = collection(link['title']).resource_links(nil, nil, nil)
-      docs_in_collection = []
-      docs.each do |doc|
-        doc_from_db = collection(link['title']).find_document(doc['title'])
-        
-        docs_in_collection.push(doc_from_db.stripped_document)
+      all_user_collections('*').each do |collection|
+
+        docs = collection(collection).resource_links(nil, nil, nil)
+        docs_in_collection = []
+        docs.each do |doc|
+          doc_from_db = collection(collection).find_document(doc['_koda_ref'])
+          puts doc_from_db
+          docs_in_collection.push(doc_from_db.stripped_document)
+        end
+        flat_file.push({'collection'=>collection, 'docs' => docs_in_collection})
       end
-      flat_file.push({'collection'=>link['title'], 'docs' => docs_in_collection})
-    end
     flat_file
   end
   
@@ -80,7 +89,7 @@ class MongoDatabase
 
       results = Hash.new
 
-      all_user_collections.each do |collection|
+      all_user_collections('*').each do |collection|
         results[collection] = collection(collection).query(search_hash, params[:take], params[:skip], sort_hash)
       end
       

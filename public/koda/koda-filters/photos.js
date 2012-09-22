@@ -1,6 +1,6 @@
 { 
     "filter" : { 
-        "tags" : "/photos/"
+        "tags" : "/photo/"
     },
     "sort" : { 
         "name"  : "1"

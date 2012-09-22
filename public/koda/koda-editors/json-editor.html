@@ -30,7 +30,7 @@
 				if(sdata == "OK") {					
 					$('#status').text("item saved");									
 				} else {				
-					$('#status').text("item could not be saved");				
+					$('#status').text(sdata.error);				
 				}
 
 			}

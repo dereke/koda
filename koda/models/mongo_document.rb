@@ -70,6 +70,14 @@ class MongoDocument
     end
   end
   
+  def hidden 
+    if(@doc['_koda_hidden_file'])
+      true
+    else
+      false
+    end
+  end
+  
   def doc_link 
     if(@doc['_koda_doc_links'])
       @doc['_koda_doc_links'].to_s

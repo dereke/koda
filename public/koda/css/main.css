@@ -200,6 +200,17 @@
 
 /* Explorer */
 
+#status-text {
+	float: right;
+	position: absolute;
+	top: 71px;
+	right: 81px;
+	color: red;
+	background: paleGoldenrod;
+	padding: 9px;
+	display:none;
+}
+
 .kodaType .img-icon {
 	float: left;
 	padding: 5px;

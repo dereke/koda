@@ -57,7 +57,7 @@
           <a class="brand" href="#">KodaCMS Explorer</a>
           <div class="nav-collapse collapse">
             <p class="navbar-text pull-right">
-              Logged in as <a href="#" class="navbar-link"><%=current_user.name%></a>
+              Logged in as <a href="#" class="navbar-link"><%=current_user.name%></a>, <a href="/sign-out">Log out</a>
             </p>
             <ul class="nav">
               <li class="active"><a href="#">Content</a></li>
@@ -81,6 +81,8 @@
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
+			<div id="status-text">
+			</div>
             <section id="explorer">
 				<div id="explorer-panel">
 				</div>

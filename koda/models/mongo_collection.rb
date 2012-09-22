@@ -14,8 +14,12 @@ class MongoCollection
     resource_links_from_docs @collection.find({},build_options(take, skip, sort)).map
   end
   
+  def resource_links_no_hidden take=nil, skip=nil, sort=nil
+    resource_links_from_docs @collection.find({ '$or'=> [{'_koda_hidden_file'=>nil},{'_koda_hidden_file'=>false}] },build_options(take, skip, sort)).map
+  end
+  
   def content_links take=nil, skip=nil, sort=nil
-    content_links_from_docs @collection.find({},build_options(take, skip, sort)).map
+    content_links_from_docs @collection.find({ '$or'=> [{'_koda_hidden_file'=>nil},{'_koda_hidden_file'=>false}] },build_options(take, skip, sort)).map
   end
 
   def find_document doc_ref
@@ -90,7 +94,7 @@ class MongoCollection
   def resource_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "_koda_ref" => doc_wrapper.ref}
+      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "_koda_ref" => doc_wrapper.ref, '_koda_hidden' => doc_wrapper.hidden}
     end
   end
   

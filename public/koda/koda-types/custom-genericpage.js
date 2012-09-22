@@ -31,44 +31,30 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "maintitle",
-			"title" : "Main title of the content",
-			"description" : "Shown just above the body",
+			"id" : "heading",
+			"title" : "Heading",
+			"description" : "Main heading of page",
 			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "introparagraph",
-			"title" : "Main intro of the content",
-			"description" : "Shown just under the body title",
-			"control" : "input-text",
-			"defaultValue" : ""
-		},
-		{
-			"id" : "column1",
-			"title" : "Left Column",
-			"description" : "Shown on the left",
-			"control" : "richtext",
-			"defaultValue" : ""
-		},
-		{
-			"id" : "image1",
-			"title" : "Left Image",
+			"id" : "titleimage",
+			"title" : "Title Image",
 			"description" : "Upload an image",
 			"control" : "imageupload",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "column2",
-			"title" : "Right Column",
-			"description" : "Shown on the right",
-			"control" : "richtext",
+			"id" : "teaser",
+			"title" : "Teaser",
+			"description" : "Shown just under the heading",
+			"control" : "input-text",
 			"defaultValue" : ""
 		},
 		{
-			"id" : "sidebartext",
-			"title" : "Sidebar content",
-			"description" : "Shown on the right bottom",
+			"id" : "body",
+			"title" : "Main body",
+			"description" : "Content of the main page",
 			"control" : "richtext",
 			"defaultValue" : ""
 		},
@@ -84,7 +70,7 @@
 			"title" : "Document Link",
 			"description" : "Link to another doc",
 			"control" : "kodalinkeditor",
-			"defaultValue" : "/api/slides"
+			"defaultValue" : ""
 		}
 	]
 }

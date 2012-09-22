@@ -9,7 +9,7 @@ end
 get '/api' do
   if(logged_in?) 
     content_type :json, 'kodameta' => 'list'
-    JSONP @db_wrapper.collection_links
+    JSONP @db_wrapper.collection_links current_user._koda_ref,current_user.isadmin
   else
     response['Allow'] = 'GET'
     status 405
@@ -19,7 +19,7 @@ end
 get '/api/' do
   if(logged_in?) 
     content_type :json, 'kodameta' => 'list'
-    JSONP @db_wrapper.collection_links
+    JSONP @db_wrapper.collection_links current_user._koda_ref,current_user.isadmin
   else
     response['Allow'] = 'GET'
     status 405
@@ -28,12 +28,12 @@ end
 
 get '/content?' do
   content_type :json, 'kodameta' => 'list'
-  JSONP @db_wrapper.content_collection_links
+  JSONP @db_wrapper.content_collection_links '*'
 end
 
 get '/content/?' do
   content_type :json, 'kodameta' => 'list'
-  JSONP @db_wrapper.content_collection_links
+  JSONP @db_wrapper.content_collection_links '*'
 end
 
 put '/api' do
@@ -174,13 +174,28 @@ get '/content/:collection/filtered/:filter/?' do
 end
 
 get '/api/:collection/?' do
-  if(logged_in?) 
+  collection_name = params[:collection]
+  
+  if(is_allowed? :read,collection_name)
+    
     content_type :json, 'kodameta' => 'list'
-    collection_name = params[:collection]
-
     halt 404 if not @db_wrapper.contains_collection(collection_name)  
 
-    JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], nil)
+    if(is_admin?)
+      JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], nil)
+    else
+      JSONP @db_wrapper.collection(collection_name).resource_links_no_hidden(params[:take], params[:skip], nil)
+    end
+
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+end
+
+get '/session/current_user' do
+  if(logged_in?) 
+    JSONP current_user
   else
     response['Allow'] = 'GET'
     status 405
@@ -197,8 +212,9 @@ get '/content/:collection/?' do
 end
 
 post '/api/:collection/?' do
-    if(logged_in?) 
-      collection_name = params[:collection]
+  collection_name = params[:collection]
+  
+  if(is_allowed? :write,collection_name)
       raw_doc = request.env["rack.input"].read
       hash = JSON.parse raw_doc
       new_doc = @db_wrapper.collection(collection_name).save_document(hash)
@@ -222,8 +238,10 @@ put '/api/:collection/?' do
 end  
 
 delete '/api/:collection/?' do
-  if(logged_in?) 
-    @db_wrapper.collection(params[:collection]).delete()
+  collection_name = params[:collection]
+  
+  if(is_allowed? :modify,collection_name)
+    @db_wrapper.collection(collection_name).delete()
   else
     response['Allow'] = 'GET'
     status 405
@@ -236,8 +254,9 @@ options '/api/:collection/?' do
 end
 
 get '/api/:collection/:resource?' do
-  if(logged_in?) 
-    collection_name = params[:collection]
+  collection_name = params[:collection]
+  
+  if(is_allowed? :read,collection_name)
     doc_ref = params[:resource]
     should_include = params[:include] != 'false'
 
@@ -275,8 +294,9 @@ post '/api/:collection/:resource' do
 end
 
 put '/api/:collection/:resource' do
-  if(logged_in?) 
-    collection_name=params[:collection]
+  collection_name = params[:collection]
+  
+  if(is_allowed? :write,collection_name)
     resource_name = params[:resource]
     hash = JSON.parse request.env["rack.input"].read
   
@@ -299,8 +319,10 @@ put '/api/:collection/:resource' do
 end
 
 delete '/api/:collection/:resource' do
-  if(logged_in?) 
-    @db_wrapper.collection(params[:collection]).delete_document(params[:resource])  
+  collection_name = params[:collection]
+
+  if(is_allowed? :modify,collection_name)
+    @db_wrapper.collection(collection_name).delete_document(params[:resource])  
   else
     response['Allow'] = 'GET'
     status 405
@@ -308,8 +330,9 @@ delete '/api/:collection/:resource' do
 end
 
 options '/api/:collection/:resource' do
-  if(logged_in?) 
-      collection_name = params[:collection]
+  collection_name = params[:collection]
+  
+  if(is_allowed? :read, collection_name)
       doc_ref = params[:resource]
 
       doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
