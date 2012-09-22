@@ -65,6 +65,14 @@
 				"editor" : "/koda/koda-editors/generic-editor.html",
 				"type"	: "/koda/koda-types/koda-user.js",
 				"allowedin" : "collection"
+			},
+			{
+				"title" : "Koda Restriction",
+				"description" :"This will create a koda restriction",
+				"icon" : "/koda/images/group_key.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/koda-restriction.js",
+				"allowedin" : "collection"
 			}
 		]
 	},

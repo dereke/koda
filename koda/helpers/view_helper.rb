@@ -20,27 +20,27 @@ def render_partial(template, locals={})
 end
 
 def render_doc(doc)
-  result = "<div id='#{doc._koda_ref}'>\n"
+  result = "<dl id='#{doc._koda_ref}'>\n"
+  doc.delete '_koda_ref'
   if !(doc ==nil) 
     doc.each do |k,v|
-      if(v.include? '_koda_media')
+      if(v.to_s.include? '_koda_media')
         result += "<img src='#{v}' title='#{k}' \>\n"
       else
-        result += "<p data-key='#{k}'><%=#{v} %></p>\n"
+        result += "<dt>#{k}</dt><dd>#{v}</dd>\n"
       end
     end  
   else
     result += "<p>No content has yet been added...</p>\n"
   end
   
-  result += "</div>"
+  result += "</dl>"
   result
 end
 
 private
 
 def template_for(path)
-  puts path
   return nil  unless File.exists?(path)
   File.open(path) { |f| f.read }
 end

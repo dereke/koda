@@ -48,6 +48,8 @@ Editor.Api = function() {
 
 			get: function(path, callback) {
 
+				console.log(path)
+				
 				jQuery.ajax({
 				    type: "GET",
 				    url: path + '?include=false&cachebuster=' + new Date().getTime(),

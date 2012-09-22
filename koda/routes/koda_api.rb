@@ -7,13 +7,33 @@ get '/koda/koda-types/*' do
 end
 
 get '/api' do
-  content_type :json, 'kodameta' => 'list'
-  JSONP @db_wrapper.collection_links
+  if(logged_in?) 
+    content_type :json, 'kodameta' => 'list'
+    JSONP @db_wrapper.collection_links
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
 end
 
 get '/api/' do
+  if(logged_in?) 
+    content_type :json, 'kodameta' => 'list'
+    JSONP @db_wrapper.collection_links
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+end
+
+get '/content?' do
   content_type :json, 'kodameta' => 'list'
-  JSONP @db_wrapper.collection_links
+  JSONP @db_wrapper.content_collection_links
+end
+
+get '/content/?' do
+  content_type :json, 'kodameta' => 'list'
+  JSONP @db_wrapper.content_collection_links
 end
 
 put '/api' do
@@ -135,12 +155,12 @@ options '/api/_koda_media/:filename' do
   response['Allow'] = 'GET,PUT,DELETE'
 end
 
-get '/api/search/?' do 
+get '/content/search/?' do 
   content_type :json, 'kodameta' => 'list'  
   JSONP @db_wrapper.search params
 end
 
-get '/api/:collection/filtered/:filter/?' do
+get '/content/:collection/filtered/:filter/?' do
   filter = params[:filter]
   content_type :json, 'kodameta' => 'list'
   collection_name = params[:collection]
@@ -154,12 +174,26 @@ get '/api/:collection/filtered/:filter/?' do
 end
 
 get '/api/:collection/?' do
+  if(logged_in?) 
+    content_type :json, 'kodameta' => 'list'
+    collection_name = params[:collection]
+
+    halt 404 if not @db_wrapper.contains_collection(collection_name)  
+
+    JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], nil)
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+end
+
+get '/content/:collection/?' do
   content_type :json, 'kodameta' => 'list'
   collection_name = params[:collection]
 
   halt 404 if not @db_wrapper.contains_collection(collection_name)  
 
-  JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], nil)
+  JSONP @db_wrapper.collection(collection_name).content_links(params[:take], params[:skip], nil)
 end
 
 post '/api/:collection/?' do
@@ -202,11 +236,29 @@ options '/api/:collection/?' do
 end
 
 get '/api/:collection/:resource?' do
+  if(logged_in?) 
+    collection_name = params[:collection]
+    doc_ref = params[:resource]
+    should_include = params[:include] != 'false'
+
+    doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+    halt 404 if doc==nil
+    last_modified(doc.last_modified)
+
+    fetch_linked_docs doc if should_include
+
+    JSONP doc.standardised_document
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+end
+
+get '/content/:collection/:resource?' do
   
   collection_name = params[:collection]
   doc_ref = params[:resource]
   should_include = params[:include] != 'false'
-  stripped = params[:stripped] == 'true'
 
   doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
   halt 404 if doc==nil
@@ -214,11 +266,7 @@ get '/api/:collection/:resource?' do
   
   fetch_linked_docs doc if should_include
 
-  if(stripped) 
-    JSONP doc.stripped_document
-  else
-    JSONP doc.standardised_document
-  end
+  JSONP doc.stripped_document
 
 end
 

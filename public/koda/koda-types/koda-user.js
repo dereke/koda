@@ -44,7 +44,7 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "isadmin",
+			"id" : "isallowed",
 			"title" : "Is Allowed",
 			"description" : "Is this user allowed in the backoffice?",
 			"control" : "truefalse",

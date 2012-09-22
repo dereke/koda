@@ -83,11 +83,10 @@ class MongoDocument
     copy.delete('_id')
     copy.delete('_koda_last_modified')
     copy.delete '_koda_indexes'
-    copy.delete '_koda_ref'
     copy.delete '_koda_type'
     copy.delete '_koda_editor'
     copy.delete '_koda_doc_links'
-    copy
+    copy.to_obj
   end
 
   def ref=(value)
@@ -100,10 +99,6 @@ class MongoDocument
     else
       @doc['_koda_ref'].to_s
     end
-  end
-  
-  def content
-    @doc.to_obj
   end
   
   def url

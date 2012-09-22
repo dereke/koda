@@ -3,7 +3,11 @@
 #
 get '/console' do
   if(logged_in?)
-    show_koda :console
+    if(is_admin?)
+      show_koda :console
+    else
+      redirect '/not-allowed'
+    end
   else
     session['return_url'] = '/console'
     redirect '/sign-in'

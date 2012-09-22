@@ -25,14 +25,14 @@ helpers do
     doc = get_document_from_cache collection_name, doc_ref
     
     if(doc)
-      doc.content
+      doc.stripped_document
     else
       nil
     end
   end
   
   def filtered(collection_name, filter_name)
-    result = JSON.parse get_raw("/api/#{collection_name}/filtered/#{filter_name}")
+    result = JSON.parse get_raw("/content/#{collection_name}/filtered/#{filter_name}")
     documents = []
     result.each do |doc_ref|      
        documents.push document(collection_name, doc_ref._koda_ref)
@@ -87,6 +87,14 @@ helpers do
       true
     else
       current_user != nil
+    end
+  end
+  
+  def is_admin?
+    if(logged_in?)
+      current_user.isadmin
+    else
+      false
     end
   end
 
@@ -148,9 +156,9 @@ helpers do
       name = response["profile"]["displayName"]
       ref = name.gsub(/\s+/, "-").downcase 
       existing_user = search({ 'googleid' => id }).first()
-      
+      puts existing_user
       if(existing_user)
-        if(existing_user.isadmin)
+        if(existing_user.isallowed)
           session['koda_user']  = existing_user
         else
           redirect '/not-allowed'
@@ -165,7 +173,8 @@ helpers do
           '_koda_indexes' => 'name,email', 
           '_koda_type' => '/koda/koda-types/koda-user.js',
           '_koda_editor' => '/koda/koda-editors/generic-editor.html',
-          'isadmin' => is_admin
+          'isadmin' => is_admin,
+          'isallowed' => is_admin
         }
         new_user = @db_wrapper.collection('users').save_document(user)
         if(is_admin)

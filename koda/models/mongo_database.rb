@@ -15,6 +15,14 @@ class MongoDatabase
     end
   end
   
+  def content_collection_links 
+    collections = all_user_collections.clone
+    collections.delete '_koda_media'
+    collections.map do |collection|
+      { 'href' => '/content/' + collection, 'title' => collection }
+    end
+  end
+  
   def all_user_collections
     resource_collections.push '_koda_media'
   end
@@ -45,7 +53,7 @@ class MongoDatabase
       docs.each do |doc|
         doc_from_db = collection(link['title']).find_document(doc['title'])
         
-        docs_in_collection.push(doc_from_db.standardised_document)
+        docs_in_collection.push(doc_from_db.stripped_document)
       end
       flat_file.push({'collection'=>link['title'], 'docs' => docs_in_collection})
     end
@@ -63,6 +71,9 @@ class MongoDatabase
           search_hash[k] = eval v
         else
           search_hash[k] = v
+        end
+        if (v == 'true' || v == 'false')
+          search_hash[k] = v == 'true'
         end
         sort_hash[k] = 1
       end

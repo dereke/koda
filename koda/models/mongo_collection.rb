@@ -13,6 +13,10 @@ class MongoCollection
   def resource_links take=nil, skip=nil, sort=nil
     resource_links_from_docs @collection.find({},build_options(take, skip, sort)).map
   end
+  
+  def content_links take=nil, skip=nil, sort=nil
+    content_links_from_docs @collection.find({},build_options(take, skip, sort)).map
+  end
 
   def find_document doc_ref
     doc = create_document_wrapper @collection.find_one("_koda_ref"=>doc_ref)
@@ -28,7 +32,7 @@ class MongoCollection
   end
 
   def query query_map, take=nil, skip=nil, sort=nil
-    resource_links_from_docs @collection.find(query_map, build_options(take, skip, sort))
+    content_links_from_docs @collection.find(query_map, build_options(take, skip, sort))
   end
 
   def save_document raw_resource, ref=nil
@@ -88,7 +92,13 @@ class MongoCollection
       doc_wrapper = create_document_wrapper doc
       {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "_koda_ref" => doc_wrapper.ref}
     end
-
+  end
+  
+  def content_links_from_docs docs
+    docs.map do |doc|
+      doc_wrapper = create_document_wrapper doc
+      {'href' => doc_wrapper.url.gsub(/api/, "content"), 'title' => doc_wrapper.title}
+    end
   end
 
   def build_options take, skip, sort
