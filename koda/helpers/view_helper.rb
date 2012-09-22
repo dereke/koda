@@ -24,14 +24,13 @@ def render_doc(doc)
   result = "<dl id='#{doc._koda_ref}'>\n" 
   doc.delete '_koda_ref'
 
-    doc.each do |k,v|
-      if(v.to_s.include? '_koda_media')
-        result += "<img src='#{v}' title='#{k}' \>\n"
-      else
-        result += "<dt>#{k}</dt><dd>#{v}</dd>\n"
-      end
-    end  
-  else
+  doc.each do |k,v|
+    if(v.to_s.include? '_koda_media')
+      result += "<img src='#{v}' title='#{k}' \>\n"
+    else
+      result += "<dt>#{k}</dt><dd>#{v}</dd>\n"
+    end
+  end  
   
   result += "</dl>"
   result
