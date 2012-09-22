@@ -1,13 +1,13 @@
 def run_all_tests
   print 'clear'
   puts "Tests run #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
-  result_text = `rspec spec`
+  result_text = `rspec koda/spec`
   result = result_text.include? '0 failures'
   if not result
-    `growlnotify --image spec/fail.jpeg -m 'Unit Tests Failed' Rspec`
+    `growlnotify --image koda/spec/fail.jpeg -m 'Unit Tests Failed' Rspec`
 	puts result_text
   else
-    `growlnotify --image spec/success.png -m 'All Unit Tests Passed' Rspec`
+    `growlnotify --image koda/spec/success.png -m 'All Unit Tests Passed' Rspec`
 	puts result_text
   end
 end

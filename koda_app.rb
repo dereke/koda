@@ -8,11 +8,11 @@ require 'net/http'
 require 'rest_client'
 require 'dalli'
 
-Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
-Dir[File.dirname(__FILE__) + "/routes/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/koda/models/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/koda/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/koda/routes/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/routes/*.rb"].each {|file| require file }
 
 class KodaApp 
 

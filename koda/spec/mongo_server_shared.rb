@@ -90,7 +90,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location" do
     
-       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('koda/spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -100,7 +100,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -112,7 +112,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location" do
     
-       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -122,7 +122,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -133,7 +133,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
     
-       post '/api/_koda_media', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
+       post '/api/_koda_media', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 

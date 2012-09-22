@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), %w[../koda_app])
+require File.join(File.dirname(__FILE__), %w[../../koda_app])
 require File.join(File.dirname(__FILE__), %w[mongo_server_shared])
 require File.join(File.dirname(__FILE__), %w[uniform_server_shared])
 require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
