@@ -255,7 +255,7 @@ put '/api/:collection/:resource' do
     end
 
     doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
-    refresh_cache collection_name, resource_name, doc   
+    refresh_doc_from_cache collection_name, resource_name, doc   
     
     status 201 if doc.is_new
 

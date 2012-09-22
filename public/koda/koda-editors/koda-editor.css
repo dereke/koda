@@ -3,11 +3,11 @@
 }
 
 .nicEdit-main {
-	min-height: 100px !important;
+	min-height: 200px !important;
 }
 
-input, textarea {
-	width: 50% !important;
+input, textarea, select {
+	width: 74% !important;
 }
 
 .form-horizontal .control-label {
@@ -30,13 +30,20 @@ input, textarea {
 	top: -20px;
 }
 
+.nicEdit-main img {
+	padding: 5px;
+	vertical-align: top;
+	float: left;
+	overflow: auto;
+}
+
 .uploadedImage {
+	float: right;
+	clear: both;
 	position: relative;
-	left: 173px;
-	top: 21px;
-	height: 99px;
-	margin-bottom: 25px;
-	margin-top: 11px;
+	top: -120px;
+	right: 200px;
+	width: 120px;
 }
 
 .no-wrap {

@@ -333,7 +333,23 @@ Editor.Controls = function() {
 				value: '',
 				bind : function(callback) {
 					$('.richTextEditor').show();
-					new nicEditor().panelInstance(field.id);					
+					new nicEditor({
+						uploadURI : PathHelper.getPath('/_koda_media'), 
+						buttonList : [
+							'bold',
+							'italic',
+							'underline',
+							'left',
+							'center',
+							'ol',
+							'ul',
+							'removeformat',
+							'image',
+							'upload',
+							'link',
+							'xhtml'
+							]
+					}).panelInstance(field.id);					
 					callback();
 				},
 				create: function() {
@@ -377,7 +393,7 @@ Editor.Controls = function() {
 				},
 				setValue: function(value) {
 					$('#'+field.id+'_file').val(value);
-					$('#'+field.id+'_file').prev().append('<img class="uploadedImage" id="'+field.id+'_image" src="'+value+'" />');
+					$('#'+field.id+'_file').parent().append('<img class="uploadedImage" id="'+field.id+'_image" src="'+value+'" />');
 				},
 				complete : function(id, filename, response){
 					$('#'+field.id+'_file').val(response.location);

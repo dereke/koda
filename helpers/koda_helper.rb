@@ -131,7 +131,7 @@ helpers do
 
   end
   
-  def refresh_cache(collection_name, doc_ref, doc)
+  def refresh_doc_from_cache(collection_name, doc_ref, doc)
     key = "#{collection_name}_#{doc_ref}"
     
     if(settings.enable_cache)
@@ -145,7 +145,7 @@ helpers do
     response = JSON.parse(
       RestClient.post("https://rpxnow.com/api/v2/auth_info",
         :token => token,
-        :apiKey => "6c7c4318166d62ad9416231aedca6385e7d7978f",
+        :apiKey => settings.janrain_api_key,
         :format => "json",
         :extended => "true"
       )

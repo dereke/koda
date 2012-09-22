@@ -10,6 +10,7 @@ if ENV['ENABLE_CACHE']
 else
   set :enable_cache, false
 end
+set :janrain_api_key, "6c7c4318166d62ad9416231aedca6385e7d7978f"
 set :cache, Dalli::Client.new
 set :short_ttl, 400
 set :long_ttl, 4600
