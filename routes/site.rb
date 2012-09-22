@@ -3,8 +3,7 @@
 #
 get '/console' do
   if(logged_in?)
-    content_type :html
-    erb :'koda/console', :layout => false, :escape_html => true
+    show_koda :console
   else
     session['return_url'] = '/console'
     redirect '/sign-in'
@@ -13,8 +12,7 @@ end
 
 get '/explorer' do
   if(logged_in?)
-    content_type :html
-    erb :'koda/explorer', :layout => false, :escape_html => true
+    show_koda :explorer
   else
     session['return_url'] = '/explorer'
     redirect '/sign-in'
@@ -22,13 +20,11 @@ get '/explorer' do
 end
 
 get "/sign-in" do
-  content_type :html
-  erb :'koda/login', :layout => false, :escape_html => true
+  show_koda :login
 end
 
 get "/not-allowed" do
-  content_type :html
-  erb :'koda/not_allowed', :layout => false, :escape_html => true
+  show_koda :not_allowed
 end
 
 post "/signed-in" do
@@ -38,17 +34,13 @@ post "/signed-in" do
     redirect "/sign-in"
   end
 end
-
-# ADD your own routes below
-
+#
+# add or modify these routes at your own discretion
+#
 get '/' do
-  content_type :html
-  @title = 'Home'
-  erb :index, :escape_html => true
+  show :index
 end
 
 get '/:page?' do
-  content_type :html
-  @title = params[:page]
-  erb :generic, :escape_html => true
+  show :generic
 end

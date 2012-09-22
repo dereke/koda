@@ -4,6 +4,12 @@ set :protection, :except => [:remote_token, :frame_options, :json_csrf]
 set :public_folder, File.dirname(__FILE__) + '/public'
 
 # --------------------------------------------------------------------------
+# Sinatra View Options (don't modify)
+# --------------------------------------------------------------------------
+set :view_format, :erb
+set :view_options, { :escape_html => true }
+
+# --------------------------------------------------------------------------
 # This is a workaround for Cedar apps where production ENV var not being set
 # Please create an environment var on Heroku and set it to production
 # --------------------------------------------------------------------------
