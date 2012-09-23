@@ -306,22 +306,22 @@ A new type will appear under the "User Created" section on the right.
 
 ### Available data types
 
-> input-hidden
-> input-color
-> input-date
-> input-text
-> input-password
-> input-email
-> input-url
-> input-number
-> input-range
-> input-readonly
-> imageupload
-> mediaupload
-> textarea
-> richtext
-> kodalinkeditor
-> truefalse
+* input-hidden
+* input-color
+* input-date
+* input-text
+* input-password
+* input-email
+* input-url
+* input-number
+* input-range
+* input-readonly
+* imageupload
+* mediaupload
+* textarea
+* richtext
+* kodalinkeditor
+* truefalse
 
 ### Collections
 
