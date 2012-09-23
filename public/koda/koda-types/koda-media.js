@@ -1,4 +1,5 @@
 {
+	"title"  : "Koda Media Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",

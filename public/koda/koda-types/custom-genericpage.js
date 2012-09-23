@@ -1,4 +1,5 @@
 {
+	"title"  : "Generic Page Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",

@@ -1,4 +1,5 @@
 {
+	"title"  : "Koda Twitter Feed Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",

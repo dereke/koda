@@ -1,4 +1,5 @@
 {
+	"title"  : "User Access Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",

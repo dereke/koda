@@ -24,6 +24,12 @@ var PathHelper = {
 	}
 }
 
+Editor.AjaxProvider = function(url, onLoaded) {
+	Editor.Api.get(url, function(data){
+		onLoaded(data);
+	});
+}
+
 Editor.Api = function() {
 	
 	function getParam(key) {
@@ -192,8 +198,8 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="'+type+'" id="'+field.id+'" name="'+field.id+'" '+properties+' />',
 				value: '',
-				bind : function(callback) {
-					callback();
+				bind : function(key, callback) {
+					callback(key);
 				},
 				create: function() {
 					return this.html;
@@ -219,7 +225,7 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function(callback) {callback();},
+				bind : function(key, callback) {callback(key);},
 				create: function() {
 					return this.html;
 				},
@@ -243,8 +249,10 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<select id="'+field.id+'" name="'+field.id+'"/>',
 				value: '',
-				bind : function(callback) {
+				bind : function(key, callback) {
 					var control = $('select#'+this.id);
+					var self = this;
+					
 					if(field.values) {
 						var options = field.values.split(',');
 						options.splice(0,0,"--Select--");
@@ -252,7 +260,16 @@ Editor.Controls = function() {
 						$.each(options, function(i, item){
 							control.append('<option value="'+item+'">'+item+'</option>');
 						});
-						callback();
+						callback(key);
+					} if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.append('<option value="">--Select--</option>');
+							$.each(data, function(i, item){
+								control.append('<option value="'+item[field.ajax.text]+'">'+item[field.ajax.value]+'</option>');
+							});
+
+							callback(key);
+						});
 					}
 				},
 				create: function() {
@@ -276,7 +293,7 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" disabled="disabled"/>',
 				value: '',
-				bind : function(callback) {callback();},
+				bind : function(key, callback) {callback(key);},
 				create: function() {
 					return this.html;
 				},
@@ -300,7 +317,7 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="checkbox" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function(callback) {callback();},
+				bind : function(key, callback) {callback(key);},
 				create: function() {
 					return this.html;
 				},
@@ -324,7 +341,7 @@ Editor.Controls = function() {
 				id : field.id,
 				html : '<textarea id="'+field.id+'" name="'+field.id+'" class="input-xlarge"></textarea>',
 				value: '',
-				bind : function(callback) {callback();},
+				bind : function(key, callback) {callback(key);},
 				create: function() {
 					return this.html;
 				},
@@ -348,7 +365,7 @@ Editor.Controls = function() {
 				id : field.id,
 				html : '<div class="richTextEditor" style="display:none"><textarea id="'+field.id+'" name="'+field.id+'"></textarea></div>',
 				value: '',
-				bind : function(callback) {
+				bind : function(key, callback) {
 					$('.richTextEditor').show();
 					new nicEditor({
 						uploadURI : PathHelper.getPath('/_koda_media'), 
@@ -367,7 +384,7 @@ Editor.Controls = function() {
 							'xhtml'
 							]
 					}).panelInstance(field.id);					
-					callback();
+					callback(key);
 				},
 				create: function() {
 					return this.html;
@@ -395,7 +412,7 @@ Editor.Controls = function() {
 				id : field.id,
 				html : '<input type="hidden" id="'+field.id+'_file" /><ul id="'+field.id+'" class="unstyled fileuploader"></ul>',
 				value: '',
-				bind : function(callback){
+				bind : function(key, callback){
  					var uploader = new qq.FileUploader({
 						element: $('ul#'+field.id)[0],
 					    action: PathHelper.getPath('/_koda_media'),
@@ -415,7 +432,7 @@ Editor.Controls = function() {
 						onComplete : this.complete
 					});
 					
-					callback();
+					callback(key);
 				},
 				create: function() {					
 					return this.html;
@@ -442,7 +459,7 @@ Editor.Controls = function() {
 				id : field.id,
 				html : '<input type="hidden" id="'+field.id+'_file" /><ul id="'+field.id+'" class="unstyled fileuploader"></ul>',
 				value: '',
-				bind : function(callback){
+				bind : function(key, callback){
 					var uploader = new qq.FileUploader({
 						element: $('ul#'+field.id)[0],
 					    action: PathHelper.getPath('/_koda_media'),
@@ -467,7 +484,7 @@ Editor.Controls = function() {
 						onComplete : this.complete
 					});
 					
-					callback();
+					callback(key);
 				},
 				create: function() {					
 					return this.html;
@@ -493,8 +510,14 @@ Editor.Controls = function() {
 
 Editor.Form = function(container, spec, onSubmit) {
 
-	if(!spec) throw 'Could not parse KodaType';
-	
+	if(!spec || !spec.fields) {
+		var message = $('<div id="error-form" />').html('Could not parse KodaType <br />');
+		message.append(' - the usual culprit is a missing "," (usually after an entry or an extra "," after the end of the last item) <br /> ');
+		message.append(' - The quickest way to debug is to install the chrome json plugin <a href="https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc">here</a> and try to open your Koda type from url (eg /koda/koda-types/mykodatype.js)')
+		container.append(message);
+		throw 'Could not parse KodaType'
+	}
+		
 	var controls = Editor.Controls;
 	controls.load();
 	
@@ -502,7 +525,7 @@ Editor.Form = function(container, spec, onSubmit) {
 
 	var form = $('<form id="koda-form" name="koda-form" method="post" class="form-horizontal"></form>');
 	var fieldset = $('<fieldset></fieldset>');
-	var legend = $('<legend>Koda Type Editor</legend>');
+	var legend = $('<legend />').text(spec.title ? spec.title : 'Koda Type Editor');
 	
 	fieldset.append(legend);
 	
@@ -567,21 +590,25 @@ Editor.Form = function(container, spec, onSubmit) {
 			this.converters[property] = converter;
 		},
 		
+		setValue : function(key, content, converters){
+			var control = controlsCollection[key];
+			if(key in converters){
+				converters[key](content[key], control);
+			} else {
+				if(content[key] != undefined && content[key] != null){
+		  			control.setValue(content[key]);
+				} else {
+					control.setValue(control.defaultValue);
+				}
+			}
+		},
+		
 		load : function(content) {
-
+			var self=this;
 			for (var key in controlsCollection) {
 				var control = controlsCollection[key];
-				var converters = this.converters;
-				control.bind(function(){
-					if(key in converters){
-						converters[key](content[key], control);
-					} else {
-						if(content[key] != undefined && content[key] != null){
-				  			control.setValue(content[key]);
-						} else {
-							control.setValue(control.defaultValue);
-						}
-					}
+				control.bind(key, function(id) {
+					self.setValue(id, content, self.converters);
 				});
 			}
 			

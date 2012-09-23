@@ -1,4 +1,5 @@
 {
+	"title"  : "Folder/Collection Editor",
 	"fields" : [
 		{
 			"id" : "name",

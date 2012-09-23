@@ -1,4 +1,5 @@
 {
+	"title"  : "Koda Link Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",

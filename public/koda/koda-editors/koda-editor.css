@@ -6,6 +6,11 @@
 	min-height: 200px !important;
 }
 
+#error-form {
+	padding: 40px;
+	background: paleGoldenrod;
+}
+
 input, textarea, select {
 	width: 74% !important;
 }

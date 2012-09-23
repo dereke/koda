@@ -1,4 +1,5 @@
 {
+	"title"  : "Generic Text Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",
@@ -36,6 +37,18 @@
 			"description" : "The contents",
 			"control" : "richtext",
 			"defaultValue" : ""
+		},
+		{
+			"id" : "user_picker",
+			"title" : "Pick User",
+			"description" : "Select the user to pick",
+			"defaultValue" : "",
+			"control" : "collection",
+			"ajax" : {
+				"url" : "/content/users",
+				"text" : "title",
+				"value" : "title"
+			}
 		},
 		{
 			"id" : "tags",
