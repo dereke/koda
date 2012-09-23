@@ -31,18 +31,18 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "type",
-			"title" : "Type",
-			"description" : "Pick a media type",
+			"id" : "mime_type",
+			"title" : "Mime Type",
+			"description" : "Pick the type of file to upload",
 			"control" : "collection",
-			"values" : "png,jpg,mp3,avi",
-			"defaultValue" : "jpg"
+			"values" : "application/pdf,application/zip, application/gzip,image/gif,image/jpeg,image/png,audio/mpeg,audio/ogg,video/mpeg,video/mp4,video/x-flv",
+			"defaultValue" : "image/png"
 		},
 		{
-			"id" : "file",
-			"title" : "File",
-			"description" : "The file to upload",
-			"control" : "imageupload",
+			"id" : "media_file",
+			"title" : "File to upload",
+			"description" : "The media file to upload",
+			"control" : "mediaupload",
 			"defaultValue" : ""
 		},
 		{

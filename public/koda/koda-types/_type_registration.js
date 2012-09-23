@@ -19,7 +19,7 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Image File",
+				"title" : "Media File",
 				"description" :"Image, Video or Audio",
 				"icon" : "/koda/images/image_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",

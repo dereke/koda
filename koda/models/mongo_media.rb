@@ -7,6 +7,8 @@ class MongoMedia
     if (request != nil)      
       if (request_is_multipart_form(params))
         populate_from_multipart params
+      elsif(request_is_octet_stream(params))
+        populate_from_octet_stream(params, request)
       else
         populate_from_plain request
      end      
@@ -15,6 +17,11 @@ class MongoMedia
   end
   
   private
+  
+  def populate_from_octet_stream params, request
+    @content_type = params[:content_type]
+    @body = request.env["rack.input"].read
+  end
   
   def populate_from_multipart params
       
@@ -25,19 +32,24 @@ class MongoMedia
     end
     
     content_type_header = file[:head].each_line.select {|e| e.include? 'Content-Type'}[0]
-    
+
     @content_type = content_type_header.split(' ')[1]
     @body = file[:tempfile]
   end
   
   def populate_from_plain request
-     @content_type = request.media_type
+    @content_type = request.media_type
     @body = request.env["rack.input"].read        
   end
   
   def request_is_multipart_form params
     return false if params == nil    
     params[:files] != nil || params[:file] != nil
+  end
+  
+  def request_is_octet_stream params
+    return false if params == nil
+    params[:qqfile] != nil
   end
   
 end

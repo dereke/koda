@@ -6,8 +6,13 @@
 var Editor = Editor || {};
 var RootUrl = '/api';
 
-String.prototype.startsWith = function(str) 
-{return (this.match("^"+str)==str)}
+String.prototype.startsWith = function(str) {
+	return (this.match("^"+str)==str)
+}
+
+String.prototype.endsWith = function(suffix) {
+    return this.indexOf(suffix, this.length - suffix.length) !== -1;
+};
 
 var PathHelper = {
 	getPath : function(path) {
@@ -161,6 +166,7 @@ Editor.Controls = function() {
 			this.all['input-range'] = this.inputType;
 			this.all['input-readonly'] = this.readOnlyString;
 			this.all['imageupload'] = this.imageUpload;
+			this.all['mediaupload'] = this.mediaUpload;
 			this.all['textarea'] = this.textArea;
 			this.all['richtext'] = this.richText;
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
@@ -378,6 +384,55 @@ Editor.Controls = function() {
 			
 		},
 		
+		// Please set an input with id=mime_type to the correct mime-type to upload
+		// Otherwise it will default to nothing and let the browser decide		
+		mediaUpload: function(field) {
+			
+			return {
+			
+				defaultValue: field.defaultValue,
+				mediaKey: '',
+				id : field.id,
+				html : '<input type="hidden" id="'+field.id+'_file" /><ul id="'+field.id+'" class="unstyled fileuploader"></ul>',
+				value: '',
+				bind : function(callback){
+ 					var uploader = new qq.FileUploader({
+						element: $('ul#'+field.id)[0],
+					    action: PathHelper.getPath('/_koda_media'),
+						onSubmit : function() {
+							
+							var control = $('#mime_type');
+
+							if(control) {
+								var type = control.val();
+
+							 	uploader.setParams({
+									"content_type" : type
+								});
+							}
+							
+						},
+						onComplete : this.complete
+					});
+					
+					callback();
+				},
+				create: function() {					
+					return this.html;
+				},
+				getValue: function(){
+					return $('#'+this.id+'_file').val();
+				},
+				setValue: function(value) {
+					$('#'+field.id+'_file').val(value);
+				},
+				complete : function(id, filename, response){
+					$('#'+field.id+'_file').val(response.location);
+				}
+				
+			}
+		},
+		
 		imageUpload: function(field) {
 			
 			return {
@@ -389,8 +444,26 @@ Editor.Controls = function() {
 				value: '',
 				bind : function(callback){
 					var uploader = new qq.FileUploader({
-						element: $('.fileuploader')[0],
+						element: $('ul#'+field.id)[0],
 					    action: PathHelper.getPath('/_koda_media'),
+						onSubmit : function(id, filename) {
+							
+							var content_type = '';
+
+							if(filename.endsWith('.png')) {
+							 	content_type = "image/png";
+							} 
+							else if(filename.endsWith('.jpg') || filename.endsWith('.jpeg')) {
+							 	content_type = "image/jpeg";							}
+							else if(filename.endsWith('.gif')) {
+							 	content_type = "image/gif";
+							}
+							
+							uploader.setParams({
+								"content_type" : content_type
+							});
+													
+						},
 						onComplete : this.complete
 					});
 					

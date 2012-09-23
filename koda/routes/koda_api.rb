@@ -130,7 +130,6 @@ end
 #
 # Media
 #
-
 get '/api/_koda_media/?' do
   content_type :json, 'kodameta' => 'list'
   media = @grid_wrapper.media_links.to_json
