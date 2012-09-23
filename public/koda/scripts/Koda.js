@@ -652,31 +652,6 @@ $.Class.extend("KodaController",
    ----------------------------------------------------------
 */
 
-$.Class.extend("MountCommand", 
-	{
-		key: "mount",
-		help: "usage: 'mount http://demo.boxjson.com'"
-	}, 
-	{
-		init : function() { 
-		},
-		
-		execute: function(args, callback) {
-
-			if(args && args.length > 0) {
-				Session.kodaUrl = args[0]
-				callback("mounted "+Session.kodaUrl);
-			} else {
-				
-				callback("Currently mounted at "+Session.kodaUrl);
-				
-			}
-			
-		}
-		
-	}
-);
-
 $.Class.extend("CdCommand", 
 	{
 		key: "cd",
@@ -1138,7 +1113,6 @@ $.Class.extend("Console", {}, {
 		var commands = Session.commands = [];
 
 		commands.push(new HelpCommand());
-		commands.push(new MountCommand());
 		commands.push(new PeekCommand(service));
 		commands.push(new CdCommand(service));
 		commands.push(new LsCommand(service));
