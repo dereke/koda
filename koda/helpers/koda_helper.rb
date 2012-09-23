@@ -21,7 +21,6 @@ helpers do
   end
   
   def document(collection_name, doc_ref)
-
     doc = get_document_from_cache collection_name, doc_ref
     
     if(doc)
@@ -82,60 +81,36 @@ helpers do
     end
   end
   
-  def log_out
-    session['koda_user'] = nil
-  end
-    
-  def logged_in?
-    if(settings.environment == :test)
-      session['koda_user'] = { 
-        '_koda_ref' => 'test_user',
-        'isadmin' => true,
-        'isallowed' => true
-      }
-      true
-    else
-      current_user != nil
-    end
+  def current_user 
+    UserContext.current_user
   end
   
-  def is_allowed?(action, collection)
-
-    if(logged_in?)
-      if(settings.environment == :test)
-        true
-      else
-        access_control = document(collection, 'access-control')
-        return true if is_admin?
-        return true if access_control == nil
-        if(action == :read)
-          return true if access_control.read_users == "*"
-          return true if access_control.read_users.include? current_user._koda_ref
-        elsif(action == :write)
-          return true if access_control.write_users == "*"
-          return true if access_control.write_users.include? current_user._koda_ref          
-        elsif(action == :modify)
-          return true if access_control.modify_users == "*"
-          return true if access_control.modify_users.include? current_user._koda_ref
-        end
-        false
-      end
-    else
-      false
-    end
-    
+  def logged_in?
+    @uap.logged_in?
   end
   
   def is_admin?
-    if(logged_in?)
-      current_user.isadmin
-    else
-      false
-    end
+    @uap.is_admin?
   end
-
-  def current_user
-      session['koda_user']
+  
+  def is_allowed?(action, collection_name)
+    @uap.is_allowed? action, collection_name
+  end
+  
+  def is_public_read? collection_name
+    @uap.is_public_read? collection_name
+  end
+  
+  def log_out
+    @uap.log_out
+  end
+  
+  def is_allowed_in_console?
+    @uap.is_allowed_in_console?
+  end
+  
+  def is_allowed_in_explorer?
+    @uap.is_allowed_in_explorer?
   end
   
   def sign_in_return_url
@@ -144,27 +119,6 @@ helpers do
     else
       "#{request.host}"
     end
-  end
-  
-  private
-  
-  def get_document_from_cache(collection_name, doc_ref, time_to_live=settings.long_ttl)
-
-    key = "#{collection_name}_#{doc_ref}"
-
-    if(!settings.enable_cache)
-      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
-      fetch_linked_docs doc
-      return doc
-    end
-    if(settings.cache.get(key) == nil)
-      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
-      fetch_linked_docs doc
-      settings.cache.set(key, doc, ttl=time_to_live+rand(100))
-    end
-
-    return settings.cache.get(key)
-
   end
   
   def refresh_doc_from_cache(collection_name, doc_ref, doc)
@@ -176,55 +130,24 @@ helpers do
     end
   end
   
-  def authenticate(token)
+  def get_document_from_cache(collection_name, doc_ref, time_to_live=settings.long_ttl)
 
-    response = JSON.parse(
-      RestClient.post("https://rpxnow.com/api/v2/auth_info",
-        :token => token,
-        :apiKey => settings.janrain_api_key,
-        :format => "json",
-        :extended => "true"
-      )
-    )
+    key = "#{collection_name}_#{doc_ref}"
 
-    if response["stat"] == "ok"
-      id = response["profile"]["googleUserId"]
-      name = response["profile"]["displayName"]
-      ref = name.gsub(/\s+/, "-").downcase 
-      existing_user = document('users', ref)
-
-      if(existing_user)
-        if(existing_user.isallowed)
-          session['koda_user']  = existing_user
-        else
-          redirect '/not-allowed'
-        end
-      else
-        is_admin = documents('users').length == 0
-        user = { 
-          '_koda_ref'=> ref, 
-          'googleid' => id,
-          'name' => name, 
-          'email' => response["profile"]["email"], 
-          '_koda_indexes' => 'name,email', 
-          '_koda_type' => '/koda/koda-types/koda-user.js',
-          '_koda_editor' => '/koda/koda-editors/generic-editor.html',
-          'isadmin' => is_admin,
-          'isallowed' => is_admin
-        }
-        new_user = @db_wrapper.collection('users').save_document(user)
-        if(is_admin)
-          session['koda_user']  = user
-        else
-          redirect '/not-allowed'
-        end
-      end
-      
-      return true
+    if(!settings.enable_cache)
+      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+      fetch_linked_docs doc
+      return doc
+    end
+    
+    if(settings.cache.get(key) == nil)
+      doc = @db_wrapper.collection(collection_name).find_document(doc_ref)
+      fetch_linked_docs doc
+      settings.cache.set(key, doc, ttl=time_to_live+rand(100))
     end
 
-    return false
-  
+    return settings.cache.get(key)
+
   end
   
   def get_raw(url)

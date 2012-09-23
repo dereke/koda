@@ -9,16 +9,16 @@ class MongoDatabase
     resource_collections.map {|e| '/' + e }	    
   end
   
-  def collection_links(user,isadmin=false)
-    all_user_collections(user,isadmin).map do |collection|
+  def collection_links(user)
+    all_user_collections(user._koda_ref,user.isadmin).map do |collection|
       {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection, '_koda_ref' => collection}
     end
   end
   
-  def content_collection_links(user,isadmin=false)
-    collections = all_user_collections(user,isadmin).clone
+  def content_collection_links
+    collections = all_user_collections('*',false).clone
     collections.map do |collection|
-      { 'href' => '/content/' + collection, 'title' => collection }
+      { 'href' => '/content/' + collection.to_s, 'title' => collection.to_s }
     end
   end
   

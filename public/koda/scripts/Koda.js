@@ -37,7 +37,8 @@ $.Class.extend("RestService",
 			},
 			
 			getExternal: function(path, callback) {
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "GET",
 				    url: path + "?" + new Date().getTime(),
@@ -55,6 +56,7 @@ $.Class.extend("RestService",
 			delete: function(path, callback) {
 
 				var location = path != undefined ? path : StringUtil.empty;
+				self = this;				
 
 				jQuery.ajax({
 				    type: "DELETE",
@@ -73,7 +75,8 @@ $.Class.extend("RestService",
 			put: function(path, resource, callback) {
 
 				var location = path != undefined ? path : StringUtil.empty;
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "PUT",
 				    url: Session.kodaUrl+"/"+location,
@@ -98,7 +101,8 @@ $.Class.extend("RestService",
 			post: function(path, resource, callback) {
 
 				var location = path != undefined ? path : StringUtil.empty;
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "POST",
 				    url: Session.kodaUrl+"/"+location,

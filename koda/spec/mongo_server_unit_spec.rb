@@ -27,7 +27,15 @@ describe 'Mongo KodaRms Unit' do
       def GetGridFS
         MongoGridDouble.instance
       end
+
     end
+    
+    UserContext.instance_eval do
+      def current_user
+        {'_koda_ref'=>'test_user','isadmin'=>true,'isallowed'=>true}
+      end
+    end
+  
   end
 
   def app

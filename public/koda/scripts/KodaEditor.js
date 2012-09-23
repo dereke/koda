@@ -55,7 +55,8 @@ Editor.Api = function() {
 			},
 
 			get: function(path, callback) {
-				
+				self = this;
+								
 				jQuery.ajax({
 				    type: "GET",
 				    url: path + '?include=false&cachebuster=' + new Date().getTime(),
@@ -71,7 +72,8 @@ Editor.Api = function() {
 			},
 
 			delete: function(path, callback) {
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "DELETE",
 				    url: path,
@@ -87,7 +89,8 @@ Editor.Api = function() {
 			},
 
 			put: function(path, resource, callback) {
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "PUT",
 				    url: path,
@@ -110,7 +113,8 @@ Editor.Api = function() {
 
 
 			post: function(path, resource, callback) {
-
+				self = this;
+				
 				jQuery.ajax({
 				    type: "POST",
 				    url: path,

@@ -9,8 +9,8 @@ require 'rest_client'
 require 'dalli'
 
 Dir[File.dirname(__FILE__) + "/koda/models/*.rb"].each {|file| require file }
-Dir[File.dirname(__FILE__) + "/koda/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/koda/routes/*.rb"].each {|file| require file }
+Dir[File.dirname(__FILE__) + "/koda/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/routes/*.rb"].each {|file| require file }
 
@@ -42,6 +42,8 @@ before do
   db = MongoConfig::GetMongoDatabase()
   @db_wrapper = MongoDatabase.new db
   @grid_wrapper = MongoGrid.new(MongoConfig::GetGridFS(), @db_wrapper.collection('_koda_meta'))
+  UserContext.user_bag = session
+  @uap = UserAccessProvider.new(@db_wrapper)
 end
 
 end

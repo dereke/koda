@@ -6,7 +6,6 @@ require 'time'
 
 shared_examples_for "Mongo KodaRms write interface" do
   
-  
   it "accepts a resource into an existing collection" do
     header 'Content-Type', 'application/json;charset=utf-8'
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
@@ -32,6 +31,42 @@ shared_examples_for "Mongo KodaRms write interface" do
     response_json['cost'].should == 'expensive'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27
+  end
+  
+  it "should hide folders with access-control set to non-public" do
+    header 'Content-Type', 'application/json;charset=utf-8'
+    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    post '/api/bikes', access_control
+
+    last_response.status.should == 201
+    get '/content'
+
+    last_response.body.detect { |e| e.to_s == '/bikes'}.should == nil
+  end
+  
+  it "should deny access to folders with access-control set to non-public" do
+    header 'Content-Type', 'application/json;charset=utf-8'
+    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    post '/api/bikes', access_control
+
+    last_response.status.should == 201
+    get '/content/bikes'
+    
+    last_response.status.should == 405
+  end
+  
+  it "should deny access to documents with parent folder access-control set to non-public" do
+    header 'Content-Type', 'application/json;charset=utf-8'
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'fastexpensiveone' }.to_json
+    post '/api/bikes', bike
+    
+    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    post '/api/bikes', access_control
+
+    last_response.status.should == 201
+    get '/content/bikes/fastexpensiveone'
+    
+    last_response.status.should == 405
   end
   
   it "creates a resource at the right location when jam ref supplied" do
@@ -315,11 +350,11 @@ shared_examples_for "Mongo KodaRms read interface" do
     response_json.detect { |e| e['href'] == '/api/cars'}.should.not == nil
   end
   
-  it "includes the media folder at root" do
+  it "should not include the media folder at root" do
     get '/api'
 
     response_json = JSON.parse last_response.body    
-    response_json.detect { |e| e['href'] == '/api/_koda_media'}.should.not == nil      
+    response_json.detect { |e| e['href'] == '/api/_koda_media'}.should == nil      
   end
   
   
@@ -338,12 +373,6 @@ shared_examples_for "Mongo KodaRms read interface" do
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
     response_json.count.should.be > 0
-  end
-
-  it "returns a 404 for an unknown collection" do
-    get '/api/truckabye/'
-    
-    last_response.should.be.not_found
   end
   
   it "returns the expected resource urls from the trucks collection" do

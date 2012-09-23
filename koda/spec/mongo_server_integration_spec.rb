@@ -9,6 +9,10 @@ set :enable_cache, false
 describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
   
+  def admin_user
+    {'_koda_ref'=>'test_user','isadmin'=>true,'isallowed'=>true}
+  end
+  
   def clear_database database
      database.collections().each do |collection|
         begin
@@ -30,19 +34,22 @@ describe 'Mongo KodaRms Integration' do
   
   before(:each) do
     database = Mongo::Connection.new('localhost',27017).db('kodacms_test')
-    settings.enable_cache = false
     clear_database database
     populate_database_with_documents database
   end
   
   before do
-    MongoConfig.instance_eval do
-     
+    @@current_user = admin_user
+    MongoConfig.instance_eval do     
        def GetMongoDatabase 
          Mongo::Connection.new('localhost',27017).db('kodacms_test')
        end
-       
-   end
+     end
+    UserContext.instance_eval do
+      def current_user
+        @@current_user
+      end
+    end
   end
   
   def app
