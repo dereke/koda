@@ -46,8 +46,8 @@
 			"control" : "collection",
 			"ajax" : {
 				"url" : "/content/users",
-				"text" : "title",
-				"value" : "title"
+				"displayfield" : "title",
+				"valuefield" : "title"
 			}
 		},
 		{
@@ -55,7 +55,11 @@
 			"title" : "Tags",
 			"description" : "Comma separated",
 			"control" : "input-text",
-			"defaultValue" : ""
+			"defaultValue" : "",
+			"ajax" : {
+				"url" : "/content/users/marceldupr",
+				"displayfield" : "email"
+			}
 		},
 		{
 			"id" : "_koda_doc_links",

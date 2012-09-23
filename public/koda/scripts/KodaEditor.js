@@ -199,7 +199,15 @@ Editor.Controls = function() {
 				html : '<input type="'+type+'" id="'+field.id+'" name="'+field.id+'" '+properties+' />',
 				value: '',
 				bind : function(key, callback) {
-					callback(key);
+					var control = $('input#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
 				},
 				create: function() {
 					return this.html;
@@ -225,7 +233,17 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function(key, callback) {callback(key);},
+				bind : function(key, callback) {
+					var control = $('input#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+				},
 				create: function() {
 					return this.html;
 				},
@@ -265,7 +283,7 @@ Editor.Controls = function() {
 						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
 							control.append('<option value="">--Select--</option>');
 							$.each(data, function(i, item){
-								control.append('<option value="'+item[field.ajax.text]+'">'+item[field.ajax.value]+'</option>');
+								control.append('<option value="'+item[field.ajax.displayfield]+'">'+item[field.ajax.valuefield]+'</option>');
 							});
 
 							callback(key);
@@ -293,7 +311,17 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" disabled="disabled"/>',
 				value: '',
-				bind : function(key, callback) {callback(key);},
+				bind : function(key, callback) {
+					var control = $('input#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+				},
 				create: function() {
 					return this.html;
 				},
@@ -317,7 +345,17 @@ Editor.Controls = function() {
 				defaultValue: field.defaultValue,
 				html : '<input type="checkbox" id="'+field.id+'" name="'+field.id+'" />',
 				value: '',
-				bind : function(key, callback) {callback(key);},
+				bind : function(key, callback) {
+					var control = $('input#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+				},
 				create: function() {
 					return this.html;
 				},
@@ -341,7 +379,17 @@ Editor.Controls = function() {
 				id : field.id,
 				html : '<textarea id="'+field.id+'" name="'+field.id+'" class="input-xlarge"></textarea>',
 				value: '',
-				bind : function(key, callback) {callback(key);},
+				bind : function(key, callback) {
+					var control = $('textarea#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+				},
 				create: function() {
 					return this.html;
 				},
@@ -383,8 +431,17 @@ Editor.Controls = function() {
 							'link',
 							'xhtml'
 							]
-					}).panelInstance(field.id);					
-					callback(key);
+					}).panelInstance(field.id);
+					
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							nicEditors.findEditor(field.id).setContent(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+
 				},
 				create: function() {
 					return this.html;
@@ -598,7 +655,10 @@ Editor.Form = function(container, spec, onSubmit) {
 				if(content[key] != undefined && content[key] != null){
 		  			control.setValue(content[key]);
 				} else {
-					control.setValue(control.defaultValue);
+					var currentValue = control.getValue();
+					if(currentValue == '' || currentValue == undefined) {
+						control.setValue(control.defaultValue);
+					}
 				}
 			}
 		},
