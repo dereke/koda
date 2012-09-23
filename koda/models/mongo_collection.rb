@@ -61,7 +61,7 @@ class MongoCollection
         indexes.each do |index|
           index_collection.push [index, Mongo::ASCENDING]
         end
-        puts @collection.ensure_index index_collection 
+        @collection.ensure_index index_collection 
       end
       
       updated_doc = MongoDocument.new raw_resource, @collection.name, new_id, Time.now.httpdate

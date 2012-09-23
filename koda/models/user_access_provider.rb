@@ -90,6 +90,8 @@ class UserAccessProvider
   
   def create_user(user)
     new_user = @db_wrapper.collection('users').save_document(user)
+    puts new_user.standardised_document.inspect
+    
     new_user.standardised_document.to_obj
   end
   
@@ -118,7 +120,7 @@ class UserAccessProvider
       'isallowed' => is_admin
     }
     
-    UserContext.current_user = create_user user
+    UserContext.current_user = create_user(user)
   end
   
   def find_access_control_for_collection(collection_name)

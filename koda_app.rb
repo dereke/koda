@@ -9,7 +9,12 @@ require 'rest_client'
 require 'dalli'
 
 Dir[File.dirname(__FILE__) + "/koda/models/*.rb"].each {|file| require file }
-Dir[File.dirname(__FILE__) + "/koda/routes/*.rb"].each {|file| require file }
+
+# Register Routes
+require File.join(File.dirname(__FILE__), %w[/koda/routes/koda_api.rb])
+require File.join(File.dirname(__FILE__), %w[/koda/routes/koda_site.rb])
+require File.join(File.dirname(__FILE__), %w[/routes/site.rb])
+
 Dir[File.dirname(__FILE__) + "/koda/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/helpers/*.rb"].each {|file| require file }
 Dir[File.dirname(__FILE__) + "/routes/*.rb"].each {|file| require file }

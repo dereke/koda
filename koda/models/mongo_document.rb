@@ -46,6 +46,9 @@ class MongoDocument
     copy = @doc.clone
     copy['_koda_ref'] = ref
     copy.delete('_id')
+    if(copy[:_id])
+      copy.delete(:_id)
+    end
     copy.delete('_koda_last_modified')
     copy
   end
