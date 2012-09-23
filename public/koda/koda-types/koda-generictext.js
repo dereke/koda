@@ -39,27 +39,11 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "user_picker",
-			"title" : "Pick User",
-			"description" : "Select the user to pick",
-			"defaultValue" : "",
-			"control" : "collection",
-			"ajax" : {
-				"url" : "/content/users",
-				"displayfield" : "title",
-				"valuefield" : "title"
-			}
-		},
-		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
 			"control" : "input-text",
-			"defaultValue" : "",
-			"ajax" : {
-				"url" : "/content/users/marceldupr",
-				"displayfield" : "email"
-			}
+			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_doc_links",

@@ -178,6 +178,7 @@ Editor.Controls = function() {
 			this.all['kodalinkeditor'] = this.kodaLinkEditor;
 			this.all['truefalse'] = this.trueFalse;
 			this.all['collection'] = this.collection;
+			this.all['collection-multi'] = this.collectionMulti;
 			
 		},
 		
@@ -259,6 +260,57 @@ Editor.Controls = function() {
 			
 		},
 		
+		collectionMulti: function(field) {
+			
+			return {
+			
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<select id="'+field.id+'" name="'+field.id+'" multiple="multiple"/>',
+				value: '',
+				bind : function(key, callback) {
+					var control = $('select#'+this.id);
+					var self = this;
+					
+					if(field.values) {
+						var options = field.values.split(',');
+						options.splice(0,0,"--Select--");
+						var id = field.id;
+						$.each(options, function(i, item){
+							control.append('<option value="'+item+'">'+item+'</option>');
+						});
+						callback(key);
+					} if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							$.each(data, function(i, item){
+								control.append('<option value="'+item[field.ajax.valuefield]+'">'+item[field.ajax.displayfield]+'</option>');
+							});
+
+							callback(key);
+						});
+					}
+				},
+				create: function() {
+					return this.html;
+				},
+				getValue: function(){
+					var rawValues = $('select#'+this.id).val();
+					if(rawValues != '' && rawValues != undefined){
+						var values = rawValues.toString().split('&');
+						return values.join();
+					}
+					return '';
+				},
+				setValue: function(value) {
+					if(value != '' && value != undefined){
+						var values = value.split(',');
+						$('select#'+this.id).val(values);
+					}
+				}
+			}
+			
+		},
+		
 		collection: function(field) {
 			
 			return {
@@ -283,7 +335,7 @@ Editor.Controls = function() {
 						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
 							control.append('<option value="">--Select--</option>');
 							$.each(data, function(i, item){
-								control.append('<option value="'+item[field.ajax.displayfield]+'">'+item[field.ajax.valuefield]+'</option>');
+								control.append('<option value="'+item[field.ajax.valuefield]+'">'+item[field.ajax.displayfield]+'</option>');
 							});
 
 							callback(key);
