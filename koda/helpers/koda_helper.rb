@@ -20,14 +20,14 @@ helpers do
     documents
   end
   
+  def has_document?(collection_name, doc_ref)
+    document(collection_name, doc_ref) != nil
+  end
+  
   def document(collection_name, doc_ref)
     doc = get_document_from_cache collection_name, doc_ref
-    
-    if(doc)
-      doc.stripped_document
-    else
-      nil
-    end
+    return doc.stripped_document if doc
+    nil
   end
   
   def filtered(collection_name, filter_name)

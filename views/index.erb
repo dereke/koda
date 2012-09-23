@@ -1,5 +1,41 @@
-<h3>Hello world</h3>
-<%=render_partial 'partials/say_hello' %>
+<% if(1 != 1) %>
+<h3>Lets Render a partial document</h3>
+<%=render_partial 'partials/maypartial' %>
 
-<% doc = document('users', 'marceldupr') %>
+<h3>Auto Render a document</h3>
+<% if has_document? 'pages', 'homepage' %>
+<% doc = document('pages', 'homepage') %>
 <%=render_doc doc %>
+<% end %>
+
+<h3>Custom Render a document</h3>
+<% if has_document? 'pages', 'homepage' %>
+<% doc = document('pages', 'homepage') %>
+	<p><%=doc.name%></p>
+	<img src='<%=doc.image%>' />
+<% end %>
+
+<h3>Render a collection</h3>
+<ul>
+<% documents('pages').each do |page|%>
+	<li><%=page.name%></li>
+<% end %>
+</ul>
+
+<h3>Do a search</h3>
+<ul>
+<% search({'tags'=>'/photo'}).each do |result|%>
+<li><img src='<%=result.photo_url %>' /></li>
+<% end %>
+</ul>
+
+<h3>Call a filter</h3>
+<% filtered('media', 'photos').each do |result|%>
+<li><img src='<%=result.photo_url %>' /></li>
+<% end %>
+</ul>
+<% else %>
+<h4>This is the placeholder view. Go to [yourproject]/views/index.erb to see help. Please login to the <a href='/explorer'>backoffice</a> to add content.</h4>
+<p>Once you have added content you can go to your project /views to consume it.</p>
+<p>Further help... https://github.com/KodaCMS/Default</p>
+<% end %>
