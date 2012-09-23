@@ -7,7 +7,8 @@ require 'sinatra'
 #
 #  here you can define any helper methods that are available to your routes and your views
 #  
-#  to create a helper method that returns something
+#  -----------------------------------------------------
+#  To create a helper method that returns something
 #
 #  def my_method
 #    'something'
