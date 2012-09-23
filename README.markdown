@@ -325,8 +325,8 @@ A new type will appear under the "User Created" section on the right.
 
 ### Collections
 
-> collection
-> collection-multi
+* collection
+* collection-multi
 
 ```javascript
 {
