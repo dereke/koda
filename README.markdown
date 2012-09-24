@@ -1,7 +1,9 @@
 # What is KodaCMS
 
-KodaCMS gives anyone the ability to create great websites with limited or no programming knowledge.   
-Think of Koda as a merge between Wordpress and Dropbox but with a the ability to easily change any aspect of the system to fit your needs.
+KodaCMS is unlike any other CMS you might have come across. It manages your content first, thinking about where it will be used later. 
+Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight you name it.
+
+Most CMS's focus on building a website. With KodaCMS, you can do that, but it doesn't steal the show.
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
@@ -19,13 +21,7 @@ http://www.kodacms.org/
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Always free! Open source MIT Licence
 
-## Some Screenshots
-
-## Console
-![Console](https://raw.github.com/KodaCMS/Default/master/screenshots/console.png)
-## Explorer
-![Explorer](https://raw.github.com/KodaCMS/Default/master/screenshots/explorer.png)
-## Adding Content
+## Screenshot
 ![Content Editing](https://raw.github.com/KodaCMS/Default/master/screenshots/adding-content.png)
 
 ## Where are we now?
@@ -33,8 +29,8 @@ http://www.kodacms.org/
 In the pipeline
 
 *	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
-*	More robust Auth (action permissions for specific users etc.)
-*	More refined Plugin API
+*	~~More robust Auth (action permissions for specific users etc.)~~
+*	~~More refined Plugin API~~
 *	Lots of Testing! (Currently best browser to use = Chrome)
 
 ETA - October / November 2012
