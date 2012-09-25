@@ -1,9 +1,7 @@
 # What is KodaCMS
 
-KodaCMS is unlike any other CMS you might have come across. It manages your content first, thinking about where it will be used later. 
-Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight you name it.
-
-Most CMS's focus on building a website. With KodaCMS, you can do that, but it doesn't steal the show.
+KodaCMS gives anyone the ability to create great websites with limited or no programming knowledge.   
+Think of Koda as a merge between Wordpress and Dropbox but with a the ability to easily change any aspect of the system to fit your needs.
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
@@ -21,7 +19,13 @@ http://www.kodacms.org/
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Always free! Open source MIT Licence
 
-## Screenshot
+## Some Screenshots
+
+## Console
+![Console](https://raw.github.com/KodaCMS/Default/master/screenshots/console.png)
+## Explorer
+![Explorer](https://raw.github.com/KodaCMS/Default/master/screenshots/explorer.png)
+## Adding Content
 ![Content Editing](https://raw.github.com/KodaCMS/Default/master/screenshots/adding-content.png)
 
 ## Where are we now?
@@ -29,8 +33,8 @@ http://www.kodacms.org/
 In the pipeline
 
 *	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
-*	~~More robust Auth (action permissions for specific users etc.)~~
-*	~~More refined Plugin API~~
+*	More robust Auth (action permissions for specific users etc.)
+*	More refined Plugin API
 *	Lots of Testing! (Currently best browser to use = Chrome)
 
 ETA - October / November 2012
@@ -252,89 +256,6 @@ A new type will appear under the "User Created" section on the right.
 
 [KodaTypes supports most HTML5 input types and validation](http://www.the-art-of-web.com/html/html5-form-validation/)
 
-
-## Control Usages
-
-```javascript
-{
-	"id" : "name",
-	"title" : "Title",
-	"description" : "Title of page",
-	"control" : "input-text",
-	"properties" : "required  placeholder='type a page title'",
-	"defaultValue" : ""
-}
-```
-
-###  Loading data into controls from Ajax (lists)
-
-```javascript
-{
-	"id" : "homepage",
-	"title" : "Select homepage",
-	"description" : "Select the homepage",
-	"control" : "collection",
-	"defaultValue" : "",
-	"ajax" : {
-		"url" : "/content/mycollection",
-		"displayfield" : "title",
-		"valuefield" : "href"
-	}
-}
-```
-
-###  Loading data into controls from Ajax (single values)
-
-```javascript
-{
-	"id" : "name",
-	"title" : "Title",
-	"description" : "Title of page",
-	"control" : "input-text",
-	"properties" : "required  placeholder='type a page title'",
-	"defaultValue" : "",
-	"ajax" : {
-		"url" : "/content/pages/pageone",
-		"displayfield" : "title"
-	}
-}
-```
-
-### Available data types
-
-* input-hidden
-* input-color
-* input-date
-* input-text
-* input-password
-* input-email
-* input-url
-* input-number
-* input-range
-* input-readonly
-* imageupload
-* mediaupload
-* textarea
-* richtext
-* kodalinkeditor
-* truefalse
-
-### Collections
-
-* collection
-* collection-multi
-
-```javascript
-{
-	"id" : "homepage",
-	"title" : "Select homepage",
-	"description" : "Select the homepage",
-	"control" : "collection",
-	"defaultValue" : "",
-	"values" : "value1,value2,value3,value4"
-}
-```
-
 ### Creating Koda Filters (Code First)
 
 Koda filters can be re-used and applied to any collection and will be cached by your browser.   
@@ -388,12 +309,12 @@ it will include those in the original
 
 ```javascript
 { "_koda_doc_links" : "/api/pages/blog",
-  "_koda_ref" : "blogfeedaggregator",
+  "alias" : "blogfeedaggregator",
   "linked_documents" : [ { "_koda_doc_link" : "/api/pages/blog",
         "document" : { "_koda_doc_links" : "/api/slides",
             "_koda_editor" : "/koda/koda-editors/generic-editor.html",
             "_koda_indexes" : "title",
-            "_koda_ref" : "blog",
+            "alias" : "blog",
             "_koda_type" : "/koda/koda-types/custom-genericpage.js",
             "bottomleftbody" : "<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div><div><br></div>",
             "introparagraph" : "Recent Posts",
@@ -457,7 +378,7 @@ Return from maintenance mode.
 
 `$ heroku maintenance:off`      
 
--------------------------------------------
+------------------
 
 # Koka RESTful API Reference
 
@@ -516,8 +437,8 @@ Request:GET '/api/trucks'
 Response:[{"href":"/trucks/4db0dedb387f7123c9000001","title":"4db0dedb387f7123c9000001","rel":"full"},{"href":"/trucks/smallblueone","title":"smallblueone","rel":"full"}]
 `
 
-*Note* The url for a given resource will either be the internal Mongo ID, or a specifically chosen 'friendly' url. This is determined by the field '_koda_ref', discussed further below.
-*Note* The value of title will either be '_koda_title', '_koda_ref', or the Mongo ID, in that order or precedence.
+*Note* The url for a given resource will either be the internal Mongo ID, or a specifically chosen 'friendly' url. This is determined by the field 'alias', discussed further below.
+*Note* The value of title will either be '_koda_title', 'alias', or the Mongo ID, in that order or precedence.
 
 ###Documents
 
@@ -526,13 +447,13 @@ There are two ways documents can be referred to. First is by the internal Mongo 
 
 `
 Request: GET '/api/trucks/4db0dedb387f7123c9000001' 
-Response: {"size":"big","wheels":4,"colour":"green","_koda_ref":"4db0dedb387f7123c9000001"} 
+Response: {"size":"big","wheels":4,"colour":"green","alias":"4db0dedb387f7123c9000001"} 
 `
 
-Secondly is by the '_koda_ref' value, for example 
+Secondly is by the 'alias' value, for example 
 `
 Request: GET '/api/trucks/smallblueone' 
-Response: {"_koda_ref":"smallblueone","size":"small","wheels":4,"colour":"blue"} 
+Response: {"alias":"smallblueone","size":"small","wheels":4,"colour":"blue"} 
 `
 
 ## Post and Put Requests (currently only logged in users)
@@ -547,7 +468,7 @@ Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'
 /bikes/4db0dedb387f7123c9000007  
 `
 
-*Note* The internally created Mongo ID will usually be used to create the new resource url, returned in the response body and the Location header. This can be override by supplying a value in the '_koda_ref' field. This must be unique to this collection, otherwise a 409 (Conflict) will be returned, along with the url to the conflicting document in the body.
+*Note* The internally created Mongo ID will usually be used to create the new resource url, returned in the response body and the Location header. This can be override by supplying a value in the 'alias' field. This must be unique to this collection, otherwise a 409 (Conflict) will be returned, along with the url to the conflicting document in the body.
 
 ###Put
 
@@ -558,7 +479,7 @@ bikes/bigred
 `
 
 *Note* If the document did not already exist, the returned status code will be 201 (Created), otherwise 200 (OK) 
-*Note* If the "_koda_ref" field is present in the request, and contradicts, the url posted to, the url will take precedence. 
+*Note* If the "alias" field is present in the request, and contradicts, the url posted to, the url will take precedence. 
 
 ## Delete Requests (currently only logged in users)
 

@@ -60,7 +60,7 @@
 				
 				if(isNew) {
 					
-					data._koda_ref = ref+'_twitterfeed';
+					data.alias = ref+'_twitterfeed';
 
 					var dataString = JSON.stringify(data, null, 2);
 					api.post(url, dataString, onUpdate);

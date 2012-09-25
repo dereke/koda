@@ -10,7 +10,7 @@ describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
   
   def admin_user
-    {'_koda_ref'=>'test_user','isadmin'=>true,'isallowed'=>true}
+    {'alias'=>'test_user','isadmin'=>true,'isallowed'=>true}
   end
   
   def clear_database database

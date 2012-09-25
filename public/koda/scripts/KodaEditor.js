@@ -614,7 +614,7 @@ Editor.Form = function(container, spec, onSubmit) {
 			includes.push(field.id);
 		}
 		
-		if(field.id == '_koda_ref' && field.generatedfrom) {
+		if(field.id == 'alias' && field.generatedfrom) {
 			idFieldGenerator = field.generatedfrom;
 		}
 		
@@ -680,7 +680,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	$('input[type="hidden"]').parent().addClass('no-wrap');
 	$('input[name="name"]').keyup(function(evt){
 		var ref = $(this).val().replace(/ /g,"-").replace(/[&\/\\#,+()$~%.&*^%$£@!(*)#∞¢##€¡€#¢∞§¶•'":*?<>{}]/g,'').toLowerCase();
-		$('input[name="_koda_ref"]').val(ref);
+		$('input[name="alias"]').val(ref);
 	});
 	
 	return {

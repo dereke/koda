@@ -33,7 +33,7 @@ describe 'Mongo KodaCMS access integration' do
      end
     UserContext.instance_eval do
       def current_user
-        {'_koda_ref'=>'joey','isadmin'=>false,'isallowed'=>true}
+        {'alias'=>'joey','isadmin'=>false,'isallowed'=>true}
       end
     end
   end
@@ -45,7 +45,7 @@ describe 'Mongo KodaCMS access integration' do
   it "denies a resource into an existing collection if not allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    access_control = { 'read_users'=>'*', 'write_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
     
     get '/api/bikes/access-control'
@@ -60,7 +60,7 @@ describe 'Mongo KodaCMS access integration' do
   it "allows a resource into an existing collection if user allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    access_control = { 'read_users'=>'*', 'write_users' => 'joey', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => 'joey', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
@@ -72,7 +72,7 @@ describe 'Mongo KodaCMS access integration' do
   it "allows a resource into an existing collection if all users allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    access_control = { 'read_users'=>'*', 'write_users' => '*', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => '*', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
@@ -84,13 +84,13 @@ describe 'Mongo KodaCMS access integration' do
   it "denies updating a resource in an existing collection if not allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'write_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     put '/api/bikes/expensivefastone', bike
 
     last_response.status.should == 405
@@ -99,13 +99,13 @@ describe 'Mongo KodaCMS access integration' do
   it "allows updating a resource in an existing collection if user allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'write_users' => 'joey', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => 'joey', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     put '/api/bikes/expensivefastone', bike
 
     last_response.status.should == 200
@@ -114,13 +114,13 @@ describe 'Mongo KodaCMS access integration' do
   it "allows updating a resource in an existing collection if all users allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'write_users' => '*', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'write_users' => '*', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     put '/api/bikes/expensivefastone', bike
 
     last_response.status.should == 200
@@ -129,10 +129,10 @@ describe 'Mongo KodaCMS access integration' do
   it "denies deleting a resource from an existing collection if not allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'modify_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'modify_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     delete '/api/bikes/expensivefastone', bike
@@ -143,10 +143,10 @@ describe 'Mongo KodaCMS access integration' do
   it "allows deleting a resource from an existing collection if user allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'modify_users' => 'joey', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'modify_users' => 'joey', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     delete '/api/bikes/expensivefastone', bike
@@ -157,10 +157,10 @@ describe 'Mongo KodaCMS access integration' do
   it "allows deleting a resource from an existing collection if all users allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users'=>'*', 'modify_users' => '*', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users'=>'*', 'modify_users' => '*', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     delete '/api/bikes/expensivefastone', bike
@@ -171,10 +171,10 @@ describe 'Mongo KodaCMS access integration' do
   it "denies viewing a resource from an existing collection if not allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     get '/api/bikes/expensivefastone'
@@ -185,10 +185,10 @@ describe 'Mongo KodaCMS access integration' do
   it "allows viewing a resource from an existing collection if user allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users' => 'joey', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => 'joey', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     get '/api/bikes/expensivefastone'
@@ -199,10 +199,10 @@ describe 'Mongo KodaCMS access integration' do
   it "allows viewing a resource from an existing collection if all users allowed by access-control" do
     header 'Content-Type', 'application/json;charset=utf-8'
   
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'expensivefastone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'expensivefastone' }.to_json
     post '/api/bikes', bike
   
-    access_control = { 'read_users' => '*', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => '*', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
   
     get '/api/bikes/expensivefastone'

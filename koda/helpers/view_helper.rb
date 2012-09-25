@@ -21,8 +21,8 @@ end
 
 def render_doc(doc)
   return "<p>No content has yet been added...</p>\n" if(doc == nil)
-  result = "<dl id='#{doc._koda_ref}'>\n" 
-  doc.delete '_koda_ref'
+  result = "<dl id='#{doc.alias}'>\n" 
+  doc.delete 'alias'
 
   doc.each do |k,v|
     if(v.to_s.include? '_koda_media')

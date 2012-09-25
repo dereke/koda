@@ -14,7 +14,7 @@ helpers do
   def documents(collection_name, skip=nil, take=nil)
     documents = []
     @db_wrapper.collection(collection_name).resource_links(take, skip, nil).each do |doc_ref|
-      documents.push document(collection_name, doc_ref._koda_ref)
+      documents.push document(collection_name, doc_ref.alias)
     end
     
     documents

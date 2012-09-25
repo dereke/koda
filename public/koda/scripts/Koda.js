@@ -704,7 +704,7 @@ $.Class.extend("MkDirCommand",
 			path = Session.currentFolder == undefined ? StringUtil.empty : Session.currentFolder;
 			if(path == StringUtil.empty) {
 				
-				MkDirCommand.restService.post(args[0], '{"_koda_ref":"_delete"}', function(sdata) {
+				MkDirCommand.restService.post(args[0], '{"alias":"_delete"}', function(sdata) {
 
 					if(sdata == "OK") {					
 						MkDirCommand.restService.delete(args[0] + "/_delete", function(ddata) {
@@ -763,7 +763,7 @@ $.Class.extend("EditCommand",
 					Prompt.writeToOutput("--hit CTRL+C when done---", "")
 			
 					if(data == null) {					
-						Prompt.writeToInput('{"_koda_ref":"'+args[0]+'"}')				
+						Prompt.writeToInput('{"alias":"'+args[0]+'"}')				
 						Session.currentEditor.state = "NEW";
 					} else {
 						Prompt.writeToInput(JSON.stringify(data, null, 2))
@@ -881,13 +881,13 @@ $.Class.extend("LsCommand",
 							var href = item.href;
 							var count = href.split("/").length - 1
 							var indicator = count > 2 ? "<FILE>  " : "<DIR>  ";
-							output += indicator+item._koda_ref + "\n";
-							Session.history.push(item._koda_ref);
+							output += indicator+item.alias + "\n";
+							Session.history.push(item.alias);
 						
 						});					
 					} else {
-						output += "<FILE>  "+data._koda_ref + "\n";
-						Session.history.push(data._koda_ref);
+						output += "<FILE>  "+data.alias + "\n";
+						Session.history.push(data.alias);
 					}
 					
 					callback(output);
@@ -928,12 +928,12 @@ $.Class.extend("ListCommand",
 						var count = href.split("/").length - 1
 						var indicator = count > 2 ? "file" : "collection";
 						var name = item.name ? item.name : item.title
-						output.push({ id: item._koda_ref, name : name, _koda_type : item._koda_type, type: indicator});
+						output.push({ id: item.alias, name : name, _koda_type : item._koda_type, type: indicator});
 
 					});					
 				} else {
 					var name = item.name ? item.name : item.title
-					output.push({ id: data._koda_ref, name : name, _koda_type : data._koda_type, type: 'file'});
+					output.push({ id: data.alias, name : name, _koda_type : data._koda_type, type: 'file'});
 				}
 
 				callback(output);

@@ -17,7 +17,7 @@
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
-			"id" : "_koda_ref",
+			"id" : "alias",
 			"control" : "input-hidden",
 			"defaultValue" : "access-control"
 		},

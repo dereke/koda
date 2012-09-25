@@ -29,7 +29,7 @@ describe 'Mongo Document' do
   end
   
   it "returns a resource url based on jam ref" do
-    raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), '_koda_ref'=>'uniquereference', 'title' => 'the title'}        
+    raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'alias'=>'uniquereference', 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
     doc.url.should == '/api/articles/uniquereference'        
@@ -53,14 +53,14 @@ describe 'Mongo Document' do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.standardised_document['_koda_ref'].should == '4db0dedb387f7123c9000002'     
+    doc.standardised_document['alias'].should == '4db0dedb387f7123c9000002'     
   end
 
   it "standardised document has a jam ref matching id" do
-    raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), '_koda_ref'=>'uniquereference', 'title' => 'the title'}        
+    raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'alias'=>'uniquereference', 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.standardised_document['_koda_ref'].should == 'uniquereference'     
+    doc.standardised_document['alias'].should == 'uniquereference'     
   end
   
   

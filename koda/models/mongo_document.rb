@@ -44,7 +44,7 @@ class MongoDocument
   
   def standardised_document
     copy = @doc.clone
-    copy['_koda_ref'] = ref
+    copy['alias'] = ref
     copy.delete('_id')
     if(copy[:_id])
       copy.delete(:_id)
@@ -101,14 +101,14 @@ class MongoDocument
   end
 
   def ref=(value)
-      @doc['_koda_ref'] = value
+      @doc['alias'] = value
   end
   
   def ref
-    if (@doc['_koda_ref'] == nil)
+    if (@doc['alias'] == nil)
       @doc['_id'].to_s
     else
-      @doc['_koda_ref'].to_s
+      @doc['alias'].to_s
     end
   end
   

@@ -25,7 +25,7 @@
 			"properties" : "required"
 		},
 		{
-			"id" : "_koda_ref",
+			"id" : "alias",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",
 			"control" : "input-readonly",

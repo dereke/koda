@@ -23,7 +23,7 @@ class MongoCollection
   end
 
   def find_document doc_ref
-    doc = create_document_wrapper @collection.find_one("_koda_ref"=>doc_ref)
+    doc = create_document_wrapper @collection.find_one("alias"=>doc_ref)
     if (doc == nil)
       begin
         bsonid = BSON::ObjectId.from_string doc_ref
@@ -94,7 +94,7 @@ class MongoCollection
   def resource_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "_koda_ref" => doc_wrapper.ref, '_koda_hidden' => doc_wrapper.hidden}
+      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "alias" => doc_wrapper.ref, '_koda_hidden' => doc_wrapper.hidden}
     end
   end
   

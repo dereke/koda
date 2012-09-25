@@ -30,7 +30,7 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "_koda_ref",
+			"id" : "alias",
 			"title" : "Alias",
 			"description" : "This will be generated from the username",
 			"control" : "input-readonly",

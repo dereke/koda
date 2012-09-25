@@ -10,8 +10,8 @@ class MongoDatabase
   end
   
   def collection_links(user)
-    all_user_collections(user._koda_ref,user.isadmin).map do |collection|
-      {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection, '_koda_ref' => collection}
+    all_user_collections(user.alias,user.isadmin).map do |collection|
+      {'href' => '/api/' + collection, 'rel' => 'full', 'title' => collection, 'alias' => collection}
     end
   end
   
@@ -60,7 +60,7 @@ class MongoDatabase
         docs = collection(collection).resource_links(nil, nil, nil)
         docs_in_collection = []
         docs.each do |doc|
-          doc_from_db = collection(collection).find_document(doc['_koda_ref'])
+          doc_from_db = collection(collection).find_document(doc['alias'])
           docs_in_collection.push(doc_from_db.stripped_document)
         end
         flat_file.push({'collection'=>collection, 'docs' => docs_in_collection})

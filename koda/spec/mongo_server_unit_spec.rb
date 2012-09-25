@@ -32,7 +32,7 @@ describe 'Mongo KodaRms Unit' do
     
     UserContext.instance_eval do
       def current_user
-        {'_koda_ref'=>'test_user','isadmin'=>true,'isallowed'=>true}
+        {'alias'=>'test_user','isadmin'=>true,'isallowed'=>true}
       end
     end
   

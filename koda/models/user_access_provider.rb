@@ -13,15 +13,15 @@ class UserAccessProvider
     if(action == :read)
       read_users = access_control.read_users
       return true if is_public_read? collection_name
-      return true if read_users.include? UserContext.current_user._koda_ref
+      return true if read_users.include? UserContext.current_user.alias
     elsif(action == :write)
       write_users = access_control.write_users
       return true if write_users == "*"
-      return true if write_users.include? UserContext.current_user._koda_ref          
+      return true if write_users.include? UserContext.current_user.alias          
     elsif(action == :modify)
       modify_users = access_control.modify_users
       return true if modify_users == "*"
-      return true if modify_users.include? UserContext.current_user._koda_ref
+      return true if modify_users.include? UserContext.current_user.alias
     end
     false
   end
@@ -109,7 +109,7 @@ class UserAccessProvider
   def sign_up_user(ref, id, name, email)
     is_admin = first_user?
     user = { 
-      '_koda_ref'=> ref, 
+      'alias'=> ref, 
       'googleid' => id,
       'name' => name, 
       'email' => email, 

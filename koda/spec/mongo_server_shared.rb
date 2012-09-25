@@ -27,7 +27,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should.not == nil
+    response_json['alias'].should.not == nil
     response_json['cost'].should == 'expensive'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27
@@ -35,7 +35,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "should hide folders with access-control set to non-public" do
     header 'Content-Type', 'application/json;charset=utf-8'
-    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
 
     last_response.status.should == 201
@@ -46,7 +46,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "should deny access to folders with access-control set to non-public" do
     header 'Content-Type', 'application/json;charset=utf-8'
-    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
 
     last_response.status.should == 201
@@ -57,10 +57,10 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "should deny access to documents with parent folder access-control set to non-public" do
     header 'Content-Type', 'application/json;charset=utf-8'
-    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, '_koda_ref' => 'fastexpensiveone' }.to_json
+    bike = {'cost' => 'expensive', 'speed' => 'fast', 'gears' => 27, 'alias' => 'fastexpensiveone' }.to_json
     post '/api/bikes', bike
     
-    access_control = { 'read_users' => '-', '_koda_ref' => 'access-control' }.to_json
+    access_control = { 'read_users' => '-', 'alias' => 'access-control' }.to_json
     post '/api/bikes', access_control
 
     last_response.status.should == 201
@@ -71,7 +71,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "creates a resource at the right location when jam ref supplied" do
     header 'Content-Type', 'application/json;charset=utf-8'
-    bike = {'_koda_ref'=>'thefastexpensiveone','cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
+    bike = {'alias'=>'thefastexpensiveone','cost' => 'expensive', 'speed' => 'fast', 'gears' => 27 }.to_json
     post '/api/bikes', bike
 
     last_response.status.should == 201
@@ -81,7 +81,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should.not == nil
+    response_json['alias'].should.not == nil
     response_json['cost'].should == 'expensive'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27
@@ -200,7 +200,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should.not == nil
+    response_json['alias'].should.not == nil
     response_json['size'].should == 'biggest'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27    
@@ -218,7 +218,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
     last_response.should.be.ok
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should.not == nil
+    response_json['alias'].should.not == nil
     response_json['size'].should == 'biggest'
     response_json['speed'].should == 'fast'
     response_json['gears'].should == 27    
@@ -239,7 +239,7 @@ shared_examples_for "Mongo KodaRms write interface" do
   
   it "replaces an existing resource through put to overridden ref" do
     header 'Content-Type', 'application/json;charset=utf-8'
-    new_truck = {'_koda_ref'=>'smallblueone','size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
+    new_truck = {'alias'=>'smallblueone','size' => 'anupdatedvalue', 'speed' => 'fast', 'gears' => 27 }.to_json
   
     put '/api/trucks/smallblueone', new_truck
     last_response.should.be.ok
@@ -427,7 +427,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     last_response.should.be.ok
     
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should == '4db0dedb387f7123c9000001'
+    response_json['alias'].should == '4db0dedb387f7123c9000001'
   end
   
   it "returns the ref, not the id, when specifically set" do
@@ -436,7 +436,7 @@ shared_examples_for "Mongo KodaRms read interface" do
     last_response.should.be.ok
     
     response_json = JSON.parse last_response.body
-    response_json['_koda_ref'].should == 'smallblueone'
+    response_json['alias'].should == 'smallblueone'
   end
   
   it "strips the id from returned resources" do
