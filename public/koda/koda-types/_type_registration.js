@@ -72,11 +72,19 @@
 		"title" : "Custom",
 		"types" : [
 			{
-				"title" : "Generic Page",
-				"description" :"For creating a generic page",
+				"title" : "KodaCMS Author",
+				"description" :"Custom type for KodaCMS.org",
 				"icon" : "/koda/images/layout_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type"	: "/koda/koda-types/custom-genericpage.js",
+				"type"	: "/koda/koda-types/custom-author.js",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "KodaCMS Blogpost",
+				"description" :"Custom type for KodaCMS.org",
+				"icon" : "/koda/images/layout_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/custom-blogpost.js",
 				"allowedin" : "collection"
 			}
 		]

@@ -52,13 +52,6 @@
 			"description" : "Comma separated",
 			"control" : "input-text",
 			"defaultValue" : ""
-		},
-		{
-			"id" : "_koda_doc_links",
-			"title" : "Document Link",
-			"description" : "Link to another doc or index",
-			"control" : "kodalinkeditor",
-			"defaultValue" : ""
 		}
 	]
 }

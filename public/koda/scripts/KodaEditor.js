@@ -225,40 +225,6 @@ Editor.Controls = function() {
 			}
 			
 		},
-				
-		kodaLinkEditor : function(field) {
-			
-			return {
-			
-				id : field.id,
-				defaultValue: field.defaultValue,
-				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" />',
-				value: '',
-				bind : function(key, callback) {
-					var control = $('input#'+field.id);
-					if(field.ajax) {
-						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
-							control.val(data[field.ajax.displayfield])
-							callback(key);
-						});
-					} else {
-						callback(key);
-					}
-				},
-				create: function() {
-					return this.html;
-				},
-				getValue: function(){
-					return $('input#'+this.id).val();
-				},
-				setValue: function(value) {
-					if(value != undefined && value != 'undefined') {
-						$('input#'+this.id).val(value);
-					}
-				}
-			}
-			
-		},
 		
 		collectionMulti: function(field) {
 			
@@ -266,7 +232,7 @@ Editor.Controls = function() {
 			
 				id : field.id,
 				defaultValue: field.defaultValue,
-				html : '<select id="'+field.id+'" name="'+field.id+'" multiple="multiple"/>',
+				html : '<select id="'+field.id+'" name="'+field.id+'" multiple="multiple" />',
 				value: '',
 				bind : function(key, callback) {
 					var control = $('select#'+this.id);
@@ -630,6 +596,8 @@ Editor.Form = function(container, spec, onSubmit) {
 	var controls = Editor.Controls;
 	controls.load();
 	
+	var includes = [];
+	
 	var controlsCollection = new Object();
 
 	var form = $('<form id="koda-form" name="koda-form" method="post" class="form-horizontal"></form>');
@@ -641,6 +609,14 @@ Editor.Form = function(container, spec, onSubmit) {
 	$.each(spec.fields, function(i, field) {
 		
 		var controlGroup = $('<div class="control-group"></div>');
+		
+		if(field.include) {
+			includes.push(field.id);
+		}
+		
+		if(field.id == '_koda_ref' && field.generatedfrom) {
+			idFieldGenerator = field.generatedfrom;
+		}
 		
 		var newControl = $.extend(true, {}, controls.all[field.control](field));
 		controlsCollection[field.id] = newControl;
@@ -666,10 +642,21 @@ Editor.Form = function(container, spec, onSubmit) {
 		
 		evt.preventDefault();
 		
+		var docLinks = [];
+		
 		var formContent = new Object();
+		
 		for (var key in controlsCollection) {
-		  formContent[key] = controlsCollection[key].getValue();
+
+			var controlValue = controlsCollection[key].getValue();
+		  	formContent[key] = controlValue;
+		  	if(includes.indexOf(key) != -1){
+				docLinks.push(controlValue);
+			}
+
 		};
+		
+		formContent['_koda_doc_links'] = docLinks.join(',');
 		
 		onSubmit(formContent);
 		
@@ -691,6 +678,10 @@ Editor.Form = function(container, spec, onSubmit) {
 	container.append(form);
 	
 	$('input[type="hidden"]').parent().addClass('no-wrap');
+	$('input[name="name"]').keyup(function(evt){
+		var ref = $(this).val().replace(/ /g,"-").replace(/[&\/\\#,+()$~%.&*^%$£@!(*)#∞¢##€¡€#¢∞§¶•'":*?<>{}]/g,'').toLowerCase();
+		$('input[name="_koda_ref"]').val(ref);
+	});
 	
 	return {
 		converters: Object(),

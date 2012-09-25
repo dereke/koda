@@ -43,7 +43,7 @@
 			var kodaForm = Editor.Form($('#editor'), kodaType, onSubmit);
 			kodaForm.load({name:api.itemUrl});
 			if(!isNew) {
-				$('#status').text('Renaming a collection is not supported at the moment. Save disabled.');
+				$('#status').text('Renaming a collection can cause unforeseen consequences. Save disabled.').show();
 				$('button[type="submit"]').attr("disabled", true);
 			}
 		});

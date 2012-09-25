@@ -54,6 +54,117 @@ get '/session/current_user' do
 end
 
 #
+# Media
+#
+get '/api/_koda_media/?' do
+  content_type :json, 'kodameta' => 'list'
+  media = @grid_wrapper.media_links.to_json
+end
+
+post '/api/_koda_media/?' do  
+
+  if(logged_in?) 
+    media = MongoMedia.new request, params
+    file_name = @grid_wrapper.save_media media
+
+    new_location = '/content/media/' + file_name
+    response['Location'] = new_location
+    status 200
+    result = {
+      'success' => 'true',
+      'location' => new_location,
+    }
+    body result.to_json
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+
+end
+
+delete '/api/_koda_media/?' do
+  response['Allow'] = 'GET,POST'
+  status 405
+end
+
+options '/api/_koda_media/?' do
+  response['Allow'] = 'GET,POST'
+end
+
+get '/content/media/:filename' do
+  media = @grid_wrapper.get_media params[:filename]
+
+  if (media == nil)
+    halt 404
+  end
+
+  last_modified(media.last_updated)  
+
+  content_type media.content_type
+  body media.body  
+end
+
+get '/api/_koda_media/:filename' do
+  media = @grid_wrapper.get_media params[:filename]
+
+  if (media == nil)
+    halt 404
+  end
+
+  last_modified(media.last_updated)  
+
+  content_type media.content_type
+  body media.body  
+end
+
+put '/api/_koda_media/:filename?' do
+
+  if(logged_in?) 
+    media = MongoMedia.new request, params
+    file_name = @grid_wrapper.save_media(media, params[:filename])
+
+    new_location = '/api/_koda_media/' + file_name
+
+    response['Location'] = new_location
+    status 200
+    result = {
+      'success' => 'true',
+      'location' => new_location,
+    }
+    body result.to_json
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+
+end
+
+post '/api/_koda_media/:filename?' do
+  response['Allow'] = 'GET,PUT,DELETE'
+  status 405
+end
+
+delete '/api/_koda_media/:filename?' do
+  if(logged_in?) 
+    @grid_wrapper.delete_media(params[:filename])
+  else
+    response['Allow'] = 'GET'
+    status 405
+  end
+end
+
+options '/api/_koda_media/:filename' do
+  media = @grid_wrapper.get_media params[:filename]
+
+  if (media == nil)
+    response['Allow'] = 'PUT'
+    return
+  end
+
+  response['Allow'] = 'GET,PUT,DELETE'
+end
+
+#
 # Content
 #
 
@@ -125,104 +236,6 @@ get '/content/:collection/:resource?' do
     status 405
   end
 
-end
-
-#
-# Media
-#
-get '/api/_koda_media/?' do
-  content_type :json, 'kodameta' => 'list'
-  media = @grid_wrapper.media_links.to_json
-end
-
-post '/api/_koda_media/?' do  
-
-  if(logged_in?) 
-    media = MongoMedia.new request, params
-    file_name = @grid_wrapper.save_media media
-
-    new_location = '/api/_koda_media/' + file_name
-    response['Location'] = new_location
-    status 200
-    result = {
-      'success' => 'true',
-      'location' => new_location,
-    }
-    body result.to_json
-  else
-    response['Allow'] = 'GET'
-    status 405
-  end
-
-end
-
-delete '/api/_koda_media/?' do
-  response['Allow'] = 'GET,POST'
-  status 405
-end
-
-options '/api/_koda_media/?' do
-  response['Allow'] = 'GET,POST'
-end
-
-get '/api/_koda_media/:filename' do
-  media = @grid_wrapper.get_media params[:filename]
-
-  if (media == nil)
-    halt 404
-  end
-
-  last_modified(media.last_updated)  
-
-  content_type media.content_type
-  body media.body  
-end
-
-put '/api/_koda_media/:filename?' do
-
-  if(logged_in?) 
-    media = MongoMedia.new request, params
-    file_name = @grid_wrapper.save_media(media, params[:filename])
-
-    new_location = '/api/_koda_media/' + file_name
-
-    response['Location'] = new_location
-    status 200
-    result = {
-      'success' => 'true',
-      'location' => new_location,
-    }
-    body result.to_json
-  else
-    response['Allow'] = 'GET'
-    status 405
-  end
-
-end
-
-post '/api/_koda_media/:filename?' do
-  response['Allow'] = 'GET,PUT,DELETE'
-  status 405
-end
-
-delete '/api/_koda_media/:filename?' do
-  if(logged_in?) 
-    @grid_wrapper.delete_media(params[:filename])
-  else
-    response['Allow'] = 'GET'
-    status 405
-  end
-end
-
-options '/api/_koda_media/:filename' do
-  media = @grid_wrapper.get_media params[:filename]
-
-  if (media == nil)
-    response['Allow'] = 'PUT'
-    return
-  end
-
-  response['Allow'] = 'GET,PUT,DELETE'
 end
 
 #

@@ -93,9 +93,9 @@ shared_examples_for "Mongo KodaRms write interface" do
        post '/api/_koda_media', content
 
        last_response.status.should == 200
-       last_response.location.should.start_with? '/api/_koda_media/'
+       last_response.location.should.start_with? '/content/media/'
 
-       last_response.body.should.include? '/api/_koda_media/'
+       last_response.body.should.include? '/content/media/'
        last_response.content_type.should == 'application/json;charset=utf-8'
   end
   

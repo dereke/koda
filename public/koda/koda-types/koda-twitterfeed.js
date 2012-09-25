@@ -73,11 +73,6 @@
 			"description" : "Comma separated",
 			"control" : "input-text",
 			"defaultValue" : ""
-		},
-		{
-			"id" : "_koda_doc_links",
-			"control" : "input-hidden",
-			"defaultValue" : ""
 		}
 	]
 }

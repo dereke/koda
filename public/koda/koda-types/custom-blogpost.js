@@ -1,10 +1,10 @@
 {
-	"title"  : "Generic Text Editor",
+	"title"  : "Kodacms.org Part Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",
 			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-types/koda-generictext.js"
+			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
 		},	
 		{
 			"id" : "_koda_editor",
@@ -32,10 +32,42 @@
 			"defaultValue" : ""
 		},
 		{
+			"id" : "title",
+			"title" : "Title",
+			"description" : "The title of the part",
+			"properties" : "required",
+			"control" : "input-text"
+		},
+		{
+			"id" : "author_ref",
+			"title" : "Author of post",
+			"description" : "The author that this post belongs to",
+			"control" : "collection",
+			"include" : true, 
+			"ajax" : {
+				"url" : "/content/authors",
+				"displayfield" : "title",
+				"valuefield" : "href"
+			}
+		},
+		{
+			"id" : "teaser",
+			"title" : "Teaser",
+			"description" : "The teaser of the part",
+			"control" : "input-text"
+		},
+		{
 			"id" : "content",
 			"title" : "Content",
 			"description" : "The contents",
 			"control" : "richtext",
+			"defaultValue" : ""
+		},
+		{
+			"id" : "contentimage",
+			"title" : "Content Image",
+			"description" : "Image to display in the content",
+			"control" : "imageupload",
 			"defaultValue" : ""
 		},
 		{

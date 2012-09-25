@@ -7,7 +7,7 @@
 <script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/nicEdit.js?2333da323d3234aa" type="text/javascript" charset="utf-8"></script>
-<script src="/koda/scripts/KodaEditor.js?9884447" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/KodaEditor.js?98aaaa2sdfaa84447" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/fileuploader.js?2342234a7aa6ad4aa" type="text/javascript"></script>
 </head>
 <body>
@@ -36,14 +36,7 @@
 			}
 
 			var onSubmit = function(data) {				
-
-				if(data.name) {
-					var ref = data.name.replace(/ /g,"-").toLowerCase();
-					data._koda_ref = ref;
-				} else {
-					data.name = data._koda_ref;
-				}
-				
+												
 				if(isNew) {					
 
 					var dataString = JSON.stringify(data, null, 2);

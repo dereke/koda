@@ -41,7 +41,7 @@
 		{
 			"id" : "_koda_doc_links",
 			"title" : "Document Link",
-			"description" : "Link to another doc or index",
+			"description" : "Link to another doc, index or external json endpoint",
 			"control" : "kodalinkeditor",
 			"defaultValue" : ""
 		}

@@ -1,10 +1,10 @@
 {
-	"title"  : "Koda User Editor",
+	"title"  : "Koda Author Editor",
 	"fields" : [
 		{
 			"id" : "_koda_type",
 			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-types/koda-user.js"
+			"defaultValue" : "/koda/koda-types/custom-author.js"
 		},	
 		{
 			"id" : "_koda_editor",
@@ -17,22 +17,17 @@
 			"defaultValue" : "name,email"
 		},
 		{
-			"id" : "googleid",
-			"control" : "input-hidden",
-			"defaultValue" : ""
-		},
-		{
 			"id" : "name",
-			"title" : "Username",
-			"description" : "Prefered Username",
+			"title" : "Author full name",
+			"description" : "full name of the author",
 			"control" : "input-text",
-			"properties" : "required placeholder='joeblogs'",
+			"properties" : "required placeholder='Joe Blog'",
 			"defaultValue" : ""
 		},
 		{
 			"id" : "_koda_ref",
 			"title" : "Alias",
-			"description" : "This will be generated from the username",
+			"description" : "This will be generated from the name",
 			"control" : "input-readonly",
 			"defaultValue" : ""
 		},
@@ -45,20 +40,11 @@
 			"defaultValue" : ""
 		},
 		{
-			"id" : "isallowed",
-			"title" : "Is Allowed",
-			"description" : "Is this user allowed in the backoffice?",
-			"control" : "truefalse",
-			"properties" : "required",
-			"defaultValue" : false
-		},
-		{
-			"id" : "isadmin",
-			"title" : "Is Admin",
-			"description" : "Access to console and can do anything.",
-			"control" : "truefalse",
-			"properties" : "required",
-			"defaultValue" : false
+			"id" : "authorphoto",
+			"title" : "Author photo",
+			"description" : "Photo of the author",
+			"control" : "imageupload",
+			"defaultValue" : ""
 		},
 		{
 			"id" : "tags",
