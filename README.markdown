@@ -1,7 +1,7 @@
 # What is KodaCMS
 
-KodaCMS gives anyone the ability to create great websites with limited or no programming knowledge.   
-Think of Koda as a merge between Wordpress and Dropbox but with a the ability to easily change any aspect of the system to fit your needs.
+KodaCMS is unlike any other CMS you might have come across. It manages your content first, thinking about where it will be used later.    
+Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight or Single page JS apps you name it!   
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
