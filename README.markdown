@@ -94,8 +94,6 @@ Once you have this installed, simply...
 
 > We will provide basic sitemap support, but you can add your own routes
 
-```
-
 ### Using Content inside Views
 
 You can easily map the content returned by the api to your views by using our client api.   
