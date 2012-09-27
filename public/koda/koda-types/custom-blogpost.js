@@ -25,6 +25,11 @@
 			"properties" : "required"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "alias",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",

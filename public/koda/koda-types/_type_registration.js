@@ -27,14 +27,6 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "Link to a document",
-				"description" :"Link to a document or Index",
-				"icon" : "/koda/images/feed_link.png",
-				"editor" : "/koda/koda-editors/generic-editor.html",
-				"type" : "/koda/koda-types/koda-link.js",
-				"allowedin" : "collection"
-			},
-			{
 				"title" : "Twitter Feed",
 				"description" :"This will include posts of a twitter feed",
 				"icon" : "/koda/images/twitter.png",
@@ -72,7 +64,7 @@
 		"title" : "Custom",
 		"types" : [
 			{
-				"title" : "KodaCMS Author",
+				"title" : "BlogStarterKit Author",
 				"description" :"Custom type for KodaCMS.org",
 				"icon" : "/koda/images/layout_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
@@ -80,11 +72,35 @@
 				"allowedin" : "collection"
 			},
 			{
-				"title" : "KodaCMS Blogpost",
+				"title" : "BlogStarterKit Blogpost",
 				"description" :"Custom type for KodaCMS.org",
 				"icon" : "/koda/images/layout_add.png",
 				"editor" : "/koda/koda-editors/generic-editor.html",
 				"type"	: "/koda/koda-types/custom-blogpost.js",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "BlogStarterKit Page",
+				"description" :"Custom type for KodaCMS.org",
+				"icon" : "/koda/images/layout_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/custom-page.js",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "BlogStarterKit Blog Archive Page",
+				"description" :"Custom type for KodaCMS.org",
+				"icon" : "/koda/images/layout_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/custom-blog-archive.js",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "BlogStarterKit Section",
+				"description" :"Custom type for KodaCMS.org",
+				"icon" : "/koda/images/layout_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/custom-section.js",
 				"allowedin" : "collection"
 			}
 		]

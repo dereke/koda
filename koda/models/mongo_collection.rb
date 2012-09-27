@@ -101,7 +101,7 @@ class MongoCollection
   def content_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url.gsub(/api/, "content"), 'title' => doc_wrapper.title}
+      {'href' => doc_wrapper.url.gsub(/api/, "content"), 'title' => doc_wrapper.title, 'alias' => doc_wrapper.ref }
     end
   end
 

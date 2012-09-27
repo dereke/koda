@@ -68,7 +68,7 @@ class MongoDatabase
     flat_file
   end
   
-  def search(params)
+  def search(params, collection_name=nil)
     
     search_hash = Hash.new
     sort_hash = Hash.new
@@ -87,9 +87,20 @@ class MongoDatabase
       end
 
       results = Hash.new
+      
+      if(collection_name)
+        search_hash.delete 'collection'
+        search_hash.delete 'splat'
+        search_hash.delete 'captures'
+
+        return collection(collection_name).query(search_hash, params[:take], params[:skip], sort_hash)
+      end
 
       all_user_collections('*').each do |collection|
-        results[collection] = collection(collection).query(search_hash, params[:take], params[:skip], sort_hash)
+        collection_result = collection(collection).query(search_hash, params[:take], params[:skip], sort_hash)
+        if(collection_result && collection_result.length > 0)
+          results[collection] = collection_result
+        end
       end
       
       results

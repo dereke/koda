@@ -14,27 +14,20 @@ http://www.kodacms.org/
 *	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
 *	Full RESTful API to your data (great for providing content to mobile apps or single page js apps)
 *	Platform independent (Built with Sinatra, Html and Javascript)
-*	Incredibly fast (Indexed Queries, Filters, and even Search queries can be cached)
+*	Incredibly fast (Indexed Queries, and even Search queries can be cached)
 *	Almost no learning curve! (We will release a 5min video with our beta to prove this)
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Always free! Open source MIT Licence
 
 ## Some Screenshots
 
-## Console
-![Console](https://raw.github.com/KodaCMS/Default/master/screenshots/console.png)
 ## Explorer
-![Explorer](https://raw.github.com/KodaCMS/Default/master/screenshots/explorer.png)
-## Adding Content
 ![Content Editing](https://raw.github.com/KodaCMS/Default/master/screenshots/adding-content.png)
 
 ## Where are we now?
 
 In the pipeline
 
-*	Node.js Koda Client (set up one KodaCMS instance and provide content to multiple thin clients) 80% done
-*	More robust Auth (action permissions for specific users etc.)
-*	More refined Plugin API
 *	Lots of Testing! (Currently best browser to use = Chrome)
 
 ETA - October / November 2012
@@ -44,8 +37,7 @@ ETA - October / November 2012
 You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office and using the built-in types,
 You can also follow a "code first" approach to create your own types and editors for a more unique editorial experience.  
 
-We only store content in the database. Any DataTypes, KodaTypes, Filters, Indexes and Views you create goes straight on the filesystem. MongoDb also provides an easy content migration tool that will make you laugh at your old ways (if you are from a Microsoft background).
-Changes you make to the system will be versioned and can be reverted and recreated if you use source control.  
+We only store content in the database. Any DataTypes, KodaTypes and Views you create goes straight on the filesystem. 
 
 The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
 All Koda Types, Koda Filters are done using a simple JSON formatted file. 
@@ -101,39 +93,7 @@ Once you have this installed, simply...
 ```
 
 > We will provide basic sitemap support, but you can add your own routes
-> For Example:
 
-```ruby
-get '/' do
-  content_type :html
-  @current_page = search({'tags'=>'/home/'}).first()
-  erb :index, :escape_html => true
-end
-
-get '/:page?' do
-  content_type :html
-  @current_page = document('pages', params[:page])
-  if(@current_page)
-    erb :generic, :escape_html => true
-  else
-    redirect '/'
-  end
-end
-
-get '/:folder/:page?' do
-  content_type :html
-  @current_page = document(params[:folder], params[:page])
-  if(@current_page)
-    erb :generic, :escape_html => true
-  else
-    redirect '/'
-  end
-end
-
-get '/my-twitter-feed/?' do
-  content_type :json
-  JSONP document('twitter', 'kodacms_twitterfeed')
-end
 ```
 
 ### Using Content inside Views
@@ -141,63 +101,42 @@ end
 You can easily map the content returned by the api to your views by using our client api.   
 
 ```html
-<section>
+<% model.sections.where{|section| section.page_ref.include? @current_page}.each do |section|%>
+<% safe('No Content has been added yet'){%>
+<div class="alert alert-success">
+  <span>
+	<%=section.tip%>
+  </span>
+</div>
 
-    <h1>Featured</h1>
-	<ul>
-	<% documents('slides').each do |slide| %>
-	<li>
-         <div>
-             <h1><%=slide.name%></h1>
-             <p><strong><%=slide.teaser%></strong></p>
-             <p><%=slide.body%></p>
-				
-             <p><a href="<%=slide.learnmorelink%>">Learn More</a></p>
-         </div>
-     </li>
-	<% end %>
-    </ul>
-	
-	<% homepage = filtered('pages', 'homepage').first() %>
-	<ul>
-		<li class="home"><%=homepage.name%></li>
-		<% search({'tags' => '/page/'}).each do |page| %>
-		<li><%=page.name%></li>
-		<% end %>
-	</ul>
-	
-</section>
+<h2><%=section.sectiontitle%></h2>
+<div>
+  <%=section.content%>
+</div>
+<%}%>
+<%end%>
+
+<% model.blogposts.all.each do |blogpost|%>
+	<% safe('No Content has been added yet'){%>
+    <h2><%=blogpost.title%></h2>
+    <div>
+      <%=blogpost.teaser%>
+    </div>
+	<%}%>
+<% end%>
 ```
 
 > The default view-engine is [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby), but you can configure your own [from these choices](http://sinatra-book.gittr.com/#templates)!
 > But we also provide a very versatile, yet simple client API to use in your views   
 
-`all()` returns all your content (if you'd like to load ALL the content only once (it will be slow first time but cached after))   
-`documents(collection_name)`  eg. documents('slides')   
-`document(collection_name, doc_ref)` eg. document('pages', 'about-us')   
-`filtered(collection_name, filter_name)` eg. filtered('pages', 'homepage')   
-`search(search_hash)` eg. search({'tags' => '/page/'})   
-
-### Structuring Data
-
-Most CMS systems have a hierarchical structure. Koda have no such limits. You can store any type of document in any folder and create filters to give you certain document types.
-
-Eg.
-
-Lets say I create a new folder called 'MyStuff'   
-I can then add a few 'GenericText' docs, a few 'Media' docs and also a few 'MyOwnCustomType' docs.   
-I can then create a 'KodaFilter' that could give me all the images in that folder OR anything tagged with 'wedding' OR some other really complicated query. 
-And even better... 'KodaFilter's can be reused between folders. If you created a 'ImagesFilter', you can reuse it by calling   
-
-`/api/myfolder/filtered/images`   
-OR   
-`/api/anothermyfolder/filtered/taggedasnew`   
-
-These filters will be cached by your browser automatically as they will be seen as json documents   
-This isn't the only way to query data though, we have a full search api and you can even specify indexes on docs to speed up the queries!   
-
-`/api/search?tags=equals_me&someotherproperty=true`     
-`/api/search?tags=/include_me/&someotherproperty=true&skip=2&take=4`   
+### Where
+`model.[collection].where {|item| item.someProp == 'something' && item.alias != nil } ` returns all items that match   
+### Single
+`model.[collection].single {|item| item.someProp == 'something' } ` returns the first item that matches   
+### All
+`model.[collection].all ` returns all items      
+### By Ref
+`model.[collection].by_ref 'my_ref'` returns a reference document by referenceid   
 
 ### Creating Koda Types (Code First)
 
@@ -211,123 +150,56 @@ A new type will appear under the "User Created" section on the right.
 
 ```javascript
 {
+	"title"  : "Kodacms.org Editor",
 	"fields" : [
+		{
+			"id" : "_koda_type",
+			"control" : "input-hidden",
+			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
+		},	
+		{
+			"id" : "_koda_editor",
+			"control" : "input-hidden",
+			"defaultValue" : "/koda/koda-editors/generic-editor.html"
+		},
+		{
+			"id" : "_koda_indexes",
+			"control" : "input-hidden",
+			"defaultValue" : "name,tags"
+		},
 		{
 			"id" : "name",
 			"title" : "Name",
-			"description" : "Name of the doc",
+			"description" : "The name of the content",
 			"control" : "input-text",
 			"defaultValue" : "",
-			"properties" : "required placeholder='my placeholder'"
-		},	
-		{
-			"id" : "age",
-			"title" : "Age",
-			"description" : "Your age",
-			"control" : "input-range",
-			"defaultValue" : "",
-			"properties" : "min='10' max='80'"
+			"properties" : "required"
 		},
 		{
-			"id" : "url",
-			"title" : "Url",
-			"description" : "Your website",
-			"control" : "input-range",
-			"defaultValue" : "",
-			"properties" : "pattern='https?://.+'"
+			"id" : "alias",
+			"title" : "Alias",
+			"description" : "This will be generated from the title",
+			"control" : "input-readonly",
+			"defaultValue" : ""
 		},
+/*
+	ALL Fields above are required for use with the generic editors. 
+	You can specify your own rules if you use your own editor.
+	
+	Add your custom variables below this comment... for example...
+*/
 		{
 			"id" : "tags",
 			"title" : "Tags",
 			"description" : "Comma separated",
 			"control" : "input-text",
 			"defaultValue" : ""
-		},
-		{
-			"id" : "_koda_doc_links",
-			"title" : "Document Link",
-			"description" : "Link to another doc",
-			"control" : "kodalinkeditor",
-			"defaultValue" : ""
-		},
+		}
 	]
 }
 ```
 
 [KodaTypes supports most HTML5 input types and validation](http://www.the-art-of-web.com/html/html5-form-validation/)
-
-### Creating Koda Filters (Code First)
-
-Koda filters can be re-used and applied to any collection and will be cached by your browser.   
-
-Creating a new Koda Filter is as easy as placing a file into the `/public/koda/koda-filters` folder.   
-You can then call the filter on any collection   
-lets say we place a file `music.js` into the filters folder that wants to show a list things tagged as "music" in a collection  
-
-
-```javascript
-{ 
-	"filter" : { 
-		"tags" : "/music/" // add the forward-slashes means it will match the value using a regex
-	},
-	"sort" : { 
-		"name" : "1"
-	}
-}
-```
-
-You can also do more advanced filtering  
-
-```javascript
-{ 
-	"filter" : { 
-		"somenumber" : { $gt: 10 }, // greater than 10
-		"someproperty" : { $exists : true },
-		"age" : { $in : [18,19,20] },
-		"name" : { $ne : "Adolf" }
-	},
-	"sort" : { 
-		"name" : "1",
-		"age"  : "1"
-	}
-}
-```
-
-> these and many more options [here](http://www.mongodb.org/display/DOCS/Advanced+Queries#AdvancedQueries-ConditionalOperators)  
-
-> when we 'GET' (or visit the url)    
-> `/api/cars/filtered/icons`   
-> you will receive documents that match the criteria  
-
-### Linked Documents to Queries, Indexes, Filters, External JSON Feeds (like twitter)
-
-You can add the urls of other documents, search queries or even filters to a document and it will   
-Include the documents inside the result of the main doc   
-
-Eg. If you set a field on a document called 'linked_documents' to '/api/pages/blog, /api/pages/filtered/last-two-days'   
-it will include those in the original   
-
-```javascript
-{ "_koda_doc_links" : "/api/pages/blog",
-  "alias" : "blogfeedaggregator",
-  "linked_documents" : [ { "_koda_doc_link" : "/api/pages/blog",
-        "document" : { "_koda_doc_links" : "/api/slides",
-            "_koda_editor" : "/koda/koda-editors/generic-editor.html",
-            "_koda_indexes" : "title",
-            "alias" : "blog",
-            "_koda_type" : "/koda/koda-types/custom-genericpage.js",
-            "bottomleftbody" : "<div>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book</div><div><br></div>",
-            "introparagraph" : "Recent Posts",
-            "mainbody" : "Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-            "tags" : "page"
-          }
-      } ],
-  "name" : "Blog",
-  "tags" : "root"
-}
-```
-
->  To avoid circular references included documents will not include their linked documents.
 
 ### Deploying Koda to Heroku
 

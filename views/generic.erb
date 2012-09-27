@@ -1,1 +1,29 @@
-<h3>Hello World!</h3>
+<div class="span8">
+	
+	<% model.sections.where{|section| section.page_ref.include? @current_page}.each do |section|%>
+    <% safe('No Content has been added yet'){%>
+	<div class="alert alert-success">
+      <span>
+		<%=section.tip%>
+      </span>
+    </div>
+
+    <h2><%=section.sectiontitle%></h2>
+    <div>
+      <%=section.content%>
+    </div>
+	<%}%>
+	<%end%>
+	
+	<% if @current_page == 'blog-archive' %>
+	<% model.blogposts.all.each do |blogpost|%>
+		<% safe('No Content has been added yet'){%>
+	    <h2><%=blogpost.title%></h2>
+	    <div>
+	      <%=blogpost.teaser%>
+	    </div>
+		<%}%>
+	<% end %>
+	<% end%>
+
+</div>

@@ -179,27 +179,14 @@ get '/content/?' do
 end
 
 get '/content/search/?' do 
-  content_type :json, 'kodameta' => 'list'  
-  JSONP @db_wrapper.search params
+  content_type :json, 'kodameta' => 'list'    
+  JSONP create_content
 end
 
-get '/content/:collection/filtered/:filter/?' do
-  filter = params[:filter]
-  content_type :json, 'kodameta' => 'list'
+get '/content/search/:collection/?' do 
+  content_type :json, 'kodameta' => 'list'  
   collection_name = params[:collection]
-  
-  if(is_public_read? collection_name)
-
-    halt 404 if not @db_wrapper.contains_collection(collection_name)  
-
-    response = get_raw "/koda/koda-filters/#{filter}.js"
-    search_hash = JSON.parse response
-  
-    JSONP @db_wrapper.filter collection_name, search_hash, params[:take], params[:skip]
-
-  else
-    status 405
-  end
+  JSONP @db_wrapper.search params,collection_name
 end
 
 get '/content/:collection/?' do
@@ -268,6 +255,8 @@ post '/api/:collection/?' do
       raw_doc = request.env["rack.input"].read
       hash = JSON.parse raw_doc
       new_doc = @db_wrapper.collection(collection_name).save_document(hash)
+      
+      refresh_cache
       
       response['Location'] = new_doc.url
       status 201
@@ -343,8 +332,9 @@ put '/api/:collection/:resource' do
     end
 
     doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
-    refresh_doc_from_cache collection_name, resource_name, doc   
     
+    refresh_cache
+        
     status 201 if doc.is_new
 
     response['Location'] = doc.url

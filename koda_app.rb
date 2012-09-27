@@ -70,6 +70,7 @@ before do
   #
   UserContext.user_bag = session
   @uap = UserAccessProvider.new(@db_wrapper)
+
 end
 
 end

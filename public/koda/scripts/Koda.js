@@ -269,6 +269,7 @@ $.Class.extend("ExplorerPresenter",
 		
 		showInfo : function(message){	
 			$('#status-text').text(message);
+			$('#status-text').addClass('alert alert-warning');
 			$('#status-text').show().fadeOut(7000);
 		},
 		

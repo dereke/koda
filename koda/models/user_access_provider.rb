@@ -89,9 +89,7 @@ class UserAccessProvider
   end
   
   def create_user(user)
-    new_user = @db_wrapper.collection('users').save_document(user)
-    puts new_user.standardised_document.inspect
-    
+    new_user = @db_wrapper.collection('users').save_document(user)    
     new_user.standardised_document.to_obj
   end
   

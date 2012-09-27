@@ -649,8 +649,23 @@ Editor.Form = function(container, spec, onSubmit) {
 		for (var key in controlsCollection) {
 
 			var controlValue = controlsCollection[key].getValue();
-		  	formContent[key] = controlValue;
-		  	if(includes.indexOf(key) != -1){
+			
+			var parameterRegex = /\<%=(\w*?)\%>/; 
+		  	if(parameterRegex.test(controlValue)){
+				var matched = controlValue.match(parameterRegex);
+				var expression = matched[1];
+				
+				if(expression == 'timestamp')
+					controlValue = new Date().toString();
+				else {
+					var retrievedValue = controlsCollection[expression].getValue();
+					controlValue = controlValue.replace(parameterRegex, retrievedValue);
+				}
+			}
+			
+			formContent[key] = controlValue;
+		
+			if(includes.indexOf(key) != -1){
 				docLinks.push(controlValue);
 			}
 
@@ -666,7 +681,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	actionGroup.append('<button type="submit" class="btn btn-primary">Save</button><div class="spacer"></div>');
 	
-	actionGroup.append('<div id="status" style="display:none"></div>');
+	actionGroup.append('<div id="status" class="alert alert-success" style="display:none"></div>');
 	fieldset.append(actionGroup);
 	
 	if(spec.is_readonly){
@@ -679,7 +694,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	
 	$('input[type="hidden"]').parent().addClass('no-wrap');
 	$('input[name="name"]').keyup(function(evt){
-		var ref = $(this).val().replace(/ /g,"-").replace(/[&\/\\#,+()$~%.&*^%$£@!(*)#∞¢##€¡€#¢∞§¶•'":*?<>{}]/g,'').toLowerCase();
+		var ref = $(this).val().replace(/ /g,"_").replace(/[&\/\\#,+()$~%.&*^%$£@!(*)#∞¢##€¡€#¢∞§¶•'":*?<>{}]/g,'').toLowerCase();
 		$('input[name="alias"]').val(ref);
 	});
 	

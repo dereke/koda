@@ -56,8 +56,13 @@ class MongoGrid
       media = MongoMedia.new
       media.body = file.read
       media.content_type= file.content_type
-      media.last_updated= file.metadata['_koda_last_modified']
-      media
+      
+      if(file.metadata)
+        media.last_updated= file.metadata['_koda_last_modified']
+        media
+      else
+        media
+      end
     end
   end
 

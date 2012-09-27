@@ -1,3 +1,8 @@
+require 'json'
+require 'dalli'
+require 'uri'
+require 'rest_client'
+
 def show_koda(template, locals={})
   content_type :html
   options = {:layout => false}.merge(settings.view_options)
@@ -8,6 +13,9 @@ end
 def show(template, locals={})
   content_type :html
   options = {:layout => true}.merge(settings.view_options)
+  
+  @content = get_from_cache
+  
   template = template_for "views/#{template}.#{settings.view_format}"
   render(settings.view_format, template, settings.view_options, locals)
 end
@@ -15,6 +23,9 @@ end
 def render_partial(template, locals={})
   template = template_for "views/#{template}.#{settings.view_format}"
   options = {:layout => false}.merge(settings.view_options)
+
+  @content = get_from_cache
+
   content_type :html
   render(settings.view_format, template, settings.view_options, locals)
 end
@@ -36,7 +47,77 @@ def render_doc(doc)
   result
 end
 
+def model
+  @content
+end
+
+def safe(fallback='')
+  begin
+    return yield
+  rescue
+    fallback
+  end
+end
+
+def create_content
+
+  content = @db_wrapper.flat_file
+
+  content.each do |collection|
+
+    collection_obj = {}
+
+    collection['docs'].each do |doc|
+      k = doc['alias'].gsub(/-/,'_')
+      v = doc.to_obj
+
+      collection_obj.instance_variable_set("@#{k}", v)
+      collection_obj.class.send(:define_method, k, proc{self.instance_variable_get("@#{k}")})
+    end
+    
+    collection_obj.class.send(:define_method, "all", proc{self.instance_variables.map {|name| instance_variable_get name }})
+    collection_obj.class.send(:define_method, "where", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}})
+    collection_obj.class.send(:define_method, "single", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}.first})
+    collection_obj.class.send(:define_method, "by_ref", proc{|ref| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| ref.include? o.alias}.first})
+    
+    collection_k = collection['collection']
+    collection_v = collection_obj
+    
+    content.instance_variable_set("@#{collection_k}", collection_v)
+    content.class.send(:define_method, collection_k, proc{self.instance_variable_get("@#{collection_k}")})
+    
+  end  
+  
+  content
+
+end
+
 private
+
+def refresh_cache
+  key = "full_cache"
+  
+  if(settings.enable_cache)
+    settings.cache.delete key
+    settings.cache.set(key, create_content, ttl=time_to_live+rand(100))
+  end
+end
+
+def get_from_cache(time_to_live=settings.long_ttl)
+
+  key = "full_cache"
+
+  if(!settings.enable_cache)
+    return create_content
+  end
+  
+  if(settings.cache.get(key) == nil)
+    settings.cache.set(key, create_content, ttl=time_to_live+rand(100))
+  end
+
+  return settings.cache.get(key)
+
+end
 
 def template_for(path)
   return nil  unless File.exists?(path)

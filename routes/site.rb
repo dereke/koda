@@ -40,13 +40,13 @@ get '/' do
   # @current_page = filtered('pages', 'home')
   # OR
   # @current_page = document('pages', 'home')
+  @current_page = 'home-page'
   @title = "Koda Placeholder Page"
-  show :index
+  show :generic
 end
 
 get '/:page?' do
-  # example...
-  # @current_page = document('pages', params[:page])
+  @current_page = params[:page]
   @title = "Koda Placeholder Page"
   show :generic
 end

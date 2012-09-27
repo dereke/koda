@@ -36,7 +36,7 @@
 
 require 'rubygems'
 require 'mongo'
-require File.join(File.dirname(__FILE__), %w[/models/mongo_config])
+require File.join(File.dirname(__FILE__), %w[../koda/models/mongo_config])
 
 include Mongo 
 

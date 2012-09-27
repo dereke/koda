@@ -29,7 +29,8 @@
 					$('#status').text("Document Saved!");
 					$('#status').show().fadeOut(2000);	
 				} else {				
-					$('#status').text(sdata.error);				
+					$('#status').text(sdata.error);	
+					$('#status').addClass('alert alert-error')			
 					$('#status').show().fadeOut(2000);
 				}
 

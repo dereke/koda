@@ -1,13 +1,40 @@
-article,
-aside,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-nav,
-section,
-summary {
-  display: block;
+.align-left { text-align: left; }
+.align-right { text-align: right; }
+.align-center { text-align: center; }
+.align-justify { text-align: justify; }
+
+@media(min-width: 980px) {
+  .navbar-fixed-top + * {
+    margin-top: 60px;
+  }
+
+  .navbar-fixed-bottom + *{
+    margin-bottom: 60px;
+  }
+}
+
+img.left {
+	float: left;
+	padding: 6px;
+	width: 86px;
+}
+
+.clear {
+	clear:both;
+}
+
+.quote {
+	float: left;
+	padding-left: 16px;
+	width: 75%;
+	padding-bottom: 10px;
+}
+
+.author {
+	float: right;
+	padding-right: 6px;
+	width: 47%;
+	padding-bottom: 10px;
+	font-style: italic;
+	font-size: smaller;
 }
