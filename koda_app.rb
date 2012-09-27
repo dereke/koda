@@ -7,6 +7,7 @@ require 'erb'
 require 'net/http'
 require 'rest_client'
 require 'dalli'
+require 'memcachier'
 
 #
 #  Register all models
