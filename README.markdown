@@ -99,21 +99,6 @@ Once you have this installed, simply...
 You can easily map the content returned by the api to your views by using our client api.   
 
 ```html
-<% model.sections.where{|section| section.page_ref.include? @current_page}.each do |section|%>
-<% safe('No Content has been added yet'){%>
-<div class="alert alert-success">
-  <span>
-	<%=section.tip%>
-  </span>
-</div>
-
-<h2><%=section.sectiontitle%></h2>
-<div>
-  <%=section.content%>
-</div>
-<%}%>
-<%end%>
-
 <% model.blogposts.all.each do |blogpost|%>
 	<% safe('No Content has been added yet'){%>
     <h2><%=blogpost.title%></h2>
