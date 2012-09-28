@@ -18,26 +18,9 @@ if ENV['ENVIRONMENT']
 end
 
 # --------------------------------------------------------------------------
-# Cache documents until they are changed (recommended for production)
-# To Use, set this env var to true
-# --------------------------------------------------------------------------
-if ENV['ENABLE_CACHE']
-  set :enable_cache, ENV['ENABLE_CACHE']
-else
-  set :enable_cache, false
-end
-
-# --------------------------------------------------------------------------
 # Sign up to Janrain Engage and paste your api key here
 # --------------------------------------------------------------------------
 set :janrain_api_key, "6c7c4318166d62ad9416231aedca6385e7d7978f"
-
-# --------------------------------------------------------------------------
-# Dalli (memcache) settings
-# --------------------------------------------------------------------------
-set :cache, Dalli::Client.new
-set :short_ttl, 400
-set :long_ttl, 4600
 
 # --------------------------------------------------------------------------
 # This is needed for janrain auth

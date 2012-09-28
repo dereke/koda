@@ -14,7 +14,7 @@ def show(template, locals={})
   content_type :html
   options = {:layout => true}.merge(settings.view_options)
   
-  @content = get_from_cache
+  @content = create_content
   
   template = template_for "views/#{template}.#{settings.view_format}"
   render(settings.view_format, template, settings.view_options, locals)
@@ -24,7 +24,7 @@ def render_partial(template, locals={})
   template = template_for "views/#{template}.#{settings.view_format}"
   options = {:layout => false}.merge(settings.view_options)
 
-  @content = get_from_cache
+  @content = create_content
 
   content_type :html
   render(settings.view_format, template, settings.view_options, locals)
@@ -95,31 +95,6 @@ def create_content
   end
   
   {}
-
-end
-
-def refresh_cache(time_to_live=settings.long_ttl)
-  key = "full_cache"
-  
-  if(settings.enable_cache)
-    settings.cache.delete key
-    settings.cache.set(key, create_content, ttl=time_to_live+rand(100))
-  end
-end
-
-def get_from_cache(time_to_live=settings.long_ttl)
-
-  key = "full_cache"
-
-  if(!settings.enable_cache)
-    return create_content
-  end
-  
-  if(settings.cache.get(key) == nil)
-    settings.cache.set(key, create_content, ttl=time_to_live+rand(100))
-  end
-
-  return settings.cache.get(key)
 
 end
 

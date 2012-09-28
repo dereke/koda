@@ -5,7 +5,6 @@ require 'time'
 require File.join(File.dirname(__FILE__), %w[../../koda_app])
 
 set :environment, :test
-set :enable_cache, false
 
 describe 'Mongo KodaCMS access integration' do
   include Rack::Test::Methods

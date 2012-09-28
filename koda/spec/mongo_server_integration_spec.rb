@@ -4,8 +4,6 @@ require File.join(File.dirname(__FILE__), %w[uniform_server_shared])
 require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
 
 set :environment, :test
-set :enable_cache, false
-set :long_ttl, 3000
 
 describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
