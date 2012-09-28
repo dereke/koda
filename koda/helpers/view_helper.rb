@@ -90,7 +90,7 @@ def create_content
     
     end  
   
-    content
+    return content
   
   end
   
