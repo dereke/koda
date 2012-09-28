@@ -40,7 +40,7 @@ get '/' do
   # @current_page = filtered('pages', 'home')
   # OR
   # @current_page = document('pages', 'home')
-  @current_page = 'home-page'
+  @current_page = 'home_page'
   @title = "Koda Placeholder Page"
   show :generic
 end
