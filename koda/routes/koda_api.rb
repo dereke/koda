@@ -255,7 +255,7 @@ post '/api/:collection/?' do
       raw_doc = request.env["rack.input"].read
       hash = JSON.parse raw_doc
       new_doc = @db_wrapper.collection(collection_name).save_document(hash)
-      
+      refresh_cache
       response['Location'] = new_doc.url
       status 201
       result = {
@@ -330,6 +330,8 @@ put '/api/:collection/:resource' do
     end
 
     doc = @db_wrapper.collection(collection_name).save_document(hash, resource_name)  
+    
+    refresh_cache
         
     status 201 if doc.is_new
 
