@@ -98,7 +98,7 @@ def create_content
 
 end
 
-def refresh_cache
+def refresh_cache(time_to_live=settings.long_ttl)
   key = "full_cache"
   
   if(settings.enable_cache)
