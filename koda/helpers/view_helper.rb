@@ -62,33 +62,39 @@ end
 def create_content
 
   content = @db_wrapper.flat_file
-
-  content.each do |collection|
-
-    collection_obj = {}
-
-    collection['docs'].each do |doc|
-      k = doc['alias'].gsub(/-/,'_')
-      v = doc.to_obj
-
-      collection_obj.instance_variable_set("@#{k}", v)
-      collection_obj.class.send(:define_method, k, proc{self.instance_variable_get("@#{k}")})
-    end
-    
-    collection_obj.class.send(:define_method, "all", proc{self.instance_variables.map {|name| instance_variable_get name }})
-    collection_obj.class.send(:define_method, "where", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}})
-    collection_obj.class.send(:define_method, "single", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}.first})
-    collection_obj.class.send(:define_method, "by_ref", proc{|ref| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| ref.include? o.alias}.first})
-    
-    collection_k = collection['collection']
-    collection_v = collection_obj
-    
-    content.instance_variable_set("@#{collection_k}", collection_v)
-    content.class.send(:define_method, collection_k, proc{self.instance_variable_get("@#{collection_k}")})
-    
-  end  
   
-  content
+  if(content)
+
+    content.each do |collection|
+
+      collection_obj = {}
+
+      collection['docs'].each do |doc|
+        k = doc['alias'].gsub(/-/,'_')
+        v = doc.to_obj
+
+        collection_obj.instance_variable_set("@#{k}", v)
+        collection_obj.class.send(:define_method, k, proc{self.instance_variable_get("@#{k}")})
+      end
+    
+      collection_obj.class.send(:define_method, "all", proc{self.instance_variables.map {|name| instance_variable_get name }})
+      collection_obj.class.send(:define_method, "where", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}})
+      collection_obj.class.send(:define_method, "single", proc{|&block| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| block.call o}.first})
+      collection_obj.class.send(:define_method, "by_ref", proc{|ref| self.instance_variables.map {|name| instance_variable_get name }.select{ |o| ref.include? o.alias}.first})
+    
+      collection_k = collection['collection']
+      collection_v = collection_obj
+    
+      content.instance_variable_set("@#{collection_k}", collection_v)
+      content.class.send(:define_method, collection_k, proc{self.instance_variable_get("@#{collection_k}")})
+    
+    end  
+  
+    content
+  
+  end
+  
+  {}
 
 end
 
