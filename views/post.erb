@@ -6,4 +6,12 @@
     <div>
       <%=post.content%>
     </div>
+	<div class="well">
+		<% author = model.authors.by_ref(post.author_ref) %>
+		<h4><%=author.name%></h4>
+		<div class="bio"><%=author.bio%></div>
+		<%if author.authorphoto %>
+		<img src="<%=author.authorphoto %>" />
+		<% end %>
+	</div>
 </div>

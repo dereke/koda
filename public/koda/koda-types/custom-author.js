@@ -40,6 +40,13 @@
 			"defaultValue" : ""
 		},
 		{
+			"id" : "bio",
+			"title" : "Small Bio",
+			"description" : "Small biography",
+			"control" : "textarea",
+			"defaultValue" : ""
+		},
+		{
 			"id" : "authorphoto",
 			"title" : "Author photo",
 			"description" : "Photo of the author",

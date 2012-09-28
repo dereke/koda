@@ -3,6 +3,17 @@
 .align-center { text-align: center; }
 .align-justify { text-align: justify; }
 
+body {
+	margin-bottom: 80px !important;
+}
+
+div.well img {
+	width: 200px;
+	float: right;
+	position: relative;
+	top: -43px;
+}
+
 @media(min-width: 980px) {
   .navbar-fixed-top + * {
     margin-top: 60px;
@@ -23,6 +34,12 @@ img.left {
 	clear:both;
 }
 
+div.bio {
+	width: 69%;
+	position: relative;
+	top: 20px;
+}
+
 .quote {
 	float: left;
 	padding-left: 16px;
@@ -37,4 +54,13 @@ img.left {
 	padding-bottom: 10px;
 	font-style: italic;
 	font-size: smaller;
+}
+
+.well {
+	margin-top: 16px !important;
+	overflow:hidden;
+}
+
+.alert {
+	margin-top: 13px;
 }
