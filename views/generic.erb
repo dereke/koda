@@ -1,7 +1,7 @@
 <div class="span8">
 	
+	<% safe('No Content has been added yet'){%>
 	<% model.sections.where{|section| section.page_ref.include? @current_page}.each do |section|%>
-    <% safe('No Content has been added yet'){%>
 	<div class="alert alert-success">
       <span>
 		<%=section.tip%>
@@ -12,7 +12,7 @@
     <div>
       <%=section.content%>
     </div>
-	<%}%>
+
 	<%end%>
 	
 	<% if @current_page == 'blog-archive' %>
@@ -25,5 +25,5 @@
 		<%}%>
 	<% end %>
 	<% end%>
-
+	<%}%>
 </div>
