@@ -57,15 +57,17 @@ class MongoDatabase
     flat_file = []
       all_user_collections('*').each do |collection|
 
-        docs = collection(collection).resource_links(nil, nil, nil)
-        docs_in_collection = []
-        docs.each do |doc|
-          doc_from_db = collection(collection).find_document(doc['alias'])
-          if(doc_from_db)
-            docs_in_collection.push(doc_from_db.stripped_document)
+        if(collection != 'objectlabs-system' && collection != '_koda_media') 
+          docs = collection(collection).content_links(nil, nil, nil)
+          docs_in_collection = []
+          docs.each do |doc|
+            doc_from_db = collection(collection).find_document(doc['alias'])
+            if(doc_from_db)
+              docs_in_collection.push(doc_from_db.stripped_document)
+            end
           end
+          flat_file.push({'collection'=>collection, 'docs' => docs_in_collection})
         end
-        flat_file.push({'collection'=>collection, 'docs' => docs_in_collection})
       end
     flat_file
   end
