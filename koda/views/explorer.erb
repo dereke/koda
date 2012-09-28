@@ -38,7 +38,6 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/koda/apple-touch-icon-114x114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/koda/apple-touch-icon-72x72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/koda/apple-touch-icon-57x57-precomposed.png">
-	<script src="http://www.boxjs.com/box.js"></script>
 	<script src="/koda/scripts/plugins/jquery.js"></script>
 	<script src="/koda/scripts/plugins/fancybox/jquery.easing-1.3.pack.js"></script>
 	<script src="/koda/scripts/plugins/fancybox/jquery.mousewheel-3.0.4.pack.js"></script>
@@ -107,19 +106,11 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 	<script src="/koda/scripts/plugins/bootstrap.js" type="text/javascript" charset="utf-8"></script>
-	<script>
-		<% if(settings.environment != :development) %>
-		Box("http://www.kodacms.org/koda/scripts/", [
-		<% else %>
-		Box("/koda/scripts/", [
-		<% end %>
-			"plugins/json2.js",
-			"plugins/jquery-class.js",
-			"plugins/fancybox/jquery.fancybox-1.3.4.js?23423",
-			"plugins/jquery.contextmenu/jquery.contextMenu.js",
-			"plugins/modernizr.js",
-			"Koda.js?<%=Time.now.to_i if settings.environment == :development%>"
-		], {dev:<%=settings.environment == :development %>, version:'1.<%=Time.now.to_i%>'});
-	</script>
+	<script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/koda/scripts/plugins/jquery-class.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/koda/scripts/plugins/fancybox/jquery.fancybox-1.3.4.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/koda/scripts/plugins/jquery.contextmenu/jquery.contextMenu.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/koda/scripts/plugins/modernizr.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/koda/scripts/Koda.js<%=Time.now.to_i%>" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
