@@ -2,7 +2,7 @@
 	<%safe {%>
 	<% model.blogposts.all.each do |post|%>
 	<li class="clear">
-		<a href="#"><%=post.title%></a> 
+		<a href="/post/<%=post.alias%>"><%=post.title%></a> 
 		<span class="quote"><%=post.teaser%></span>
 		<span class="author"><%=model.authors.by_ref(post.author_ref).name%></span>
 	</li>

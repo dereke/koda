@@ -1,11 +1,10 @@
 <div class="navbar-content">
   <ul class="nav ">
-	<% safe {%>
-	<% model.pages.all.each do |page| %>
+	<% pages = model.pages.all.sort! { |a,b| a.tags <=> b.tags } %>
+	<% pages.each do |page| %>
     <li class="active">
       <a href="/<%=page.alias%>"><%=page.name %></a> 
     </li>
 	<% end %>
-	<%}%>
   </ul>
 </div>

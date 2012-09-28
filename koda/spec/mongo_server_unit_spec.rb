@@ -7,6 +7,8 @@ require File.join(File.dirname(__FILE__), %w[doubles/mongo_collection_double])
 
 set :environment, :test
 set :enable_cache, false
+set :short_ttl, 400
+set :long_ttl, 4600
 set :view_format, :erb
 set :view_options, { :escape_html => true }
 

@@ -15,14 +15,16 @@
 
 	<%end%>
 	
-	<% if @current_page == 'blog-archive' %>
+	<% if @current_page == 'blog_archive' %>
 	<% model.blogposts.all.each do |blogpost|%>
 		<% safe('No Content has been added yet'){%>
-	    <h2><%=blogpost.title%></h2>
+	   	<div class="well">
+		<h3><a href="/post/<%=blogpost.alias%>"><%=blogpost.title%></a></h3>
 	    <div>
 	      <%=blogpost.teaser%>
 	    </div>
 		<%}%>
+		</div>
 	<% end %>
 	<% end%>
 	<%}%>

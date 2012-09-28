@@ -1,0 +1,9 @@
+<div class="span8">
+	<% post = model.blogposts.single{|post| post.alias == @current_page}%>
+    <h2><%=post.title%></h2>
+
+	<h4><%=post.teaser%></h4>
+    <div>
+      <%=post.content%>
+    </div>
+</div>
