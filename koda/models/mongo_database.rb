@@ -61,7 +61,9 @@ class MongoDatabase
         docs_in_collection = []
         docs.each do |doc|
           doc_from_db = collection(collection).find_document(doc['alias'])
-          docs_in_collection.push(doc_from_db.stripped_document)
+          if(doc_from_db)
+            docs_in_collection.push(doc_from_db.stripped_document)
+          end
         end
         flat_file.push({'collection'=>collection, 'docs' => docs_in_collection})
       end
