@@ -98,8 +98,6 @@ def create_content
 
 end
 
-private
-
 def refresh_cache
   key = "full_cache"
   
@@ -124,6 +122,8 @@ def get_from_cache(time_to_live=settings.long_ttl)
   return settings.cache.get(key)
 
 end
+
+private
 
 def template_for(path)
   return nil  unless File.exists?(path)
