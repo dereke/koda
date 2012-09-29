@@ -1,3 +1,16 @@
+PATH
+  remote: .
+  specs:
+    koda (0.0.1)
+      bson_ext
+      dalli
+      mongo
+      rack-methodoverride-with-params
+      rest-client
+      shared-mime-info
+      sinatra
+      sinatra-jsonp
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -8,6 +21,7 @@ GEM
     diff-lcs (1.1.3)
     json_pure (1.7.5)
     mime-types (1.19)
+    minitest (4.0.0)
     mongo (1.7.0)
       bson (~> 1.7.0)
     rack (1.4.1)
@@ -45,16 +59,10 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext
-  dalli
-  mongo
-  rack-methodoverride-with-params
+  koda!
+  minitest
   rack-test
-  rest-client
   rspec
-  shared-mime-info
   shotgun
-  sinatra
-  sinatra-jsonp
   test-spec
   watchr

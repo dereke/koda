@@ -1,6 +1,7 @@
 .idea
 *.gem
 *.rbc
+Gemfile.lock
 .bundle
 .config
 coverage
