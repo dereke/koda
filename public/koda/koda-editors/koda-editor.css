@@ -15,6 +15,12 @@ input, textarea, select {
 	width: 74% !important;
 }
 
+.spinner-form {
+	position: relative !important;
+	left: 93% !important;
+	top: -12px !important;
+}
+
 .form-horizontal .control-label {
 	width: 150px !important;
 	padding-top: 1px !important;
@@ -46,9 +52,10 @@ input, textarea, select {
 	float: right;
 	clear: both;
 	position: relative;
-	top: -120px;
+	top: -74px;
 	right: 200px;
-	width: 120px;
+	width: 140px;
+	height: 90px;
 }
 
 .no-wrap {

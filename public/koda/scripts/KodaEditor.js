@@ -1,3 +1,4 @@
+
 /*
    ----------------------------------------------------------
 	KodaEditor 
@@ -5,6 +6,41 @@
 */
 var Editor = Editor || {};
 var RootUrl = '/api';
+
+Editor.spinnerOpts = {
+  lines: 9, // The number of lines to draw
+  length: 0, // The length of each line
+  width: 5, // The line thickness
+  radius: 10, // The radius of the inner circle
+  corners: 0.9, // Corner roundness (0..1)
+  rotate: 0, // The rotation offset
+  color: '#000', // #rgb or #rrggbb
+  speed: 1.2, // Rounds per second
+  trail: 30, // Afterglow percentage
+  shadow: false, // Whether to render a shadow
+  hwaccel: false, // Whether to use hardware acceleration
+  className: 'spinner-form', // The CSS class to assign to the spinner
+  zIndex: 2e9, // The z-index (defaults to 2000000000)
+  top: 'auto', // Top position relative to parent in px
+  left: 'auto' // Left position relative to parent in px
+};
+
+$.fn.spin = function(opts) {
+  this.each(function() {
+    var $this = $(this),
+        data = $this.data();
+
+    if (data.spinner) {
+      data.spinner.stop();
+      delete data.spinner;
+    }
+    if (opts !== false) {
+      data.spinner = new Spinner($.extend({color: $this.css('color')}, opts)).spin(this);
+    }
+  });
+  return this;
+};
+
 
 String.prototype.startsWith = function(str) {
 	return (this.match("^"+str)==str)
@@ -28,6 +64,18 @@ Editor.AjaxProvider = function(url, onLoaded) {
 	Editor.Api.get(url, function(data){
 		onLoaded(data);
 	});
+}
+
+Editor.Spinner = function() {
+	return {
+		show: function() {
+			
+		},
+		
+		hide: function() {
+			
+		}
+	}
 }
 
 Editor.Api = function() {
@@ -680,7 +728,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	var actionGroup = $('<div class="form-actions"></div>');
 	
 	actionGroup.append('<button type="submit" class="btn btn-primary">Save</button><div class="spacer"></div>');
-	
+	actionGroup.append('<div id="spinner"></div>');
 	actionGroup.append('<div id="status" class="alert alert-success" style="display:none"></div>');
 	fieldset.append(actionGroup);
 	

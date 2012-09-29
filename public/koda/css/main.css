@@ -261,3 +261,11 @@
 a.new {
 	cursor : pointer;
 }
+
+div.spinner {
+	position: absolute !important;
+	width: 100px !important;
+	z-index: 2000000000 !important;
+	left: 96% !important;
+	top: 88px !important;
+}

@@ -1,13 +1,14 @@
 <html>
 <head>
 <link rel="stylesheet" href="/koda/css/bootstrap.css" type="text/css" media="screen" title="no title" charset="utf-8">
-<link rel="stylesheet" href="koda-editor.css?2ea3d" type="text/css" media="screen" title="no title" charset="utf-8">
-<link rel="stylesheet" href="generic-editor.css?4awa4" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="koda-editor.css?2eaa3d" type="text/css" media="screen" title="no title" charset="utf-8">
+<link rel="stylesheet" href="generic-editor.css?4adwa4" type="text/css" media="screen" title="no title" charset="utf-8">
 <link rel="stylesheet" href="/koda/css/bootstrap-responsive.css" type="text/css" media="screen" title="no title" charset="utf-8">
 <script src="/koda/scripts/plugins/json2.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/jquery.js" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/nicEdit.js?2333da323d3234aa" type="text/javascript" charset="utf-8"></script>
-<script src="/koda/scripts/KodaEditor.js?98aaaa2sdfaa84447" type="text/javascript" charset="utf-8"></script>
+<script src="/koda/scripts/plugins/spin.js" type="text/javascript"></script>
+<script src="/koda/scripts/KodaEditor.js?98aaaa2sdfaa84a447" type="text/javascript" charset="utf-8"></script>
 <script src="/koda/scripts/plugins/fileuploader.js?2342234a7aa6ad4aa" type="text/javascript"></script>
 </head>
 <body>
@@ -25,6 +26,9 @@
 			
 			var onUpdate = function(sdata){
 
+				$('#spinner').data().spinner.stop();
+				$('.btn-primary').removeAttr('disabled');
+
 				if(sdata == "OK") {					
 					$('#status').text("Document Saved!");
 					$('#status').show().fadeOut(2000);	
@@ -37,7 +41,10 @@
 			}
 
 			var onSubmit = function(data) {				
-												
+				
+				$('#spinner').spin(Editor.spinnerOpts);
+				$('.btn-primary').attr('disabled', 'disabled');
+				
 				if(isNew) {					
 
 					var dataString = JSON.stringify(data, null, 2);
