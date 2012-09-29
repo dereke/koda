@@ -14,6 +14,21 @@ $.fn.spin = function(opts) {
   return this;
 };
 
+String.prototype.parseDate = function(){
+	var date = new Date(Date.parse(this));
+	var curr_date = date.getDate();
+	var curr_month = date.getMonth() + 1; //Months are zero based
+	var curr_year = date.getFullYear();
+	return curr_date + "-" + curr_month + "-" + curr_year;
+}
+
+Date.prototype.parseDate = function() {
+	var curr_date = this.getDate();
+	var curr_month = this.getMonth() + 1; //Months are zero based
+	var curr_year = this.getFullYear();
+	return curr_date + "-" + curr_month + "-" + curr_year;
+}
+
 var spinnerOpts = {
   lines: 9, // The number of lines to draw
   length: 0, // The length of each line
@@ -355,6 +370,9 @@ $.Class.extend("ExplorerPresenter",
 							var listItem = $('<li class="well" id="'+item.id+'"/>');
 							var link = $('<a id="'+item.id+'"/>').text(item.name).addClass(item.type);
 							
+							parsedDate = item.date_created ? item.date_created.parseDate() : '';
+							var date = $('<span />').text(parsedDate);
+							
 							if(item.type != "collection"){
 								self.findType(item._koda_type, function(kodaType){
 									if(kodaType != undefined) {
@@ -364,7 +382,10 @@ $.Class.extend("ExplorerPresenter",
 								});
 							}
 							
-							listItem.append(link).appendTo(list);
+							listItem.append(link);
+							if(parsedDate != '') listItem.append(date);
+							
+							listItem.appendTo(list);
 							$(listItem).contextMenu({
 								menu : 'Actions'
 							}, self.contextMenuClick);
@@ -964,12 +985,12 @@ $.Class.extend("ListCommand",
 						var count = href.split("/").length - 1
 						var indicator = count > 2 ? "file" : "collection";
 						var name = item.name ? item.name : item.title
-						output.push({ id: item.alias, name : name, _koda_type : item._koda_type, type: indicator});
+						output.push({ id: item.alias, name : name, _koda_type : item._koda_type, type: indicator, date_created : item.date_created });
 
 					});					
 				} else {
 					var name = item.name ? item.name : item.title
-					output.push({ id: data.alias, name : name, _koda_type : data._koda_type, type: 'file'});
+					output.push({ id: data.alias, name : name, _koda_type : data._koda_type, type: 'file', date_created : data.date_created });
 				}
 
 				callback(output);

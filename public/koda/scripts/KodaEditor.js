@@ -50,6 +50,21 @@ String.prototype.endsWith = function(suffix) {
     return this.indexOf(suffix, this.length - suffix.length) !== -1;
 };
 
+String.prototype.parseDate = function(){
+	var date = new Date(Date.parse(this));
+	var curr_date = date.getDate();
+	var curr_month = date.getMonth() + 1; //Months are zero based
+	var curr_year = date.getFullYear();
+	return curr_date + "-" + curr_month + "-" + curr_year;
+}
+
+Date.prototype.parseDate = function() {
+	var curr_date = this.getDate();
+	var curr_month = this.getMonth() + 1; //Months are zero based
+	var curr_year = this.getFullYear();
+	return curr_date + "-" + curr_month + "-" + curr_year;
+}
+
 var PathHelper = {
 	getPath : function(path) {
 		if(path.startsWith('/'))
@@ -64,18 +79,6 @@ Editor.AjaxProvider = function(url, onLoaded) {
 	Editor.Api.get(url, function(data){
 		onLoaded(data);
 	});
-}
-
-Editor.Spinner = function() {
-	return {
-		show: function() {
-			
-		},
-		
-		hide: function() {
-			
-		}
-	}
 }
 
 Editor.Api = function() {
@@ -211,7 +214,8 @@ Editor.Controls = function() {
 			
 			this.all['input-hidden'] = this.inputType;
 			this.all['input-color'] = this.inputType;
-			this.all['input-date'] = this.inputType;
+			this.all['input-date'] = this.dateType;
+			this.all['input-datetime'] = this.dateType;
 			this.all['input-text'] = this.inputType;
 			this.all['input-password'] = this.inputType;
 			this.all['input-email'] = this.inputType;
@@ -227,6 +231,57 @@ Editor.Controls = function() {
 			this.all['truefalse'] = this.trueFalse;
 			this.all['collection'] = this.collection;
 			this.all['collection-multi'] = this.collectionMulti;
+			
+		},
+	
+		dateType : function(field) {
+			
+			var sections = field.control.split('-');
+			
+			if(sections.length < 2) {
+				throw 'Invalid control identifier';
+			}
+			
+			var type = sections[1];
+			var properties = field.properties ? field.properties : '';
+
+			return {
+				
+				id : field.id,
+				defaultValue: field.defaultValue,
+				html : '<input type="text" id="'+field.id+'" name="'+field.id+'" '+properties+' />',
+				value: '',
+				bind : function(key, callback) {
+					var control = $('input#'+field.id);
+					if(field.ajax) {
+						var provider = new Editor.AjaxProvider(field.ajax.url, function(data) {
+							control.val(data[field.ajax.displayfield])
+							callback(key);
+						});
+					} else {
+						callback(key);
+					}
+				},
+				create: function() {
+					return this.html;
+				},
+				getValue: function(){
+					var value = $('input#'+field.id).val();
+					if(value && value != '') {
+						var date = new Date(Date.parse(value));
+						return date;
+					}
+					
+					return new Date();
+				},
+				setValue: function(value) {
+					if(value != undefined && value != 'undefined') {
+						parsed = value.parseDate();
+						$('input#'+field.id).val(parsed);
+					}
+				}
+				
+			}
 			
 		},
 		
@@ -704,7 +759,7 @@ Editor.Form = function(container, spec, onSubmit) {
 				var expression = matched[1];
 				
 				if(expression == 'timestamp')
-					controlValue = new Date().toString();
+					controlValue = new Date();
 				else {
 					var retrievedValue = controlsCollection[expression].getValue();
 					controlValue = controlValue.replace(parameterRegex, retrievedValue);

@@ -225,6 +225,11 @@
 	margin: 0px;
 }
 
+.explorer-items li a {
+	position: relative;
+	top: -2px;
+}
+
 #back-button:hover,
 .explorer-items li:hover {
 	background-color: #BFD3FF;
@@ -236,16 +241,28 @@
 	height: 24px;
 	position: relative;
 	left: 12px;
-	top: 5px;
+	top: -1px;
 }
 
 #explorer a.collection {
 	background-image: url(/koda/images/box_file.png);
 	background-repeat: no-repeat;
 	background-position-x: 1px;
-	padding: 9px;
-	padding-left: 57px;
+	padding: 4px;
+	padding-left: 39px;
 	margin-left: 20px;
+	background-size: 23px 23px;
+}
+
+.explorer-items span {
+	padding: 4px;
+	background-color: paleGoldenrod;
+	float: right;
+}
+
+.explorer-items .well {
+	height: 17px;
+	padding: 9px;
 }
 
 #explorer a.file {

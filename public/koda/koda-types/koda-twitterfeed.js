@@ -17,6 +17,11 @@
 			"defaultValue" : "name,tags"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "showuserfeed",
 			"title" : "Show a user feed?",
 			"description" : "Do you want to show a user timeline?",

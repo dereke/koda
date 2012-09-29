@@ -17,6 +17,11 @@
 			"defaultValue" : "name,email"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "googleid",
 			"control" : "input-hidden",
 			"defaultValue" : ""

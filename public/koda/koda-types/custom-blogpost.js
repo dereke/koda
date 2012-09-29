@@ -30,6 +30,13 @@
 			"defaultValue" : "<%=timestamp%>"
 		},
 		{
+			"id" : "publish_date",
+			"title" : "Publish date",
+			"description" : "The publish date",
+			"control" : "input-datetime",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "alias",
 			"title" : "Alias",
 			"description" : "This will be generated from the title",

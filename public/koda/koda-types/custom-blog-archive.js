@@ -17,6 +17,11 @@
 			"defaultValue" : "name,alias"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "name",
 			"title" : "Page name",
 			"description" : "name of the page",

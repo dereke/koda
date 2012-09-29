@@ -94,14 +94,27 @@ class MongoCollection
   def resource_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url, '_koda_type' => doc_wrapper.type, 'rel' => 'full', 'title' => doc_wrapper.title, "alias" => doc_wrapper.ref, '_koda_hidden' => doc_wrapper.hidden}
+      { 
+        'href' => doc_wrapper.url, 
+        '_koda_type' => doc_wrapper.type, 
+        'rel' => 'full', 
+        'title' => doc_wrapper.title, 
+        "alias" => doc_wrapper.ref, 
+        '_koda_hidden' => doc_wrapper.hidden, 
+        'date_created' => doc_wrapper.date_created 
+      }
     end
   end
   
   def content_links_from_docs docs
     docs.map do |doc|
       doc_wrapper = create_document_wrapper doc
-      {'href' => doc_wrapper.url.gsub(/api/, "content"), 'title' => doc_wrapper.title, 'alias' => doc_wrapper.ref }
+      {
+        'href' => doc_wrapper.url.gsub(/api/, "content"), 
+        'title' => doc_wrapper.title, 
+        'alias' => doc_wrapper.ref, 
+        'date_created' => doc_wrapper.date_created 
+      }
     end
   end
 

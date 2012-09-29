@@ -12,6 +12,11 @@
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "_koda_indexes",
 			"control" : "input-hidden",
 			"defaultValue" : "alias,page_ref"

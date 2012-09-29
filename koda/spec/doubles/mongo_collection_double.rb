@@ -72,9 +72,13 @@ class CollectionDouble
   def sort found, options
     sort = get_option(options, :sort)
     if (sort != nil)
-      sorted = found.sort_by {|e| e[sort[0]]}      
-      sorted = sorted.reverse if (sort[1] == Mongo::DESCENDING)
-      sorted
+      sort = sort.first
+      if(found[sort[0]])
+        sorted = found.sort_by {|e| e[sort[0]]}      
+        sorted = sorted.reverse if (sort[1] == Mongo::DESCENDING)
+        return sorted
+      end
+        return found
     else
       return found
     end

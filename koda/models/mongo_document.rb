@@ -65,6 +65,11 @@ class MongoDocument
     end
   end
   
+  def date_created
+    return @doc['datecreated'] if(@doc['datecreated'])
+    ''
+  end
+  
   def type
     if(@doc['_koda_type'])
       @doc['_koda_type'].to_s

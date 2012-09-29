@@ -193,9 +193,11 @@ get '/content/:collection/?' do
   content_type :json, 'kodameta' => 'list'
   collection_name = params[:collection]
   
+  sort = [['datecreated', Mongo::DESCENDING]]
+  
   if(is_public_read? collection_name)
     halt 404 if not @db_wrapper.contains_collection(collection_name)  
-    JSONP @db_wrapper.collection(collection_name).content_links(params[:take], params[:skip], nil)
+    JSONP @db_wrapper.collection(collection_name).content_links(params[:take], params[:skip], sort)
   else
     response['Allow'] = 'GET'
     status 405
@@ -237,10 +239,12 @@ get '/api/:collection/?' do
     halt 404 if not @db_wrapper.contains_collection(collection_name)  
     content_type :json, 'kodameta' => 'list'  
     
+    sort = [['datecreated', Mongo::DESCENDING]]
+    
     if(is_admin?)
-      JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], nil)
+      JSONP @db_wrapper.collection(collection_name).resource_links(params[:take], params[:skip], sort)
     else
-      JSONP @db_wrapper.collection(collection_name).resource_links_no_hidden(params[:take], params[:skip], nil)
+      JSONP @db_wrapper.collection(collection_name).resource_links_no_hidden(params[:take], params[:skip], sort)
     end
 
   else

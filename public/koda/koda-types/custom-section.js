@@ -17,6 +17,11 @@
 			"defaultValue" : "alias,page_ref"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "name",
 			"title" : "Section name",
 			"description" : "name of the section",

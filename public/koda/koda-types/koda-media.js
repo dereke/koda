@@ -17,6 +17,11 @@
 			"defaultValue" : "name,tags"
 		},
 		{
+			"id" : "datecreated",
+			"control" : "input-hidden",
+			"defaultValue" : "<%=timestamp%>"
+		},
+		{
 			"id" : "name",
 			"title" : "Name",
 			"description" : "The name of the image",
