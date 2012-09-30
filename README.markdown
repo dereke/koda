@@ -22,7 +22,7 @@ http://www.kodacms.org/
 ## Some Screenshots
 
 ## Explorer
-![Content Editing](https://raw.github.com/KodaCMS/Default/master/screenshots/adding-content.png)
+![Content Editing](https://raw.github.com/KodaCMS/Koda/blob/master/screenshots/adding-content.png)
 
 ## Where are we now?
 
