@@ -14,7 +14,7 @@ $.fn.spin = function(opts) {
   return this;
 };
 
-String.prototype.parseDate = function(){
+String.prototype.parseDate = function() {
 	var date = new Date(Date.parse(this));
 	var curr_date = date.getDate();
 	var curr_month = date.getMonth() + 1; //Months are zero based
