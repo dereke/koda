@@ -9,17 +9,16 @@ http://www.kodacms.org/
 
 ## Features
 
-*	NoSQL (MongoDb)
-*	Back-office Explorer built with Twitter Bootstrap ('DropBox'-like interface for managing your content)
-*	Back-office Console, 'Terminal' 'CLI'-like interface for quick browsing through your data.
-*	Full RESTful API to your data (great for providing content to mobile apps or single page js apps)
-*	Platform independent (Built with Sinatra, Html and Javascript)
-*	Incredibly fast (Indexed Queries, and even Search queries can be cached)
-*	Almost no learning curve! (We will release a 5min video with our beta to prove this)
+*	DropBox-like interface for managing your content
+*	'Terminal' 'CLI'-like interface for quick browsing through your data.
+*	Full RESTful API to your data (great for providing content to mobile apps, single page js apps etc)
+*	Platform independent
+*	Incredibly fast
+*	Almost no learning curve
 *	Out of box Heroku with MongoLab support (FREE 500mb MongoDb instance and hosting. You only pay if your site becomes big)
 *	Always free! Open source MIT Licence
 
-## Some Screenshots
+## Screenshot
 
 ## Explorer
 ![Content Editing](https://raw.github.com/KodaCMS/Koda/master/screenshots/adding-content.png)
@@ -28,23 +27,19 @@ http://www.kodacms.org/
 
 In the pipeline
 
-*	Lots of Testing! (Currently best browser to use = Chrome)
+*	Publishing Workflow and Preview
 
 ETA - October / November 2012
 
 ### Getting started (Create starter kits or custom sites)
 
-You can use Koda just like Wordpress or Umbraco by installing an instance and building your website with the Koda back-office and using the built-in types,
+You can use Koda just like Wordpress or Umbraco by using the Koda gem and any of the starter pack gems.
 You can also follow a "code first" approach to create your own types and editors for a more unique editorial experience.  
-
-We only store content in the database. Any DataTypes, KodaTypes and Views you create goes straight on the filesystem. 
 
 The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
 All Koda Types, Koda Filters are done using a simple JSON formatted file. 
 
-To use content inside your views you can choose your own [view engine](http://sinatra-book.gittr.com/#templates) (default erb)
-
-Knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
+Some knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
 
 ### Getting started with Code First Development
 
@@ -59,25 +54,18 @@ Knowledge of Javascript is needed to create your own DataTypes and Koda Editors,
 
 Once you have this installed, simply...
 
-*	`git clone git@github.com:KodaCMS/Default.git`
-*	`sudo gem install bundler`
-*	`bundle install`
-
-*	`gem install shotgun`
-*	`gem install rspec`
-*	`gem install watchr`
-
-*	autotesting `watchr autotest.watchr`
-*	auto-reload webserver `shotgun -p 3000`
+*	`gem install koda`
+*	`gem install koda-blog`
+*	`shotgun -p 3000`
 
 * 	Use your favourite editor to start developing
-*	Install [Growl and Growl Notify](http://growl.info/) if you want to see visual feedback on autotesting
 *	Go to http://localhost:3000 to see your instance
 
-### Creating Layouts and Views
+## Creating Layouts and Views
 
-> Create a file called 'layout.erb' in the 'views' folder
+### Layouts   
 
+> /views/layout.rb   
 ```html
 <html>
   <body>
@@ -86,17 +74,50 @@ Once you have this installed, simply...
 </html>
 ```
 
-> And a file called 'index.erb'  
+### Views 
 
+Views will automatically be rendered inside the layout   
+
+> /views/myview.rb   
 ```html
 <h3>Hello World!</h3>
 ```
 
-> We will provide basic sitemap support, but you can add your own routes
+produces...    
+
+```html
+<html>
+  <body>
+   	<h3>Hello World!</h3>
+  </body>
+</html>
+```
+
+### Partials 
+
+> /views/partials/mypartial.rb   
+```html
+<p>my partial</p>
+```
+
+> /views/myview.rb   
+```html
+<h3>Hello World!</h3>
+<% render_partial 'partials/mypartial' %>
+```
+
+produces...   
+
+```html
+<html>
+  <body>
+   	<h3>Hello World!</h3>
+	<p>my partial</p>
+  </body>
+</html>
+```
 
 ### Using Content inside Views
-
-You can easily map the content returned by the api to your views by using our client api.   
 
 ```html
 <% model.blogposts.all.each do |blogpost|%>
@@ -109,8 +130,75 @@ You can easily map the content returned by the api to your views by using our cl
 <% end%>
 ```
 
+produces...   
+
+```html
+   <h2>My first blogpost</h2>
+   <div>
+      My blogpost content
+   </div>
+   <h2>My second blogpost</h2>
+   <div>
+      My blogpost content
+   </div>
+   <h2>My third blogpost</h2>
+   <div>
+      My blogpost content
+   </div>
+```
+
+### Routes
+
+```ruby
+get '/:page?' do
+  @current_page = params[:page]
+  @title = "Welcome to KodaCMS"
+  show :myview
+end
+```
+
+this will respond to, eg. '/about_us', '/contact_us'   
+and means you can show the correct info based on the context   
+
+```html
+<% page = model.pages.find(@current_page) %>
+	<% safe('No Content has been added yet'){%>
+    <h2><%=page.title%></h2>
+    <div>
+      <%=page.intro_paragraph%>
+    </div>
+	<%}%>
+<% end%>
+```
+
+this is a very simple example, but the possibilities when you can define your own routes...  
+
+```ruby
+get '/blog/:author/:post/:?' do
+  @author = params[:author]
+  @post = params[:post]
+  @title = "Welcome to KodaCMS"
+  show :myview
+end
+```
+
+and do...    
+
+```html
+<% model.blogposts.where{|post| post.author.include? @author && post.alias == @post }.each do |blogpost|%>
+	<% safe('No Content has been added yet'){%>
+    <h2><%=blogpost.title%></h2>
+    <div>
+      <%=blogpost.teaser%>
+    </div>
+	<%}%>
+<% end%>
+```
+
 > The default view-engine is [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby), but you can configure your own [from these choices](http://sinatra-book.gittr.com/#templates)!
 > But we also provide a very versatile, yet simple client API to use in your views   
+
+## Available content filters from within a view
 
 ### Where
 `model.[collection].where {|item| item.someProp == 'something' && item.alias != nil } ` returns all items that match   
@@ -121,11 +209,9 @@ You can easily map the content returned by the api to your views by using our cl
 ### By Ref
 `model.[collection].by_ref 'my_ref'` returns a reference document by referenceid   
 
-### Creating Koda Types (Code First)
+### Creating Koda Types
 
-Koda Types are schemas for documents. Think 'Umbraco - DocumentTypes'    
-
-To Create Koda types place a new js file in the `/public/koda/koda-types` folder    
+To Create Koda types place a new javascript file in the `/public/koda/koda-types` folder    
 
 Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
 A new type will appear under the "User Created" section on the right.     
@@ -189,10 +275,14 @@ A new type will appear under the "User Created" section on the right.
 We know that deploying CMS's to production can be a tedious process...   
 so to deploy koda to production just do...   
 
+after installing the koda gem and choosing your starter-kit   
+
 ```ruby
-git clone git@github.com:KodaCMS/Default.git
 heroku apps:create myapp
+heroku config:add ENABLE_CACHE=true
+heroku config:add ENVIRONMENT=production
 heroku addons:add mongolab:starter
+heroku addons:add memcache:5mb
 git push heroku master
 ```
 
