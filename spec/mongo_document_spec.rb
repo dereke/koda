@@ -1,7 +1,6 @@
-require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../models/mongo_document])
 require 'time'
+require_relative '../lib/models/mongo_document'
 
 describe 'Mongo Document' do
   
@@ -46,7 +45,7 @@ describe 'Mongo Document' do
     raw_doc = {'_id'=>BSON::ObjectId('4db0dedb387f7123c9000002'), 'title' => 'the title'}        
     
     doc = MongoDocument.new raw_doc, 'articles'
-    doc.standardised_document['_id'].should == nil     
+    doc.standardised_document['_id'].should be_nil
   end
   
   it "standardised document has a jam ref matching id" do

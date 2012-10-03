@@ -26,10 +26,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'dalli'
   s.add_dependency 'rest-client'
 
-  s.add_development_dependency'rspec'
-  s.add_development_dependency'minitest'
+  s.add_development_dependency'rspec', '>= 2.8'
   s.add_development_dependency'rack-test'
-  s.add_development_dependency'test-spec'
   s.add_development_dependency'shotgun'
   s.add_development_dependency'watchr'
 

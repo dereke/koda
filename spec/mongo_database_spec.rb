@@ -1,7 +1,6 @@
-require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../models/mongo_database])
-require File.join(File.dirname(__FILE__), %w[doubles/mongo_db_double])
+require_relative '../lib/models/mongo_database'
+require_relative './doubles/mongo_db_double'
 
 describe 'Mongo Database' do
   
@@ -10,9 +9,9 @@ describe 'Mongo Database' do
     
     collections= db.resource_collection_urls
         
-    collections.detect { |e| e == '/trucks'}.should.not == nil
-    collections.detect { |e| e == '/iguanas'}.should.not == nil
-    collections.detect { |e| e == '/cars'}.should.not == nil
+    collections.detect { |e| e == '/trucks'}.should_not be_nil
+    collections.detect { |e| e == '/iguanas'}.should_not be_nil
+    collections.detect { |e| e == '/cars'}.should_not be_nil
   end
 
   it "excludes system collections for urls" do
@@ -20,8 +19,8 @@ describe 'Mongo Database' do
     
     collections= db.resource_collection_urls
         
-    collections.detect { |e| e == '/system.indexes'}.should == nil
-    collections.detect { |e| e == '/system.users'}.should == nil
+    collections.detect { |e| e == '/system.indexes'}.should be_nil
+    collections.detect { |e| e == '/system.users'}.should be_nil
   end
   
   
@@ -30,9 +29,9 @@ describe 'Mongo Database' do
     
     collections= db.resource_collections
         
-    collections.detect { |e| e == 'trucks'}.should.not == nil
-    collections.detect { |e| e == 'iguanas'}.should.not == nil
-    collections.detect { |e| e == 'cars'}.should.not == nil
+    collections.detect { |e| e == 'trucks'}.should_not be_nil
+    collections.detect { |e| e == 'iguanas'}.should_not be_nil
+    collections.detect { |e| e == 'cars'}.should_not be_nil
   end
 
   it "excludes system collections" do
@@ -40,26 +39,26 @@ describe 'Mongo Database' do
     
     collections= db.resource_collections
         
-    collections.detect { |e| e == 'system.indexes'}.should == nil
-    collections.detect { |e| e == 'system.users'}.should == nil
+    collections.detect { |e| e == 'system.indexes'}.should be_nil
+    collections.detect { |e| e == 'system.users'}.should be_nil
   end
   
   it "is able to find an existing collecton" do
     db = MongoDatabase.new MongoDbDouble.instance   
 
-    db.contains_collection('trucks').should == true
+    db.contains_collection('trucks').should be_true
   end
 
   it "cannot find an existing collecton" do
     db = MongoDatabase.new MongoDbDouble.instance   
 
-    db.contains_collection('birds').should.not == true
+    db.contains_collection('birds').should_not be_true
   end
   
   it "cannot find an system collecton" do
     db = MongoDatabase.new MongoDbDouble.instance   
 
-    db.contains_collection('system.indexes').should.not == true
+    db.contains_collection('system.indexes').should_not be_true
   end
   
   
