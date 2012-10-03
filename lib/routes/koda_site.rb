@@ -4,7 +4,7 @@
 get '/console' do
   if(logged_in?)
     if(is_allowed_in_console?)
-      show_koda :console
+      show_system :console
     else
      redirect  "/access-denied-console"
     end
@@ -17,7 +17,7 @@ end
 get '/explorer' do
   if(logged_in?)
     if(is_allowed_in_explorer?)
-      show_koda :explorer
+      show_system :explorer
     else
       redirect "/access-denied-explorer"
     end
@@ -28,7 +28,7 @@ get '/explorer' do
 end
 
 get "/sign-in" do
-  show_koda :login
+  show_system :login
 end
 
 get "/sign-out" do
@@ -39,13 +39,13 @@ end
 get "/access-denied-console" do
   @title = "Access denied"
   @message = 'You need to be an administrator to access the console.'
-  show_koda :not_allowed
+  show_system :not_allowed
 end
 
 get "/access-denied-explorer" do
   @title = "Access denied"
   @message = 'If you have just registered, you will be able to gain access as soon as an administrator approves you.'
-  show_koda :not_allowed
+  show_system :not_allowed
 end
 
 post "/signed-in" do

@@ -1,5 +1,8 @@
-get '/koda/koda-types/*' do 
+get '/koda/*' do
   response['Allow'] = 'GET'
+  path = File.dirname(__FILE__) + '/../../public' + request.path
+  puts path
+  send_file path
 end
 
 get '/api' do

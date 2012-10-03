@@ -2,7 +2,55 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b355c14-e99c-4942-bf43-a3e8b20e2e29" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/partials/authors.erb" afterPath="$PROJECT_DIR$/views/partials/authors.erb" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/koda.gemspec" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/koda_app.rb" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/routes/site.rb" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/config.ru" afterPath="$PROJECT_DIR$/lib/koda.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/data/backup.rb" afterPath="$PROJECT_DIR$/lib/data/backup.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/helpers/app_helper.rb" afterPath="$PROJECT_DIR$/lib/helpers/app_helper.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/helpers/koda_helper.rb" afterPath="$PROJECT_DIR$/lib/helpers/koda_helper.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/helpers/view_helper.rb" afterPath="$PROJECT_DIR$/lib/helpers/view_helper.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/hash.rb" afterPath="$PROJECT_DIR$/lib/models/hash.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_collection.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_collection.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_config.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_config.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_database.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_database.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_document.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_document.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_grid.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_grid.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/mongo_media.rb" afterPath="$PROJECT_DIR$/lib/models/mongo_media.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/user_access_provider.rb" afterPath="$PROJECT_DIR$/lib/models/user_access_provider.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/models/user_context.rb" afterPath="$PROJECT_DIR$/lib/models/user_context.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/routes/koda_api.rb" afterPath="$PROJECT_DIR$/lib/routes/koda_api.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/routes/koda_site.rb" afterPath="$PROJECT_DIR$/lib/routes/koda_site.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/access_integration_spec.rb" afterPath="$PROJECT_DIR$/spec/access_integration_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/doubles/mongo_collection_double.rb" afterPath="$PROJECT_DIR$/spec/doubles/mongo_collection_double.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/doubles/mongo_db_double.rb" afterPath="$PROJECT_DIR$/spec/doubles/mongo_db_double.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/doubles/mongo_grid_double.rb" afterPath="$PROJECT_DIR$/spec/doubles/mongo_grid_double.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/doubles/mongo_grid_io_double.rb" afterPath="$PROJECT_DIR$/spec/doubles/mongo_grid_io_double.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/fail.jpeg" afterPath="$PROJECT_DIR$/spec/fail.jpeg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_collection_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_collection_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_database_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_database_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_document_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_document_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_grid_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_grid_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_server_integration_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_server_integration_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_server_shared.rb" afterPath="$PROJECT_DIR$/spec/mongo_server_shared.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/mongo_server_unit_spec.rb" afterPath="$PROJECT_DIR$/spec/mongo_server_unit_spec.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/success.png" afterPath="$PROJECT_DIR$/spec/success.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/testdata/IMG_0380.JPG" afterPath="$PROJECT_DIR$/spec/testdata/IMG_0380.JPG" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/testdata/mongo_test_data.rb" afterPath="$PROJECT_DIR$/spec/testdata/mongo_test_data.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/testdata/resource_test_data.rb" afterPath="$PROJECT_DIR$/spec/testdata/resource_test_data.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/testdata/simpletext.txt" afterPath="$PROJECT_DIR$/spec/testdata/simpletext.txt" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/spec/uniform_server_shared.rb" afterPath="$PROJECT_DIR$/spec/uniform_server_shared.rb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/views/console.erb" afterPath="$PROJECT_DIR$/lib/views/console.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/views/explorer.erb" afterPath="$PROJECT_DIR$/lib/views/explorer.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/views/login.erb" afterPath="$PROJECT_DIR$/lib/views/login.erb" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/koda/views/not_allowed.erb" afterPath="$PROJECT_DIR$/lib/views/not_allowed.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/KodaCMS-BlogStarterKit.iml" afterPath="$PROJECT_DIR$/.idea/KodaCMS-BlogStarterKit.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile" afterPath="$PROJECT_DIR$/Gemfile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/generic.erb" afterPath="$PROJECT_DIR$/views/generic.erb" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/layout.erb" afterPath="$PROJECT_DIR$/views/layout.erb" />
     </list>
     <ignored path="KodaCMS-BlogStarterKit.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,25 +69,57 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="site.rb" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/routes/site.rb">
+      <file leaf-file-name="koda.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/koda.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+            <state line="12" column="9" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="koda_api.rb" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/koda/routes/koda_api.rb">
+      <file leaf-file-name="koda_api.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/routes/koda_api.rb">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="345" column="49" selection-start="6952" selection-end="6952" vertical-scroll-proportion="0.17127071">
+            <state line="2" column="42" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/koda/css/main.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="267" column="14" selection-start="4782" selection-end="4782" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="koda_site.rb" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lib/routes/koda_site.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="41" column="8" selection-start="755" selection-end="755" vertical-scroll-proportion="-4.4925375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="view_helper.rb" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/helpers/view_helper.rb">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="16" column="85" selection-start="560" selection-end="560" vertical-scroll-proportion="0.3103953">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -48,14 +128,17 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/views/layout.erb" />
+        <option value="$PROJECT_DIR$/lib/koda.rb" />
+        <option value="$PROJECT_DIR$/lib/routes/koda_site.rb" />
+        <option value="$PROJECT_DIR$/lib/helpers/view_helper.rb" />
+        <option value="$PROJECT_DIR$/lib/routes/koda_api.rb" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="18" />
-    <option name="y" value="33" />
-    <option name="width" value="1400" />
-    <option name="height" value="848" />
+    <option name="x" value="1919" />
+    <option name="width" value="1922" />
+    <option name="height" value="1201" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="false">
     <OptionsSetting value="true" id="Add" />
@@ -98,7 +181,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
+              <option name="myItemId" value="koda" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -108,67 +191,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
+              <option name="myItemId" value="koda" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="partials" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="screenshots" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -182,7 +209,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
+              <option name="myItemId" value="koda" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -190,7 +221,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="routes" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -200,11 +231,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="KodaCMS-BlogStarterKit" />
+              <option name="myItemId" value="koda" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="helpers" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -217,38 +248,91 @@
     <property name="FullScreen" value="false" />
   </component>
   <component name="RunManager">
+    <configuration default="true" type="RSpecRunConfigurationType" factoryName="RSpec">
+      <predefined_log_file id="RUBY_RSPEC" enabled="true" />
+      <module name="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_RUNNER_PATH" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="**/*_spec.rb" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_EXAMPLE_NAME" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="SPEC_ARGS" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_VERSION" VALUE="" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="USE_CUSTOM_SPEC_RUNNER" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RSPEC_RUN_CONFIG_SETTINGS_ID NAME="FULL_BACKTRACE" VALUE="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="TestUnitRunConfigurationType" factoryName="Test::Unit/Shoulda/Minitest">
+      <predefined_log_file id="RUBY_TESTUNIT" enabled="true" />
+      <module name="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUBY_ARGS" VALUE="-e $stdout.sync=true;$stderr.sync=true;load($0=ARGV.shift)" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="WORK DIR" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="SHOULD_USE_SDK" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="ALTERN_SDK_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="myPassParentEnvs" VALUE="true" />
+      <envs />
+      <EXTENSION ID="BundlerRunConfigurationExtension" bundleExecEnabled="false" />
+      <EXTENSION ID="RubyCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" track_test_folders="true" runner="rcov">
+        <COVERAGE_PATTERN ENABLED="true">
+          <PATTERN REGEXPS="/.rvm/" INCLUDED="false" />
+        </COVERAGE_PATTERN>
+      </EXTENSION>
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TESTS_FOLDER_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_SCRIPT_PATH" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_FILE_MASK" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_METHOD_NAME" VALUE="" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="TEST_TEST_TYPE" VALUE="TEST_SCRIPT" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="DRB" VALUE="false" />
+      <RTEST_RUN_CONFIG_SETTINGS_ID NAME="RUNNER_OPTIONS" VALUE="" />
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="4b355c14-e99c-4942-bf43-a3e8b20e2e29" name="Default" comment="" />
       <created>1348832659010</created>
       <updated>1348832659010</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="18" y="33" width="1400" height="848" extended-state="0" />
+    <frame x="1919" y="0" width="1922" height="1201" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288948" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3292683" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1506647" sideWeight="0.6711052" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.11039657" sideWeight="0.6707317" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -304,37 +388,49 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/koda/helpers/view_helper.rb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="4" selection-start="1283" selection-end="1283" vertical-scroll-proportion="1.0337553">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/authors.erb">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="9" selection-start="58" selection-end="58" vertical-scroll-proportion="0.042857144">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/layout.erb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="29" selection-start="677" selection-end="677" vertical-scroll-proportion="0.47142857">
+        <state line="22" column="29" selection-start="677" selection-end="677" vertical-scroll-proportion="0.47142857" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/koda.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="9" selection-start="213" selection-end="213" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/site.rb">
+    <entry file="file://$PROJECT_DIR$/lib/routes/koda_site.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+        <state line="41" column="8" selection-start="755" selection-end="755" vertical-scroll-proportion="-4.4925375">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/koda/routes/koda_api.rb">
+    <entry file="file://$PROJECT_DIR$/lib/routes/koda_api.rb">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="345" column="49" selection-start="6952" selection-end="6952" vertical-scroll-proportion="0.17127071">
+        <state line="2" column="42" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/css/bootstrap-responsive.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-7.8404098">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/css/main.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="267" column="14" selection-start="4782" selection-end="4782" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/helpers/view_helper.rb">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="16" column="85" selection-start="560" selection-end="560" vertical-scroll-proportion="0.3103953">
           <folding />
         </state>
       </provider>
