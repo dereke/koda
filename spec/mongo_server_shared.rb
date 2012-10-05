@@ -40,7 +40,7 @@ shared_examples_for "Mongo KodaRms write interface" do
     last_response.status.should == 201
     get '/content'
 
-    last_response.body.detect { |e| e.to_s == '/bikes'}.should be_nil
+    last_response.body.should_not include '/bikes'
   end
 
   it "should deny access to folders with access-control set to non-public" do
@@ -124,7 +124,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
   it "creates retrievable media from multipart form with many files at the right location" do
 
-       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('koda/spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -134,7 +134,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
 
-       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
+       put '/api/_koda_media/thisisthename', 'files[]' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -146,7 +146,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
   it "creates retrievable media from multipart form with many files at the right location" do
 
-       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/IMG_0380.JPG', 'image/jpg')
+       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/IMG_0380.JPG', 'image/jpg')
 
        get last_response.location
 
@@ -156,7 +156,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
 
-       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
+       put '/api/_koda_media/thisisthename', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -167,7 +167,7 @@ shared_examples_for "Mongo KodaRms write interface" do
 
   it "creates retrievable media from multipart form with many files at the right location with correct file contents" do
 
-       post '/api/_koda_media', 'file' => Rack::Test::UploadedFile.new('koda/spec/testdata/simpletext.txt', 'text/plain')
+       post '/api/_koda_media', 'file' => Rack::Test::UploadedFile.new('spec/testdata/simpletext.txt', 'text/plain')
 
        get last_response.location
 
@@ -453,7 +453,7 @@ shared_examples_for "Mongo KodaRms read interface" do
 
   it "returns a 404 for a non-existant resource url" do
     get '/api/trucks/4db0dedb387f7123c9000007'
-    last_response.should_not be_found
+    last_response.should_not == 200
   end
 
   it "returns not modified for an unchanged resource url" do
@@ -483,7 +483,7 @@ shared_examples_for "Mongo KodaRms read interface" do
 
 
   it "can be requested to skip results" do
-    get URI.encode('/api/trucks?skip=2')
+    get '/api/trucks?skip=2'
 
     response_json = JSON.parse last_response.body
     response_json.length.should == 1
@@ -491,7 +491,7 @@ shared_examples_for "Mongo KodaRms read interface" do
   end
 
   it "can be requested to skip and take results" do
-    get URI.encode('/api/trucks?skip=1&take=1')
+    get '/api/trucks?skip=1&take=1'
 
     response_json = JSON.parse last_response.body
     response_json.length.should == 1
