@@ -1,8 +1,13 @@
 get '/koda/*' do
   response['Allow'] = 'GET'
   path = File.dirname(__FILE__) + '/../../public' + request.path
-  puts path
-  send_file path
+  response['Content-Type'] = 'text/css' if path =~ /.css$/
+  response['Content-Type'] = 'text/javascript' if path =~ /.js$/
+  response['Content-Type'] = 'image/jpeg' if path =~ /.jpg$/
+  response['Content-Type'] = 'image/png' if path =~ /.png$/
+  response['Content-Type'] = 'image/gif' if path =~ /.gif/
+  response['Content-Type'] = 'text/html' if path =~ /.html/
+  File.open(path, 'rb') {|f| f.read}
 end
 
 get '/api' do

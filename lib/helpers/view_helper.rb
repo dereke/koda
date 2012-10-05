@@ -142,6 +142,5 @@ alias user_view template_for
 
 def system_view(path)
   path = File.dirname(__FILE__)+ '/../views/' + path.to_s
-  puts path
   template_for path
 end
