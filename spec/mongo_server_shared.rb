@@ -24,7 +24,7 @@ shared_examples_for "Mongo KodaRms write interface" do
     last_response.status.should == 201
     get last_response.location
 
-    last_response.sh  ould be_ok
+    last_response.should be_ok
     response_json = JSON.parse last_response.body
     response_json['alias'].should_not be_nil
     response_json['cost'].should == 'expensive'
