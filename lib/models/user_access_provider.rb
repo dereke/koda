@@ -13,14 +13,17 @@ class UserAccessProvider
     if(action == :read)
       read_users = access_control.read_users
       return true if is_public_read? collection_name
+      return true if !read_users
       return true if read_users.include? UserContext.current_user.alias
     elsif(action == :write)
       write_users = access_control.write_users
+      return true if !write_users
       return true if write_users == "*"
       return true if write_users.include? UserContext.current_user.alias          
     elsif(action == :modify)
       modify_users = access_control.modify_users
       return true if modify_users == "*"
+      return true if !modify_users
       return true if modify_users.include? UserContext.current_user.alias
     end
     false
