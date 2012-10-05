@@ -42,8 +42,8 @@ describe 'Mongo KodaRms Integration' do
   
   before do
     @@current_user = admin_user
-    MongoConfig.instance_eval do     
-       def GetMongoDatabase 
+    MongoConfig.instance_eval do
+       def GetMongoDatabase
          Mongo::Connection.new('localhost',27017).db('kodacms_test')
        end
      end
