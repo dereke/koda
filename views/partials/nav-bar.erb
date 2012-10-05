@@ -3,7 +3,7 @@
 	<% pages = model.pages.all.sort! { |a,b| a.tags <=> b.tags } %>
 	<% pages.each do |page| %>
     <li class="active">
-      <a href="/<%=page.alias%>"><%=page.name %></a> 
+      <a href="/<%=page.alias%>"><%=page.name %></a>
     </li>
 	<% end %>
   </ul>
