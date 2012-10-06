@@ -1,4 +1,8 @@
-require "rspec/core/rake_task"
+require 'rspec/core/rake_task'
+require 'rubygems'
+require 'bundler'
+require 'rspec/core/rake_task'
+Bundler::GemHelper.install_tasks
 
 desc "Run tests"
 task :spec do
@@ -7,3 +11,4 @@ task :spec do
     t.pattern = 'spec/*_spec.rb'
   end
 end
+
