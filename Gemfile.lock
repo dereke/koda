@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    koda (0.0.5)
+    koda (0.0.8)
       bson_ext
       dalli
       mongo

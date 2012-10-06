@@ -2,7 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4b355c14-e99c-4942-bf43-a3e8b20e2e29" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.markdown" afterPath="$PROJECT_DIR$/README.markdown" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gemfile.lock" afterPath="$PROJECT_DIR$/Gemfile.lock" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/koda.gemspec" afterPath="$PROJECT_DIR$/koda.gemspec" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-editors/KodaEditor.js" afterPath="$PROJECT_DIR$/public/koda/koda-editors/KodaEditor.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html" afterPath="$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-types/koda-access.json" afterPath="$PROJECT_DIR$/public/koda/koda-types/koda-access.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-types/koda-generictext.json" afterPath="$PROJECT_DIR$/public/koda/koda-types/koda-generictext.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-types/koda-media.json" afterPath="$PROJECT_DIR$/public/koda/koda-types/koda-media.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-types/koda-twitterfeed.json" afterPath="$PROJECT_DIR$/public/koda/koda-types/koda-twitterfeed.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/koda/koda-types/koda-user.json" afterPath="$PROJECT_DIR$/public/koda/koda-types/koda-user.json" />
     </list>
     <ignored path="KodaCMS-BlogStarterKit.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -21,10 +30,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="README.markdown" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.markdown">
+      <file leaf-file-name="koda.gemspec" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/koda.gemspec">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="461" column="0" selection-start="12517" selection-end="12517" vertical-scroll-proportion="10.131868">
+            <state line="8" column="24" selection-start="216" selection-end="216" vertical-scroll-proportion="0.17582418">
               <folding />
             </state>
           </provider>
@@ -43,17 +52,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/views/layout.erb" />
         <option value="$PROJECT_DIR$/spec/mongo_server_integration_spec.rb" />
         <option value="$PROJECT_DIR$/public/koda/koda-types/_type_registration.js" />
         <option value="$PROJECT_DIR$/public/koda/koda-editors/generic-editor.html" />
-        <option value="$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html" />
         <option value="$PROJECT_DIR$/public/koda/koda-editors/twitterfeed-editor.html" />
         <option value="$PROJECT_DIR$/public/koda/scripts/Koda.js" />
-        <option value="$PROJECT_DIR$/koda.gemspec" />
         <option value="$PROJECT_DIR$/lib/data/backup.rb" />
         <option value="$PROJECT_DIR$/lib/models/mongo_config.rb" />
         <option value="$PROJECT_DIR$/README.markdown" />
+        <option value="$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html" />
+        <option value="$PROJECT_DIR$/public/koda/koda-editors/KodaEditor.js" />
+        <option value="$PROJECT_DIR$/public/koda/koda-types/koda-generictext.json" />
+        <option value="$PROJECT_DIR$/public/koda/koda-types/koda-media.json" />
+        <option value="$PROJECT_DIR$/public/koda/koda-types/koda-twitterfeed.json" />
+        <option value="$PROJECT_DIR$/public/koda/koda-types/koda-user.json" />
+        <option value="$PROJECT_DIR$/public/koda/koda-types/koda-access.json" />
+        <option value="$PROJECT_DIR$/koda.gemspec" />
       </list>
     </option>
   </component>
@@ -223,6 +237,7 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294271" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23453237" sideWeight="0.67057294" order="0" side_tool="false" content_ui="combo" />
@@ -234,7 +249,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294271" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3288948" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -294,56 +308,6 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-user.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-collection.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-access.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="9" selection-start="269" selection-end="269" vertical-scroll-proportion="0.28070176" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/_builtin_registration.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="29" selection-start="380" selection-end="380" vertical-scroll-proportion="0.3022942" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/KodaEditor.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-6.1538463" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/scripts/Koda.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1153" column="31" selection-start="27061" selection-end="27061" vertical-scroll-proportion="0.5494506" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="17" selection-start="872" selection-end="872" vertical-scroll-proportion="0.22346368" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/generic-editor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="13" selection-start="894" selection-end="894" vertical-scroll-proportion="0.22346368" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/twitterfeed-editor.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="35" selection-start="0" selection-end="2806" vertical-scroll-proportion="0.22346368" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/generic-editor.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="2142" vertical-scroll-proportion="-1.5263158" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/koda-editor.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="975" vertical-scroll-proportion="0.0" />
@@ -352,11 +316,6 @@
     <entry file="file://$PROJECT_DIR$/Gemfile">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/koda.gemspec">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="42" selection-start="1188" selection-end="1188" vertical-scroll-proportion="0.6593407" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/models/mongo_config.rb">
@@ -372,6 +331,84 @@
     <entry file="file://$PROJECT_DIR$/README.markdown">
       <provider selected="true" editor-type-id="text-editor">
         <state line="461" column="0" selection-start="12517" selection-end="12517" vertical-scroll-proportion="10.131868">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/collection-editor.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="47" selection-start="533" selection-end="536" vertical-scroll-proportion="0.21967964">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/scripts/Koda.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="1147" column="62" selection-start="26807" selection-end="26807" vertical-scroll-proportion="0.26495728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-editors/KodaEditor.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="689" column="146" selection-start="17213" selection-end="17213" vertical-scroll-proportion="-2.6467237">
+          <folding>
+            <marker date="1349538618000" expanded="false" signature="-1:-1" placeholder="..." />
+            <marker date="1349538618000" expanded="false" signature="-1:-1" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/_builtin_registration.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="17" column="69" selection-start="584" selection-end="584" vertical-scroll-proportion="0.3783032">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-user.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="61" selection-start="128" selection-end="128" vertical-scroll-proportion="0.10796221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-twitterfeed.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="68" selection-start="143" selection-end="143" vertical-scroll-proportion="0.10796221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-media.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="62" selection-start="130" selection-end="130" vertical-scroll-proportion="0.10989011">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-generictext.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="68" selection-start="138" selection-end="138" vertical-scroll-proportion="0.10796221">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-collection.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/koda/koda-types/koda-access.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="5" column="63" selection-start="132" selection-end="132" vertical-scroll-proportion="0.021592442">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/koda.gemspec">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="24" selection-start="216" selection-end="216" vertical-scroll-proportion="0.17582418">
           <folding />
         </state>
       </provider>

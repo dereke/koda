@@ -3,22 +3,18 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-types/koda-twitterfeed.js"
+			"defaultValue" : "/koda/koda-types/koda-twitterfeed.json"
 		},	
 		{
 			"id" : "_koda_editor",
-			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/twitterfeed-editor.html"
 		},
 		{
 			"id" : "_koda_indexes",
-			"control" : "input-hidden",
 			"defaultValue" : "name,tags"
 		},
 		{
 			"id" : "datecreated",
-			"control" : "input-hidden",
 			"defaultValue" : "<%=timestamp%>"
 		},
 		{

@@ -20,7 +20,7 @@
 		var api = Editor.Api;		
 		var isNew = api.isNew;
 		
-		api.get('/koda/koda-types/koda-collection.js', function(kodaType) {
+		api.get('/koda/koda-types/koda-collection.json', function(kodaType) {
 			var onSubmit = function(data) {
 				var newItem = data.name.replace(/ /g,"-");
 				var url = PathHelper.getPath(newItem);
