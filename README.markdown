@@ -213,7 +213,7 @@ and do...
 
 To Create Koda types place a new javascript file in the `/public/koda/koda-types` folder    
 
-Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
+Register your type in the `/public/koda/koda-types/_builtin_registration.json` file and you can now use it in the Koda Explorer!
 A new type will appear under the "User Created" section on the right.     
 
 

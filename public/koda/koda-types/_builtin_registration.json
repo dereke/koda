@@ -1,0 +1,62 @@
+[
+	{	"group" : "koda", 
+		"title" : "Koda Types",
+		"types" : [
+			{
+				"title" : "Folder",
+				"description" :"A container to hold KodaTypes",
+				"icon" : "/koda/images/package.png",
+				"editor" : "/koda/koda-editors/collection-editor.html",
+				"type"	: "/koda/koda-types/koda-collection.json",
+				"allowedin" : "root"
+			},
+			{
+				"title" : "Text File",
+				"description" :"This will create a simple text document",
+				"icon" : "/koda/images/database_table.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/koda-generictext.json",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "Media File",
+				"description" :"Image, Video or Audio",
+				"icon" : "/koda/images/image_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type" : "/koda/koda-types/koda-media.json",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "Twitter Feed",
+				"description" :"This will include posts of a twitter feed",
+				"icon" : "/koda/images/twitter.png",
+				"editor" : "/koda/koda-editors/twitterfeed-editor.html",
+				"type"	: "/koda/koda-types/koda-twitterfeed.json",
+				"allowedin" : "collection"
+			}
+		]
+	},
+	{
+		"group" : "admin",
+		"title" : "Administration",
+		"admin_users" : true,
+		"types" : [
+			{
+				"title" : "Koda User",
+				"description" :"This will create a koda user",
+				"icon" : "/koda/images/group_add.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/koda-user.json",
+				"allowedin" : "collection"
+			},
+			{
+				"title" : "Koda Access",
+				"description" :"Control access to a folder",
+				"icon" : "/koda/images/group_key.png",
+				"editor" : "/koda/koda-editors/generic-editor.html",
+				"type"	: "/koda/koda-types/koda-access.json",
+				"allowedin" : "collection"
+			}
+		]
+	}
+]

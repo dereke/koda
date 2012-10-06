@@ -115,7 +115,7 @@ class UserAccessProvider
       'name' => name, 
       'email' => email, 
       '_koda_indexes' => 'name,email', 
-      '_koda_type' => '/koda/koda-types/koda-user.js',
+      '_koda_type' => '/koda/koda-types/koda-user.json',
       '_koda_editor' => '/koda/koda-editors/generic-editor.html',
       'isadmin' => is_admin,
       'isallowed' => is_admin
