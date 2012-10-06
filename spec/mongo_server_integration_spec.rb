@@ -10,11 +10,7 @@ set :long_ttl, 4600
 
 describe 'Mongo KodaRms Integration' do
   include Rack::Test::Methods
-  
-  def admin_user
-    {'alias'=>'test_user','isadmin'=>true,'isallowed'=>true}
-  end
-  
+
   def clear_database database
      database.collections().each do |collection|
         begin
@@ -24,24 +20,23 @@ describe 'Mongo KodaRms Integration' do
         end
        end
   end
-  
+
   def populate_database_with_documents database
     MongoTestData.collections.each_pair do |collection_name, documents|
       database.create_collection collection_name
       documents.each do |document|
-        database[collection_name].save document        
+        database[collection_name].save document
       end
     end
   end
-  
+
   before(:each) do
     database = Mongo::Connection.new('localhost',27017).db('kodacms_test')
     clear_database database
     populate_database_with_documents database
   end
-  
+
   before do
-    @@current_user = admin_user
     MongoConfig.instance_eval do
        def GetMongoDatabase
          Mongo::Connection.new('localhost',27017).db('kodacms_test')
@@ -49,11 +44,11 @@ describe 'Mongo KodaRms Integration' do
      end
     UserContext.instance_eval do
       def current_user
-        @@current_user
+        {:alias =>'test_user', :isadmin =>true, :isallowed =>true}
       end
     end
   end
-  
+
   def app
     Sinatra::Application
   end
