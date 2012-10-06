@@ -1,6 +1,5 @@
-require 'test/spec'
 require 'bson'
-require File.join(File.dirname(__FILE__), %w[../models/mongo_collection])
+require_relative '../lib/models/mongo_collection'
 
 describe 'Mongo Collection' do
   

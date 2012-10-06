@@ -10,6 +10,13 @@ def show_koda(template, locals={})
   render(settings.view_format, template, options, locals)
 end
 
+def show_system(template, locals={})
+  content_type :html
+  options = {:layout => false}.merge(settings.view_options)
+  template = system_view "#{template}.#{settings.view_format}"
+  render(settings.view_format, template, options, locals)
+end
+
 def show(template, locals={})
   content_type :html
   options = {:layout => true}.merge(settings.view_options)
@@ -128,4 +135,12 @@ private
 def template_for(path)
   return nil  unless File.exists?(path)
   File.open(path) { |f| f.read }
+end
+
+alias user_view template_for
+
+
+def system_view(path)
+  path = File.dirname(__FILE__)+ '/../views/' + path.to_s
+  template_for path
 end

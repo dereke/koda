@@ -1,4 +1,3 @@
-require 'test/spec'
 require 'rack/test'
 require 'json'
 require 'time'
@@ -8,27 +7,27 @@ shared_examples_for "Uniform Spoon interface" do
   it "responds with a json list at the root" do
     get '/api/'
     
-    last_response.should.be.ok
+    last_response.should be_ok
     response_json = JSON.parse last_response.body
-    response_json.count.should.be > 0
+    response_json.count.should > 0
   end
   
   it "responds with a list of resource links at the root" do
     get '/api/'
     
-    last_response.should.be.ok
+    last_response.should be_ok
     response_json = JSON.parse last_response.body
-    response_json.each {|e| e['href'].should.not == nil}
+    response_json.each {|e| e['href'].should_not be_nil}
   end
   
   it "responds with a list of gettable resource links from root" do
     get '/api/'
     
-    last_response.should.be.ok
+    last_response.should be_ok
     response_json = JSON.parse last_response.body
     response_json.each do |e| 
       get e['href']
-      last_response.should.be.ok
+      last_response.should be_ok
     end
   end
   
@@ -64,7 +63,7 @@ shared_examples_for "Uniform Spoon interface" do
 
     if (content_type != nil && last_response.content_type.include?('application/json'))
       response_json = JSON.parse last_response.body
-      response_json.should.not == nil      
+      response_json.should_not be_nil
     end
   end
   
@@ -75,7 +74,7 @@ shared_examples_for "Uniform Spoon interface" do
      delete url
      get url
      
-     last_response.should.be.not_found 
+     last_response.should_not be_found
     end
   end
   
@@ -135,7 +134,7 @@ shared_examples_for "Uniform Spoon interface" do
     
     if (last_response["ALLOW"].include?('GET') ) 
       get url
-      last_response.should.be.ok
+      last_response.should be_ok
       
       if (last_response.content_type == 'application/json;kodameta=list')
         response_json = JSON.parse last_response.body

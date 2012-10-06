@@ -1,4 +1,4 @@
-require File.join(File.dirname(__FILE__), %w[../../koda_app])
+require File.join(File.dirname(__FILE__), %w[../lib/koda])
 require File.join(File.dirname(__FILE__), %w[mongo_server_shared])
 require File.join(File.dirname(__FILE__), %w[uniform_server_shared])
 require File.join(File.dirname(__FILE__), %w[testdata/mongo_test_data])
@@ -42,8 +42,8 @@ describe 'Mongo KodaRms Integration' do
   
   before do
     @@current_user = admin_user
-    MongoConfig.instance_eval do     
-       def GetMongoDatabase 
+    MongoConfig.instance_eval do
+       def GetMongoDatabase
          Mongo::Connection.new('localhost',27017).db('kodacms_test')
        end
      end

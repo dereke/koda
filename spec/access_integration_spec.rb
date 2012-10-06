@@ -1,8 +1,7 @@
-require 'test/spec'
 require 'rack/test'
 require 'json'
 require 'time'
-require File.join(File.dirname(__FILE__), %w[../../koda_app])
+require_relative '../lib/koda'
 
 set :environment, :test
 

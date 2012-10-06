@@ -1,9 +1,8 @@
-require 'test/spec'
-require File.join(File.dirname(__FILE__), %w[../models/mongo_grid])
-require File.join(File.dirname(__FILE__), %w[../models/mongo_media])
-require File.join(File.dirname(__FILE__), %w[../models/mongo_collection])
-require File.join(File.dirname(__FILE__), %w[doubles/mongo_grid_double])
-require File.join(File.dirname(__FILE__), %w[doubles/mongo_db_double])
+require_relative '../lib/models/mongo_grid'
+require_relative '../lib/models/mongo_media'
+require_relative '../lib/models/mongo_collection'
+require_relative './doubles/mongo_grid_double'
+require_relative './doubles/mongo_db_double'
 require 'json'
 
 describe 'Mongo Grid' do
@@ -36,7 +35,7 @@ describe 'Mongo Grid' do
     
     fetched.body.should == 'just some plain text'
     fetched.content_type.should == 'text/plain'
-    fetched.last_updated.should.not == nil
+    fetched.last_updated.should_not be_nil
   end
   
   
@@ -96,13 +95,13 @@ describe 'Mongo Grid' do
     media.body = 'just some plain text'    
     key = grid.save_media media
     fetched = grid.get_media key    
-    fetched.should.not == nil
+    fetched.should_not be_nil
 
     grid.delete_media key
     
     fetched2 = grid.get_media key
     
-    fetched2.should == nil
+    fetched2.should be_nil
     
   end
 

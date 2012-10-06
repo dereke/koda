@@ -33,7 +33,7 @@ class CollectionDouble
   end
   
   def insert document    
-    id = BSON::ObjectId('4db0dedb387f7123c9000010')  
+    id = BSON::ObjectId("4db0dedb387f7123c9000010")
     document['_id'] = id
     @collection.push document    
     id
@@ -70,11 +70,14 @@ class CollectionDouble
   end
   
   def sort found, options
+
     sort = get_option(options, :sort)
+
     if (sort != nil)
       sort = sort.first
-      if(found[sort[0]])
-        sorted = found.sort_by {|e| e[sort[0]]}      
+
+      if sort.to_s != 'datecreated' && found[sort[0]]
+        sorted = found.sort_by {|e| e[sort[0]]}
         sorted = sorted.reverse if (sort[1] == Mongo::DESCENDING)
         return sorted
       end

@@ -1,18 +1,20 @@
 def run_all_tests
   print 'clear'
   puts "Tests run #{Time.now.strftime('%Y-%m-%d %H:%M:%S')}"
-  result_text = `rspec koda/spec`
+  result_text = `rspec spec`
   result = result_text.include? '0 failures'
   if not result
-    `growlnotify --image koda/spec/fail.jpeg -m 'Unit Tests Failed' Rspec`
+    `growlnotify --image spec/fail.jpeg -m 'Unit Tests Failed' Rspec`
 	puts result_text
   else
-    `growlnotify --image koda/spec/success.png -m 'All Unit Tests Passed' Rspec`
+    `growlnotify --image spec/success.png -m 'All Unit Tests Passed' Rspec`
 	puts result_text
   end
 end
  
-watch("(.*\.rb)") { |m| run_all_tests }
+watch('spec/(.*)\.rb')  {|md| run_all_tests }
+watch('lib/(.*)\.rb')   {|md| run_all_tests }
+
 puts "Watching..."
 
 @interrupted = false
