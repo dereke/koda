@@ -1,7 +1,7 @@
 # What is KodaCMS
 
 KodaCMS is unlike any other CMS you might have come across. It manages your content first, thinking about where it will be used later.
-Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight or Single page JS apps!   
+Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight or Single page JS apps!
 
 View our Trello board [here](https://trello.com/board/kodaexplorer/50506ef61302bbe50d6b0218)
 Twitter: @kodacms
@@ -31,41 +31,34 @@ In the pipeline
 
 ETA - October / November 2012
 
-### Getting started (Create starter kits or custom sites)
+### Getting started
 
-You can use Koda just like Wordpress or Umbraco by using the Koda gem and any of the starter pack gems.
-You can also follow a "code first" approach to create your own types and editors for a more unique editorial experience.  
+Follow the guide here to install mongodb on your preferred platform
+http://www.mongodb.org/display/DOCS/Quickstart
 
-The only skills needed to able to develop a 'code-first' website on Koda is some very basic JSON and some knowledge of HTML.
-All Koda Types, Koda Filters are done using a simple JSON formatted file. 
+If you are on windows you would need to install ruby [here](http://rubyinstaller.org/)
+Also install the Ruby DevKit [here](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)
 
-Some knowledge of Javascript is needed to create your own DataTypes and Koda Editors, but we have added enough of our own so you probably won't need to.
-
-### Getting started with Code First Development
-
-> Follow the guide here to install mongodb on your preferred platform  
-> http://www.mongodb.org/display/DOCS/Quickstart  
-
-> If you are on windows you would need to install ruby [here](http://rubyinstaller.org/)  
-> Also install the Ruby DevKit [here](https://github.com/oneclick/rubyinstaller/wiki/Development-Kit)  
-
-> If you are on Mac OSX, you won't need to install anything   
-> If you are on Linux, you probably don't need any help   
+If you are on Mac OSX, you won't need to install anything
+If you are on Linux, you probably don't need any help
 
 Once you have this installed, simply...
 
+*   Clone any starter kit
 *	`gem install koda`
-*	`gem install koda-blog`
+*   `ruby data.rb restore data/kodacms`
 *	`shotgun -p 3000`
 
 * 	Use your favourite editor to start developing
-*	Go to http://localhost:3000 to see your instance
+*	Go to `http://localhost:3000` to see your instance
+*	Go to `http://localhost:3000/explorer` to register and start editing content
+*	Go to `http://localhost:3000/console` after registration to browse your data
 
 ## Creating Layouts and Views
 
-### Layouts   
+### Layouts
 
-> /views/layout.rb   
+> /views/layout.rb
 ```html
 <html>
   <body>
@@ -74,16 +67,16 @@ Once you have this installed, simply...
 </html>
 ```
 
-### Views 
+### Views
 
-Views will automatically be rendered inside the layout   
+Views will automatically be rendered inside the layout
 
-> /views/myview.rb   
+> /views/myview.rb
 ```html
 <h3>Hello World!</h3>
 ```
 
-produces...    
+produces...
 
 ```html
 <html>
@@ -93,20 +86,20 @@ produces...
 </html>
 ```
 
-### Partials 
+### Partials
 
-> /views/partials/mypartial.rb   
+> /views/partials/mypartial.rb
 ```html
 <p>my partial</p>
 ```
 
-> /views/myview.rb   
+> /views/myview.rb
 ```html
 <h3>Hello World!</h3>
 <% render_partial 'partials/mypartial' %>
 ```
 
-produces...   
+produces...
 
 ```html
 <html>
@@ -130,7 +123,7 @@ produces...
 <% end%>
 ```
 
-produces...   
+produces...
 
 ```html
    <h2>My first blogpost</h2>
@@ -147,7 +140,23 @@ produces...
    </div>
 ```
 
+> The default view-engine is [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby), but you can configure your own [from these choices](http://sinatra-book.gittr.com/#templates)!
+> But we also provide a very versatile, yet simple client API to use in your views
+
+## Available content filters from within a view
+
+### Where
+`model.[collection].where {|item| item.someProp == 'something' && item.alias != nil } ` returns all items that match
+### Single
+`model.[collection].single {|item| item.someProp == 'something' } ` returns the first item that matches
+### All
+`model.[collection].all ` returns all items
+### By Ref
+`model.[collection].by_ref 'my_ref'` returns a reference document by referenceid
+
 ### Routes
+
+Your routes live in the config.ru file.
 
 ```ruby
 get '/:page?' do
@@ -157,11 +166,11 @@ get '/:page?' do
 end
 ```
 
-this will respond to, eg. '/about_us', '/contact_us'   
-and means you can show the correct info based on the context   
+this will respond to, eg. '/about_us', '/contact_us'
+and means you can show the correct info based on the context
 
 ```html
-<% page = model.pages.find(@current_page) %>
+<% page = model.pages.by_ref @current_page %>
 	<% safe('No Content has been added yet'){%>
     <h2><%=page.title%></h2>
     <div>
@@ -171,7 +180,7 @@ and means you can show the correct info based on the context
 <% end%>
 ```
 
-this is a very simple example, but the possibilities when you can define your own routes...  
+this is a very simple example, but the possibilities when you can define your own routes...
 
 ```ruby
 get '/blog/:author/:post/:?' do
@@ -182,7 +191,7 @@ get '/blog/:author/:post/:?' do
 end
 ```
 
-and do...    
+and do...
 
 ```html
 <% model.blogposts.where{|post| post.author.include? @author && post.alias == @post }.each do |blogpost|%>
@@ -195,26 +204,12 @@ and do...
 <% end%>
 ```
 
-> The default view-engine is [Embedded Ruby](http://en.wikipedia.org/wiki/ERuby), but you can configure your own [from these choices](http://sinatra-book.gittr.com/#templates)!
-> But we also provide a very versatile, yet simple client API to use in your views   
-
-## Available content filters from within a view
-
-### Where
-`model.[collection].where {|item| item.someProp == 'something' && item.alias != nil } ` returns all items that match   
-### Single
-`model.[collection].single {|item| item.someProp == 'something' } ` returns the first item that matches   
-### All
-`model.[collection].all ` returns all items      
-### By Ref
-`model.[collection].by_ref 'my_ref'` returns a reference document by referenceid   
-
 ### Creating Koda Types
 
-To Create Koda types place a new javascript file in the `/public/koda/koda-types` folder    
+To Create Koda types place a new javascript file in the `/public/koda/koda-types` folder
 
-Register your type in the `/public/koda/koda-types/_type_registration.js` file and you can now use it in the Koda Explorer!   
-A new type will appear under the "User Created" section on the right.     
+Register your type in the `/public/koda/koda-types/type_registration.js` file and you can now use it in the Koda Explorer!
+A new type will appear under the "User Created" section on the right.
 
 
 ```javascript
@@ -225,7 +220,7 @@ A new type will appear under the "User Created" section on the right.
 			"id" : "_koda_type",
 			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-types/custom-blogpost.js"
-		},	
+		},
 		{
 			"id" : "_koda_editor",
 			"control" : "input-hidden",
@@ -252,9 +247,9 @@ A new type will appear under the "User Created" section on the right.
 			"defaultValue" : ""
 		},
 /*
-	ALL Fields above are required for use with the generic editors. 
+	ALL Fields above are required for use with the generic editors.
 	You can specify your own rules if you use your own editor.
-	
+
 	Add your custom variables below this comment... for example...
 */
 		{
@@ -272,10 +267,10 @@ A new type will appear under the "User Created" section on the right.
 
 ### Deploying Koda to Heroku
 
-We know that deploying CMS's to production can be a tedious process...   
-so to deploy koda to production just do...   
+We know that deploying CMS's to production can be a tedious process...
+so to deploy koda to production just do...
 
-after installing the koda gem and choosing your starter-kit   
+after installing the koda gem and choosing your starter-kit
 
 ```ruby
 heroku apps:create myapp
@@ -288,44 +283,46 @@ git push heroku master
 
 ### Backup / Restore one koda instance to another
 
-Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production     
-This couldn't be simpler with koda...   
+Most people want to 'set-up' or create their site on their local machine first and then migrate the content over to production
+This couldn't be simpler with koda...
 
-> Set up your data and run the following command on your local machine when done...   
-`ruby backup.rb dump .`   
-> Commit your files or zip them up and place them on production and run the following   
-`ruby backup.rb restore .`  
+> Set up your data and run the following command on your local machine when done...
+`ruby data.rb dump data/`
+> Commit your files or zip them up and place them on production and run the following
+`ruby data.rb restore data/kodacms`
 
-This will backup /restore all your data and media to file.  
+This will backup /restore all your data and media to file.
 
 ### Backup / Restore on Heroku (or other shared hosting)
 
-Take your application into maintenance mode.   
+Take your application into maintenance mode.
 
-Please note: You will need your current `MONGOLAB_URI` (from your Heroku configs) available before you begin as the following steps will alter it permanently.  
+Please note: You will need your current `MONGOLAB_URI` (from your Heroku configs) available before you begin as the following steps will alter it permanently.
 
-`$ heroku maintenance:on`  
-Run a mongodump of your current database.  
+`$ heroku maintenance:on`
+Run a mongodump of your current database.
 
-`$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`  
-Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.  
+`$ mongodump -h hostname.mongohq.com:port_number -d database_name -u username -p password -o /path/on/my/local/computer`
+Deprovision the old database for this app, making sure that the mongodump in Step #2 completed successfully.
 
-`$ heroku addons:remove mongolab:starter`  
-Provision a new database for this app.  
+`$ heroku addons:remove mongolab:starter`
+Provision a new database for this app.
 
-`$ heroku addons:add mongolab:starter`  
-Make available the newly updated MONGOLAB_URI from your Heroku configs.  
+`$ heroku addons:add mongolab:starter`
+Make available the newly updated MONGOLAB_URI from your Heroku configs.
 
-Run a mongorestore of your locally backed up database to your new database (updating your connection info.)  
+Run a mongorestore of your locally backed up database to your new database (updating your connection info.)
 
-`$ mongorestore -h hostname.mongolab.com:port_number -d database_name -u username -p password /path/on/my/local/computer`  
-Return from maintenance mode.  
+`$ mongorestore -h hostname.mongolab.com:port_number -d database_name -u username -p password /path/on/my/local/computer`
+Return from maintenance mode.
 
-`$ heroku maintenance:off`      
+`$ heroku maintenance:off`
 
 ------------------
 
-# Koka RESTful API Reference
+# Koka RESTful API Reference (for talking directly to the api from a mobile, single page js app etc.)
+
+------------------
 
 ## Note about links
 
@@ -334,51 +331,51 @@ The only addition is the "title" field, which when present indicates a human rea
 
 ## Search
 
-Regex Match  
+Regex Match
 
 `
-Request:GET '/api/search?tags=/page/'   
-Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
-`  
-
-Exact Match  
-
-`
-Request:GET '/api/search?tags=home'  
-Response:[{"href":"/api/pages/homepage","rel":"full"}] 
+Request:GET '/api/search?tags=/page/'
+Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}]
 `
 
-Combining   
+Exact Match
 
 `
-Request:GET '/api/search?tags=/page/&someotherproperty=true'   
-Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
+Request:GET '/api/search?tags=home'
+Response:[{"href":"/api/pages/homepage","rel":"full"}]
 `
 
-Skip and Take  
+Combining
 
 `
-Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'   
-Response:[{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}] 
+Request:GET '/api/search?tags=/page/&someotherproperty=true'
+Response:[{"href":"/api/pages/homepage","rel":"full"},{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}]
+`
+
+Skip and Take
+
+`
+Request:GET '/api/search?tags=/page/&someotherproperty=true&skip=1&take=2'
+Response:[{"href":"/api/pages/about","rel":"full"},{"href":"/api/pages/contact","rel":"full"}]
 `
 
 ## Get Requests
 
-###Root Document 
+###Root Document
 
-'/' returns the a list of urls for the 'user' (non-system) collections, for example 
+'/' returns the a list of urls for the 'user' (non-system) collections, for example
 
 `
-Request:GET '/api/'    
-Response:[{"href":"/trucks","rel":"full"},{"href":"/iguanas","rel":"full"},{"href":"/cars","rel":"full"}] 
+Request:GET '/api/'
+Response:[{"href":"/trucks","rel":"full"},{"href":"/iguanas","rel":"full"},{"href":"/cars","rel":"full"}]
 `
 
 ###Collections
 
-'/collectioname' returns a list of urls of the documents stored in the collection, for example 
+'/collectioname' returns a list of urls of the documents stored in the collection, for example
 
 `
-Request:GET '/api/trucks' 
+Request:GET '/api/trucks'
 Response:[{"href":"/trucks/4db0dedb387f7123c9000001","title":"4db0dedb387f7123c9000001","rel":"full"},{"href":"/trucks/smallblueone","title":"smallblueone","rel":"full"}]
 `
 
@@ -387,18 +384,18 @@ Response:[{"href":"/trucks/4db0dedb387f7123c9000001","title":"4db0dedb387f7123c9
 
 ###Documents
 
-'/api/collectionname/documentname' returns the Mongo document stored in that collection. 
-There are two ways documents can be referred to. First is by the internal Mongo ID, for example 
+'/api/collectionname/documentname' returns the Mongo document stored in that collection.
+There are two ways documents can be referred to. First is by the internal Mongo ID, for example
 
 `
-Request: GET '/api/trucks/4db0dedb387f7123c9000001' 
-Response: {"size":"big","wheels":4,"colour":"green","alias":"4db0dedb387f7123c9000001"} 
+Request: GET '/api/trucks/4db0dedb387f7123c9000001'
+Response: {"size":"big","wheels":4,"colour":"green","alias":"4db0dedb387f7123c9000001"}
 `
 
-Secondly is by the 'alias' value, for example 
+Secondly is by the 'alias' value, for example
 `
-Request: GET '/api/trucks/smallblueone' 
-Response: {"alias":"smallblueone","size":"small","wheels":4,"colour":"blue"} 
+Request: GET '/api/trucks/smallblueone'
+Response: {"alias":"smallblueone","size":"small","wheels":4,"colour":"blue"}
 `
 
 ## Post and Put Requests (currently only logged in users)
@@ -408,9 +405,9 @@ Documents can be created two ways - either by posting to the collection url, or 
 ###Post
 
 `
-Request: POST '/api/bikes' => {'cost':'expensive', 'speed':'fast', 'gears':27 } 
-Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'  
-/bikes/4db0dedb387f7123c9000007  
+Request: POST '/api/bikes' => {'cost':'expensive', 'speed':'fast', 'gears':27 }
+Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'
+/bikes/4db0dedb387f7123c9000007
 `
 
 *Note* The internally created Mongo ID will usually be used to create the new resource url, returned in the response body and the Location header. This can be override by supplying a value in the 'alias' field. This must be unique to this collection, otherwise a 409 (Conflict) will be returned, along with the url to the conflicting document in the body.
@@ -418,46 +415,47 @@ Response: Status 201, Location '/bikes/4db0dedb387f7123c9000007'
 ###Put
 
 `
-Request: POST '/api/bikes/bigred' => {'cost':'expensive', 'speed':'slow', 'gears':27, 'colour':'red' } 
-Response: Status 201, Location 'bikes/bigred' 
-bikes/bigred  
+Request: POST '/api/bikes/bigred' => {'cost':'expensive', 'speed':'slow', 'gears':27, 'colour':'red' }
+Response: Status 201, Location 'bikes/bigred'
+bikes/bigred
 `
 
-*Note* If the document did not already exist, the returned status code will be 201 (Created), otherwise 200 (OK) 
-*Note* If the "alias" field is present in the request, and contradicts, the url posted to, the url will take precedence. 
+*Note* If the document did not already exist, the returned status code will be 201 (Created), otherwise 200 (OK)
+*Note* If the "alias" field is present in the request, and contradicts, the url posted to, the url will take precedence.
 
 ## Delete Requests (currently only logged in users)
 
 ### Collections
 
 `
-Request: DELETE '/api/trucks' 
+Request: DELETE '/api/trucks'
 Response: Status OK
 `
 
 ### Documents
 
 `
-Request DELETE '/api/bikes/bigred' 
+Request DELETE '/api/bikes/bigred'
 Response: Status OK
 `
 
 ## Put and Delete through overloaded Post (currently only logged in users)
 
-In environments where Put and Delete requests are not supported, use this format instead: 
+In environments where Put and Delete requests are not supported, use this format instead:
 
 `
-POST '/api/collectioname/document?_method=METHOD' 
+POST '/api/collectioname/document?_method=METHOD'
 `
 
-For example 
+For example
 
 `
-POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as 
-DELETE '/api/trucks/smallblueone' 
+POST '/api/trucks/smallblueone?_method=DELETE' will be interpreted the same as
+DELETE '/api/trucks/smallblueone'
 `
 
 # Any Questions?
 
-KodaCMS on Twitter: @kodacms  
-Marcel du Preez on Twitter: @marceldupreez  
+KodaCMS on Twitter: @kodacms
+Marcel du Preez on Twitter: @marceldupreez
+

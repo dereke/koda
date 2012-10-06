@@ -1148,10 +1148,15 @@ $.Class.extend("Explorer", {}, {
 			
 			Window.current_user = user;
 			
-			service.getExternal('/koda/koda-types/_type_registration.js?23423442', function(data){
-				var controller = new KodaController(commands);
-				Window.Presenter = new ExplorerPresenter(controller, data);
-				Window.Presenter.attach();	
+			service.getExternal('/koda/koda-types/_builtin_registration.json', function(builtin){
+
+                service.getExternal('/koda/koda-types/type_registration.json', function(custom){
+                    var data = builtin.concat(custom);
+                    var controller = new KodaController(commands);
+                    Window.Presenter = new ExplorerPresenter(controller, data);
+                    Window.Presenter.attach();
+                })
+
 			})
 			
 		});

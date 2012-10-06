@@ -1,3 +1,5 @@
+require 'mongo'
+
 class MongoConfig
   
   def self.GetGridFS
@@ -16,4 +18,5 @@ class MongoConfig
   	  Mongo::Connection.new(config[:server],config[:port] || 27017).db(config[:db])
   	end
   end
+
 end

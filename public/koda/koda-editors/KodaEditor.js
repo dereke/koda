@@ -691,7 +691,7 @@ Editor.Form = function(container, spec, onSubmit) {
 	if(!spec || !spec.fields) {
 		var message = $('<div id="error-form" />').html('Could not parse KodaType <br />');
 		message.append(' - the usual culprit is a missing "," (usually after an entry or an extra "," after the end of the last item) <br /> ');
-		message.append(' - The quickest way to debug is to install the chrome json plugin <a href="https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc">here</a> and try to open your Koda type from url (eg /koda/koda-types/mykodatype.js)')
+		message.append(' - The quickest way to debug is to install the chrome json plugin <a href="https://chrome.google.com/webstore/detail/chklaanhfefbnpoihckbnefhakgolnmc">here</a> and try to open your Koda type from url (eg /koda/koda-types/mykodatype.json)')
 		container.append(message);
 		throw 'Could not parse KodaType'
 	}
@@ -720,7 +720,10 @@ Editor.Form = function(container, spec, onSubmit) {
 		if(field.id == 'alias' && field.generatedfrom) {
 			idFieldGenerator = field.generatedfrom;
 		}
-		
+
+        if(!field.control) {
+          field.control = 'input-hidden';
+        }
 		var newControl = $.extend(true, {}, controls.all[field.control](field));
 		controlsCollection[field.id] = newControl;
 		

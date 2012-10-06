@@ -6,11 +6,11 @@ require 'bundler/version'
 
 Gem::Specification.new do |s|
   s.name        = "koda"
-  s.version     = "0.0.1"
+  s.version     = "0.0.8"
   s.platform    = Gem::Platform::RUBY
   s.authors     = ["Marcel du Prez", "Derek Ekins"]
   s.email       = ["marceldupr@gmail.com", "derek@spathi.com"]
-  s.homepage    = "http://github.com/KodaCMS/Default"
+  s.homepage    = "http://github.com/KodaCMS/koda"
   s.summary     = "Content Management done right"
   s.description = "KodaCMS is unlike any other CMS you might have come across. It manages your content first, thinking about where it will be used later. Create content in the Back-Office and present it on web page, mobile, tablet, flash, silverlight you name it!"
 

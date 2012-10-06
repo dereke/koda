@@ -3,27 +3,22 @@
 	"fields" : [
 		{
 			"id" : "_koda_type",
-			"control" : "input-hidden",
-			"defaultValue" : "/koda/koda-types/koda-access.js"
+			"defaultValue" : "/koda/koda-types/koda-access.json"
 		},
 		{
 			"id" : "_koda_hidden_file",
-			"control" : "input-hidden",
 			"defaultValue" : "true"
 		},
 		{
 			"id" : "_koda_editor",
-			"control" : "input-hidden",
 			"defaultValue" : "/koda/koda-editors/generic-editor.html"
 		},
 		{
 			"id" : "datecreated",
-			"control" : "input-hidden",
 			"defaultValue" : "<%=timestamp%>"
 		},
 		{
 			"id" : "alias",
-			"control" : "input-hidden",
 			"defaultValue" : "access-control"
 		},
 		{

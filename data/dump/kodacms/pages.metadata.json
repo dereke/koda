@@ -1,1 +1,0 @@
-{indexes:[{ "v" : 1, "key" : { "_id" : 1 }, "ns" : "kodacms.pages", "name" : "_id_" }, { "v" : 1, "key" : { "alias" : 1, "page_ref" : 1 }, "ns" : "kodacms.pages", "name" : "alias_1_page_ref_1" }, { "v" : 1, "key" : { "name" : 1, "alias" : 1 }, "ns" : "kodacms.pages", "name" : "name_1_alias_1" }]}
